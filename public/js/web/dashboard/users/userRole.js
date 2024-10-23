@@ -157,72 +157,54 @@ const userRoleDataTable = new $DatatableController('userRole-datatable', {
                         let roleContainer = document.querySelector('#role-container');
                         roleContainer.innerHTML = '';
 
-                        // Function to create and append role badge
+                        let userRolesContainer = document.createElement('div');
+                        userRolesContainer.className = 'mb-4';
+                        userRolesContainer.innerHTML = '<h6 class="fw-bold mb-2">Current Roles</h6>';
+
+                        let availableRolesContainer = document.createElement('div');
+                        availableRolesContainer.innerHTML = '<h6 class="fw-bold mb-2">Available Roles</h6>';
+
+                        roleContainer.appendChild(userRolesContainer);
+                        roleContainer.appendChild(availableRolesContainer);
+
                         const createRoleBadge = (role, isUserRole) => {
-                            let badge = document.createElement('span');
-                            badge.className = `badge ${isUserRole ? 'bg-danger' : 'bg-success'} me-2 mb-2 text-white`;
-                            badge.innerHTML = role.name;
+                            let badge = document.createElement('div');
+                            badge.className = `d-inline-flex align-items-center ${isUserRole ? 'bg-light-danger' : 'bg-light-success'} rounded p-2 me-2 mb-2`;
+                            badge.innerHTML = `
+                                <span class="fw-bold ${isUserRole ? 'text-danger' : 'text-success'}">${role.name}</span>
+                                <button class="btn btn-sm btn-icon btn-active-light-${isUserRole ? 'danger' : 'success'} ms-2"
+                                        data-role-id="${role.id}"
+                                        data-user-id="${id}"
+                                        aria-label="${isUserRole ? 'Delete' : 'Add'}">
+                                    <i class="bi bi-${isUserRole ? 'x' : 'plus'}-lg"></i>
+                                </button>
+                            `;
 
-                            if (isUserRole) {
-                                // Delete button for user roles
-                                let deleteBtn = document.createElement('button');
-                                deleteBtn.className = 'btn btn-sm btn-close btn-close-white ms-2 delete-role-btn';
-                                deleteBtn.setAttribute('data-role-id', role.id);
-                                deleteBtn.setAttribute('data-user-id', id);
-                                deleteBtn.setAttribute('aria-label', 'Delete');
-                                badge.appendChild(deleteBtn);
+                            badge.querySelector('button').addEventListener('click', (e) => {
+                                e.preventDefault();
+                                const action = isUserRole ? 'delete' : 'add';
+                                const confirmMessage = isUserRole ? 'Are you sure you want to remove this role?' : 'Do you want to add this role?';
 
-                                deleteBtn.addEventListener('click', (e) => {
-                                    e.preventDefault(); // Prevent form submission
-                                    if (confirm('Are you sure you want to delete this role?')) {
-                                        this.callCustomFunction('_AJAX_CALL_',
-                                            `${__API_CFG__.LOCAL_URL}/dashboard/user/role/delete`,
-                                            { user_id: id, role_id: role.id },
-                                            (res) => {
-                                                console.log('Role deleted successfully', res);
-                                                badge.remove();
-                                                createRoleBadge(role, false); // Re-create as non-user role
-                                            },
-                                            (err) => console.error('Error deleting role', err)
-                                        );
-                                    }
-                                });
-                            } else {
-                                // Add button for non-user roles
-                                let addBtn = document.createElement('button');
-                                addBtn.className = 'btn btn-sm btn-success ms-2 add-role-btn';
-                                addBtn.setAttribute('data-role-id', role.id);
-                                addBtn.setAttribute('data-user-id', id);
-                                addBtn.setAttribute('aria-label', 'Add');
-                                addBtn.innerHTML = '✓'; // Checkmark symbol
-                                badge.appendChild(addBtn);
-
-                                addBtn.addEventListener('click', (e) => {
-                                    e.preventDefault(); // Prevent form submission
+                                if (confirm(confirmMessage)) {
                                     this.callCustomFunction('_AJAX_CALL_',
-                                        `${__API_CFG__.LOCAL_URL}/dashboard/user/role/add`,
+                                        `${__API_CFG__.LOCAL_URL}/dashboard/user/role/${action}`,
                                         { user_id: id, role_id: role.id },
                                         (res) => {
-                                            console.log('Role added successfully', res);
+                                            console.log(`Role ${action}d successfully`, res);
                                             badge.remove();
-                                            createRoleBadge(role, true); // Re-create as user role
+                                            createRoleBadge(role, !isUserRole);
                                         },
-                                        (err) => console.error('Error adding role', err)
+                                        (err) => console.error(`Error ${action}ing role`, err)
                                     );
-                                });
-                            }
+                                }
+                            });
 
-                            roleContainer.appendChild(badge);
+                            (isUserRole ? userRolesContainer : availableRolesContainer).appendChild(badge);
                         };
 
-                        // Display user's current roles
                         res.userRoles.forEach(role => createRoleBadge(role, true));
-
-                        // Display non-user roles
-                        roleContainer.appendChild(document.createElement('br'));
                         res.nonUserRoles.forEach(role => createRoleBadge(role, false));
 
-                        // Prevent form submission
                         let form = document.querySelector('#edit-userRole-form');
                         if (form) {
                             form.addEventListener('submit', (e) => e.preventDefault());

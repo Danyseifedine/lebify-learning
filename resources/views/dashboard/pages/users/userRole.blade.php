@@ -195,7 +195,6 @@
                     <form id="edit-userRole-form">
                         <input type="hidden" name="id" id="id">
                         <div class="mb-3">
-                            <label class="form-label">Current Roles:</label>
                             <div id="role-container" class="mb-2"></div>
                             <div id="role-feedback" class="invalid-feedback"></div>
                         </div>

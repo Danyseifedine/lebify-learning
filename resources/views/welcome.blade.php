@@ -53,7 +53,7 @@
                 <div class="video-overlay"
                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.3); z-index: 1;">
                 </div>
-                <video autoplay loop muted playsinline
+                <video autoplay loop muted playsinline preload="metadata" loading="lazy"
                     style="width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 0;">
                     <source src="{{ asset('vendor/vid/vid.mp4') }}" type="video/mp4">
                     <track kind="captions" src="{{ asset('path/to/captions.vtt') }}" srclang="en"
@@ -226,7 +226,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="position-relative comprehensive-learning-path-image">
-                        <img src="{{ asset('vendor/img/card-icon/of.png') }}"
+                        <img src="{{ asset('vendor/img/card-icon/ll.svg') }}"
                             alt="{{ __('common.learning_path_illustration') }}" class="img-fluid rounded">
                         <div class="position-absolute top-0 start-0 w-100 h-100 rounded" aria-hidden="true"></div>
                     </div>

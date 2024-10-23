@@ -306,7 +306,7 @@
                         <div class="h-100 position-relative" style="min-height: 500px;">
                             <img style="border-top-left-radius:7px; border-bottom-left-radius: 7px;"
                                 class="w-100 h-100 object-fit-cover position-absolute"
-                                src="{{ asset('vendor/img/bg/loginWallpaper.jpg') }}"
+                                src="{{ asset('vendor/img/card-icon/of.svg') }}"
                                 alt="{{ __('common.modal_image') }}">
                             <div class="position-absolute top-0 start-0 w-100 h-100 bg-opacity-60"></div>
                         </div>
