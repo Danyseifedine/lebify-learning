@@ -226,7 +226,7 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="position-relative comprehensive-learning-path-image">
-                        <img src="{{ asset('vendor/img/card-icon/ll.svg') }}"
+                        <img src="{{ asset('vendor/img/card-icon/learning-path.svg') }}"
                             alt="{{ __('common.learning_path_illustration') }}" class="img-fluid rounded">
                         <div class="position-absolute top-0 start-0 w-100 h-100 rounded" aria-hidden="true"></div>
                     </div>
