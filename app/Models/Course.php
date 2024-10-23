@@ -23,6 +23,11 @@ class Course extends Model implements HasMedia
         return $this->hasMany(CourseDocument::class);
     }
 
+    public function getInstructorName()
+    {
+        return $this->instructor->name;
+    }
+
     public function addThumbnail($file)
     {
         return $this->addMedia($file)->toMediaCollection('thumbnails');

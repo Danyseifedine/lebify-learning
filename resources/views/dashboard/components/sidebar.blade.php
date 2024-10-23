@@ -102,11 +102,7 @@
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-address-book fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                </i>
+                                <i class="bi bi-person fs-2"></i>
                             </span>
                             <span class="menu-title">Users Management</span>
                             <span class="menu-arrow"></span>
@@ -149,11 +145,7 @@
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
-                                <i class="ki-duotone ki-address-book fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                    <span class="path3"></span>
-                                </i>
+                                <i class="bi bi-person-video3 fs-2"></i>
                             </span>
                             <span class="menu-title">Instructors</span>
                             <span class="menu-arrow"></span>
@@ -166,6 +158,37 @@
                                 <!--begin:Menu link-->
                                 <a class="menu-link {{ request()->routeIs('dashboard.instructors.index') ? 'active' : '' }}"
                                     href="{{ route('dashboard.instructors.index') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Overview</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                        </div>
+                        <!--end:Menu sub-->
+                    </div>
+                    <!--end:Menu item-->
+                    <!--begin:Menu item-->
+                    <div data-kt-menu-trigger="click"
+                        class="menu-item {{ request()->routeIs('dashboard.courses.*') ? 'show' : '' }} menu-accordion">
+                        <!--begin:Menu link-->
+                        <span class="menu-link">
+                            <span class="menu-icon">
+                                <i class="bi bi-book fs-2"></i>
+                            </span>
+                            <span class="menu-title">Courses</span>
+                            <span class="menu-arrow"></span>
+                        </span>
+                        <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ request()->routeIs('dashboard.courses.*') ? 'active' : '' }}"
+                                    href="{{ route('dashboard.courses.index') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -222,7 +245,8 @@
                         </div>
                         <!--end:Menu sub-->
                     </div>
-                    <!--end:Menu item-->{{-- PRIVILEGES --}}
+                    <!--end:Menu item-->
+                    {{-- PRIVILEGES --}}
                 </div>
 
                 <!--end::Menu-->

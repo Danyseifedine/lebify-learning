@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\Courses\CoursesController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\InstructorsController;
 use App\Http\Controllers\Dashboard\User\UserRolesController;
@@ -51,5 +52,13 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('get/{id}', 'getInstructor')->name('get');
             Route::post('edit', 'update')->name('edit');
         });
+    });
+
+    // Courses routes
+    Route::controller(CoursesController::class)->group(function () {
+        Route::get('courses/datatable', 'datatable')->name('courses.datatable');
+        Route::get('courses/get/{id}', 'getCourses')->name('courses.get');
+        Route::post('courses/edit', 'update')->name('courses.edit');
+        Route::resource('courses', CoursesController::class);
     });
 });
