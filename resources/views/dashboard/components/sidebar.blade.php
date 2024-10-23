@@ -197,6 +197,16 @@
                                 <!--end:Menu link-->
                             </div>
                             <!--end:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ request()->routeIs('dashboard.course.documents.*') ? 'active' : '' }}"
+                                    href="{{ route('dashboard.course.documents.index') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Course Documents</span>
+                                </a>
+                            </div>
                         </div>
                         <!--end:Menu sub-->
                     </div>

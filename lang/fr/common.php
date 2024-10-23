@@ -200,4 +200,12 @@ return [
     'profile' => 'Profil',
     'settings' => 'Paramètres',
     'deactivate' => 'Désactiver',
+
+    // Courses
+    'explore_our_courses' => 'Explorer Nos Cours',
+    'discover_learning_journey' => 'Découvrez un parcours d\'apprentissage complet adapté à vos besoins. Apprenez le développement front-end, back-end et d\'autres compétences techniques avancées',
+    'published' => 'Publié',
+    'hours' => 'Heures',
+    'published_at' => 'Publié à',
+    'time_to_master' => 'Temps pour Maîtriser',
 ];

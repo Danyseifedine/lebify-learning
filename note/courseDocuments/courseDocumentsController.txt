@@ -1,0 +1,117 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\CourseDocuments;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class CourseDocumentsController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        return view('dashboard.pages.coursedocuments', compact('user'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'course' => 'required|string',
+            'title' => 'required|string',
+            'order' => 'required|string',
+        ]);
+
+        CourseDocuments::create($request->all());
+        return response()->json(['message' => 'CourseDocuments created successfully']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'course' => 'required|string',
+            'title' => 'required|string',
+            'order' => 'required|string',
+        ]);
+
+        CourseDocuments::update($request->all());
+        return response()->json(['message' => 'CourseDocuments updated successfully']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $coursedocuments = CourseDocuments::find($id);
+        $coursedocuments->delete();
+        return response()->json(['message' => 'CourseDocuments deleted successfully']);
+    }
+
+    public function datatable(Request $request)
+    {
+        $search = request()->get('search');
+        $value = isset($search['value']) ? $search['value'] : null;
+
+        $coursedocumentss = CourseDocuments::select('id',
+'course', 'title', 'order', 'created_at')
+            ->when($value, function ($query) use ($value) {
+                return $query->where(function ($query) use ($value) {
+                    $query->where('course', 'like', '%' . $value . '%')
+                        ->orWhere('title', 'like', '%' . $value . '%')
+                        ->orWhere('order', 'like', '%' . $value . '%')
+                });
+            });
+
+        return DataTables::of($coursedocumentss->get())
+            ->editColumn('created_at', function ($coursedocuments) {
+                return $coursedocuments->created_at->diffForHumans();
+            })->make(true);
+    }
+}
+
+        public function get CourseDocuments(string $id)
+{
+    $CourseDocuments = CourseDocuments::find($id);
+    return response()->json($CourseDocuments);
+}
+
+Route::controller(CourseDocumentsController::class)->group(function () {
+    Route::get('coursedocuments/datatable', 'datatable')->name('coursedocuments.datatable');
+    Route::get('coursedocuments/get/{id}', 'get{$modelName}')->name('coursedocuments.get');
+    Route::post('coursedocuments/edit', 'update')->name('coursedocuments.edit');
+    Route::resource('coursedocuments', CourseDocumentsController::class);
+});

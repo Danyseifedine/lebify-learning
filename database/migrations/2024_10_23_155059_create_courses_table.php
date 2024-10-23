@@ -17,6 +17,8 @@ return new class extends Migration
             $table->text('description');
             $table->unsignedBigInteger('instructor_id');
             $table->integer('duration')->comment('Duration in minutes');
+            $table->unsignedTinyInteger('difficulty_level')->default(1)->comment('Level of hardness from 1 to 5');
+            $table->boolean('is_published')->default(false);
             $table->timestamps();
 
             $table->foreign('instructor_id')->references('id')->on('instructors')->onDelete('cascade');

@@ -76,7 +76,7 @@
         <div class="container">
             <h2 class="text-center display-4 fw-bold mb-6">{{ __('common.why_choose_our_courses') }}</h2>
             <p class="text-center lead mb-5">{{ __('common.transformative_journey') }}</p>
-            <div class="separator mb-5" aria-hidden="true"></div>
+            <div class="separator separator-h mb-5" aria-hidden="true"></div>
 
             <div class="row g-5 justify-content-center pt-12">
                 <div class="col-lg-4 col-md-6 mb-5">
@@ -183,7 +183,7 @@
         <div class="container">
             <h2 class="text-center display-4 fw-bold mb-6">{{ __('common.comprehensive_learning_path') }}</h2>
             <p class="text-center lead mb-5">{{ __('common.beginner_to_expert') }}</p>
-            <div class="separator mb-5" aria-hidden="true"></div>
+            <div class="separator separator-h mb-5" aria-hidden="true"></div>
 
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4 mb-lg-0" style="padding-top: 40px;">
@@ -242,7 +242,7 @@
         <div class="container contact-us-section">
             <h2 class="text-center display-4 fw-bold mb-6">{{ __('common.get_in_touch') }}</h2>
             <p class="text-center lead mb-5">{{ __('common.wed_love_to_hear') }}</p>
-            <div class="separator mb-5" aria-hidden="true"></div>
+            <div class="separator separator-h mb-5" aria-hidden="true"></div>
 
             <div
                 class="d-flex align-items-center flex-lg-nowrap flex-wrap gap-12 justify-content-center mt-12 rounded-3 overflow-hidden">
@@ -354,7 +354,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/TextPlugin.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/MotionPathPlugin.min.js" defer></script>
-        <script src="{{ asset('js/web/landing/landing.js') }}" type="module" defer></script>
+        @if (app()->getLocale() == 'ar')
+            <script src="{{ asset('js/web/landing/landing.ar.js') }}" type="module" defer></script>
+        @else
+            <script src="{{ asset('js/web/landing/landing.js') }}" type="module" defer></script>
+        @endif
     @endpush
 @endsection
 

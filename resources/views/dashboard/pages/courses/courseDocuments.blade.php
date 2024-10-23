@@ -1,14 +1,22 @@
 @extends('layouts.dashboard')
 
-@section('title', 'courses')
+@section('title', 'courseDocuments')
 
 
-
+@push('styles')
+    <style>
+        .ace-editor {
+            height: 300px;
+            width: 100%;
+        }
+    </style>
+@endpush
 <!-- start header -->
 @section('toolbar')
     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
         <!--begin::Title-->
-        <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">courses</h1>
+        <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">courseDocuments
+        </h1>
         <!--end::Title-->
         <!--begin::Breadcrumb-->
         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -86,9 +94,9 @@
                                         <!-- start of option in here -->
                                         <!-- example: -->
                                         <!-- <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                            <input class="form-check-input" type="checkbox" name="name_with_4_letter" value="4_letter">
-                                                            <span class="form-check-label">4 letter</span>
-                                                        </label> -->
+                                                                                        <input class="form-check-input" type="checkbox" name="name_with_4_letter" value="4_letter">
+                                                                                        <span class="form-check-label">4 letter</span>
+                                                                                    </label> -->
                                         <!-- end of option -->
                                     </div>
                                 </div>
@@ -125,7 +133,7 @@
 
 
                 <!-- start table -->
-                <table id="courses-datatable" class="table align-middle table-row-dashed fs-6 gy-5">
+                <table id="courseDocuments-datatable" class="table align-middle table-row-dashed fs-6 gy-5">
                     <thead>
                         <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
                             <th class="w-10px pe-2">
@@ -135,11 +143,9 @@
                                         value="1" />
                                 </div>
                             </th>
-                            <th>Image</th>
-                            <th>title</th>
-                            <th>Instructor name</th>
-                            <th>is published</th>
-                            <th>duration</th>
+                            <th>Course</th>
+                            <th>Title</th>
+                            <th>Order</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -162,47 +168,44 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                    <form id="create-courses-form">
+                    <form id="create-courseDocuments-form">
                         <div class="mb-3">
-                            <label for="title" class="form-label">title</label>
-                            <input type="text" class="form-control" name="title" id="title">
-                        </div>
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Instructor name</label>
-                            <select class="form-select" name="instructor_id" id="instructor_id">
-                                <option value="">Select Instructor</option>
-                                @foreach ($instructors as $instructor)
-                                    <option value="{{ $instructor->id }}">{{ $instructor->user->name }}</option>
+                            <label for="course_id" class="form-label">course</label>
+                            <select class="form-control" name="course_id" id="course_id">
+                                <option value="">Select Course</option>
+                                @foreach ($courses as $course)
+                                    <option value="{{ $course->id }}">{{ $course->title }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="description" class="form-label">description</label>
-                            <textarea class="form-control" name="description" id="description"></textarea>
+                            <label for="title_en" class="form-label">title English</label>
+                            <input type="text" class="form-control" name="title_en" id="title_en">
                         </div>
                         <div class="mb-3">
-                            <label for="difficulty_level" class="form-label">difficulty level</label>
-                            <select class="form-select" name="difficulty_level" id="difficulty_level">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
+                            <label for="title_ar" class="form-label">title Arabic</label>
+                            <input type="text" class="form-control" name="title_ar" id="title_ar">
                         </div>
                         <div class="mb-3">
-                            <label for="image" class="form-label">image</label>
-                            <input type="file" class="form-control" name="image" id="image">
+                            <label for="content_en" class="form-label">Content English</label>
+                            <div id="editor_en" class="ace-editor"></div>
+                            <textarea name="content_en" id="content_en" style="display: none;"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="duration" class="form-label">duration</label>
-                            <input type="text" class="form-control" name="duration" id="duration">
+                            <label for="content_ar" class="form-label">Content Arabic</label>
+                            <div id="editor_ar" class="ace-editor"></div>
+                            <textarea name="content_ar" id="content_ar" style="display: none;"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="order" class="form-label">order</label>
+                            <input type="text" class="form-control" name="order" id="order">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn close-modal btn-light">Close</button>
-                    <button type="button" with-spinner="true" class="btn btn-primary" id="create-courses-button">
+                    <button type="button" with-spinner="true" class="btn btn-primary"
+                        id="create-courseDocuments-button">
                         <span class="ld-span">Create</span>
                     </button>
                 </div>
@@ -223,47 +226,25 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                    <form id="edit-courses-form">
+                    <form id="edit-courseDocuments-form">
                         <input type="hidden" name="id" id="id">
+                        <div class="mb-3">
+                            <label for="course" class="form-label">course</label>
+                            <input type="text" class="form-control" name="course" id="course">
+                        </div>
                         <div class="mb-3">
                             <label for="title" class="form-label">title</label>
                             <input type="text" class="form-control" name="title" id="title">
                         </div>
                         <div class="mb-3">
-                            <label for="name" class="form-label">Instructor name</label>
-                            <select class="form-select" name="instructor_id" id="instructor_id">
-                                @foreach ($instructors as $instructor)
-                                    <option value="{{ $instructor->id }}">{{ $instructor->user->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description" class="form-label">description</label>
-                            <textarea class="form-control" name="description" id="description"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="difficulty_level" class="form-label">difficulty level</label>
-                            <select class="form-select" name="difficulty_level" id="difficulty_level">
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="image" class="form-label">image</label>
-                            <input type="file" class="form-control" name="image" id="image">
-                        </div>
-                        <div class="mb-3">
-                            <label for="duration" class="form-label">duration</label>
-                            <input type="text" class="form-control" name="duration" id="duration">
+                            <label for="order" class="form-label">order</label>
+                            <input type="text" class="form-control" name="order" id="order">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn close-modal btn-light">Close</button>
-                    <button type="button" with-spinner="true" class="btn btn-primary" id="edit-courses-button">
+                    <button type="button" with-spinner="true" class="btn btn-primary" id="edit-courseDocuments-button">
                         <span class="ld-span">Edit</span>
                     </button>
                 </div>
@@ -274,5 +255,32 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/web/dashboard/courses/courses.js') }}" type="module"></script>
+    <script src="{{ asset('js/web/dashboard/courses/courseDocuments.js') }}" type="module"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/ace.js"></script>
+    <script src="{{ asset('js/web/dashboard/courses/courseDocuments.js') }}" type="module"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            function initAceEditor(elementId, textareaId) {
+                var editor = ace.edit(elementId);
+                editor.setTheme("ace/theme/monokai");
+                editor.session.setMode("ace/mode/html");
+                editor.setOptions({
+                    fontSize: "14px",
+                    showPrintMargin: false,
+                    showGutter: true,
+                    highlightActiveLine: true,
+                    wrap: true
+                });
+
+                // Sync editor content with textarea
+                editor.getSession().on("change", function() {
+                    document.getElementById(textareaId).value = editor.getSession().getValue();
+                });
+            }
+
+            initAceEditor("editor_en", "content_en");
+            initAceEditor("editor_ar", "content_ar");
+        });
+    </script>
 @endpush

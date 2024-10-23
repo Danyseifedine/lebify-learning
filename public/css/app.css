@@ -566,3 +566,12 @@ background-color: rgb(26, 26, 26);
 [data-bs-theme="light"] .icon-light{
     color: #272727 !important;
 }
+
+.shadow-course-card{
+    box-shadow: 0 4px 8px rgb(0, 0, 0);
+}
+
+.shadow-course-card:hover{
+    border: 1px solid #F77E15 !important;
+    transition: all 0.3s ease;
+}

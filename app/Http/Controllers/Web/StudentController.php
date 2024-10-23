@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use App\Models\Feedback;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -99,5 +100,14 @@ class StudentController extends BaseController
         $user->update($updateData);
 
         return $this->successToastResponse(__('common.settings_updated_successfully'));
+    }
+
+    // courses
+    public function courses()
+    {
+        $user = auth()->user();
+        $role = $user->roles->first()->name;
+        $courses = Course::with('media')->get();
+        return view('web.courses.courses', compact('courses', 'role'));
     }
 }

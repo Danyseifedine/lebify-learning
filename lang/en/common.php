@@ -201,4 +201,12 @@ return [
     'profile' => 'Profile',
     'settings' => 'Settings',
     'deactivate' => 'Deactivate',
+
+    // Courses
+    'explore_our_courses' => 'Explore Our Courses',
+    'discover_learning_journey' => 'Discover a comprehensive learning journey tailored to your needs. Learn front-end, back-end development, and more advanced technical skills',
+    'published' => 'Published',
+    'hours' => 'Hours',
+    'published_at' => 'Published at',
+    'time_to_master' => 'Time to Master',
 ];

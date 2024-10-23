@@ -7,7 +7,7 @@ import { FunctionUtility } from '../../../common/base/utils/utils.js';
 import { $SingleFormPostController, $DatatableController, $ModalFormFetchController } from '../../../common/core/controllers.js'
 
 
-const coursesDataTable = new $DatatableController('courses-datatable', {
+const courseDocumentsDataTable = new $DatatableController('courseDocuments-datatable', {
 
     lengthMenu: [[5, 10, 20, 50, -1], [5, 10, 20, 50, 'All']],
 
@@ -23,7 +23,7 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
     },
 
     ajax: {
-        url: `${__API_CFG__.LOCAL_URL}/dashboard/courses/datatable`,
+        url: `${__API_CFG__.LOCAL_URL}/dashboard/course/documents/datatable`,
         data: (d) => ({
             ...d,
             // note: add your data here such as fiter option
@@ -34,24 +34,25 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
 
     columns: [
         { data: 'id' },
-        { data: 'image', name: 'image', orderable: false, searchable: false },
-        { data: 'title' },
-        { data: 'instructor_name' },
-        { data: 'is_published' },
-        { data: 'duration' },
-        { data: null },
+        { data: 'course', name: 'courses.title' },
+        { data: 'title_en', name: 'course_documents.title_en' },
+        { data: 'order', name: 'course_documents.order' },
+        { data: null },  // For actions
     ],
 
     columnDefs: $DatatableController.generateColumnDefs([
         { targets: [0], htmlType: 'selectCheckbox' },
         // note: add your columnDef here
         // example: { targets: [1], htmlType: 'badge', badgeClass: 'badge-light-danger' },
-        {
-            targets: [4],
-            htmlType: 'toggle', dataClassName: 'status-toggle',
-            checkWhen: (data, type, row) => { return data === 1; },
-            uncheckWhen: (data, type, row) => { return data === 0; }
-        },
+        // example: {
+        // example: targets: [4], htmlType: 'toggle',
+        // example: checkWhen: (data, type, row) => {
+        // example: return data === 'in';
+        // example: },
+        // example: uncheckWhen: (data, type, row) => {
+        // example: return data === 'pending';
+        // example: },
+        // example: },
         { targets: [-1], htmlType: 'actions', className: 'text-end', actionButtons: { edit: true, delete: true, view: true } },
     ]),
 
@@ -75,17 +76,7 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
 
         // note: show:
         _SHOW_: async function (id, endpoint, onSuccess, onError) {
-            console.log("Show courses", id);
-        },
-
-        changeStatus: async function (endpoint, onSuccess, onError) {
-            try {
-                const response = await
-                    HttpRequest.put(endpoint);
-                onSuccess(response);
-            } catch (error) {
-                onError(error);
-            }
+            console.log("Show courseDocuments", id);
         },
 
         // note: edit:
@@ -93,7 +84,7 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
             const modalHandler = new $ModalFormFetchController({
                 modalId: 'edit-modal',
                 endpoint: `${endpoint}`,
-                formId: '#edit-courses-form',
+                formId: '#edit-courseDocuments-form',
                 // quillSelector: '#edit_content',
                 onSuccess: (data) => {
                     onSuccess(data);
@@ -120,21 +111,12 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
 
     eventListeners: [
         {
-            event: 'change',
-            selector: '.status-toggle',
-            handler: function (id, event) {
-                this.callCustomFunction('changeStatus', `${__API_CFG__.LOCAL_URL}/dashboard/courses/status/${id}`, (res) => {
-                }, (err) => { console.error('Error changing status', err); });
-            }
-        },
-
-        {
             event: 'click',
             selector: '.delete-btn',
             handler: function (id, event) {
                 this.callCustomFunction(
                     '_DELETE_WITH_ALERT_',
-                    `${__API_CFG__.LOCAL_URL}/dashboard/courses/${id}`,
+                    `${__API_CFG__.LOCAL_URL}/dashboard/course/documents/${id}`,
                     (res) => {
                         if (res.risk) {
                             SweetAlert.error();
@@ -143,7 +125,7 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
                             this.reload();
                         }
                     },
-                    (err) => { console.error('Error deleting courses', err); }
+                    (err) => { console.error('Error deleting courseDocuments', err); }
                 );
             }
         },
@@ -160,11 +142,11 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
             handler: function (id, event) {
                 this.callCustomFunction('_EDIT_WITH_MODAL_',
                     id,
-                    `${__API_CFG__.LOCAL_URL}/dashboard/courses/get`,
+                    `${__API_CFG__.LOCAL_URL}/dashboard/course/documents/get`,
                     (res) => {
                         console.log('res: ', res);
                     },
-                    (err) => { console.error('Error editing courses', err); },
+                    (err) => { console.error('Error editing courseDocuments', err); },
                 );
             }
         }
@@ -172,50 +154,57 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
 
 });
 
-function createCourses() {
+function createCourseDocuments() {
     FunctionUtility.closeModalWithButton('create-modal', '.close-modal', () => {
-        FunctionUtility.clearForm('#create-courses-form');
+        FunctionUtility.clearForm('#create-courseDocuments-form');
+        // Reset Ace Editors
+        ace.edit("editor_en").setValue("");
+        ace.edit("editor_ar").setValue("");
     });
 
-    const createCoursesConfig = {
-        formSelector: '#create-courses-form',
-        externalButtonSelector: '#create-courses-button',
-        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/courses`,
+    const createCourseDocumentsConfig = {
+        formSelector: '#create-courseDocuments-form',
+        externalButtonSelector: '#create-courseDocuments-button',
+        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/course/documents/store`,
         feedback: true,
         onSuccess: (res) => {
             Toast.showNotificationToast('', res.message)
             FunctionUtility.closeModal('create-modal', () => {
-                FunctionUtility.clearForm('#create-courses-form');
+                FunctionUtility.clearForm('#create-courseDocuments-form');
+                // Reset Ace Editors
+                ace.edit("editor_en").setValue("");
+                ace.edit("editor_ar").setValue("");
             });
-            coursesDataTable.reload();
+            courseDocumentsDataTable.reload();
         },
-        onError: (err) => { console.error('Error adding courses', err); },
+        onError: (err) => { console.error('Error adding courseDocuments', err); },
     };
 
-    const form = new $SingleFormPostController(createCoursesConfig);
+    const form = new $SingleFormPostController(createCourseDocumentsConfig);
     form.init();
 }
-createCourses();
 
-const editCourses = () => {
+createCourseDocuments();
+
+const editCourseDocuments = () => {
     FunctionUtility.closeModalWithButton('edit-modal', '.close-modal');
 
-    const editCoursesConfig = {
-        formSelector: '#edit-courses-form',
-        externalButtonSelector: '#edit-courses-button',
-        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/courses/edit`,
+    const editCourseDocumentsConfig = {
+        formSelector: '#edit-courseDocuments-form',
+        externalButtonSelector: '#edit-courseDocuments-button',
+        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/course/documents/edit`,
         feedback: true,
         onSuccess: (res) => {
             Toast.showNotificationToast('', res.message)
             FunctionUtility.closeModal('edit-modal', () => {
-                FunctionUtility.clearForm('#edit-courses-form');
+                FunctionUtility.clearForm('#edit-courseDocuments-form');
             });
-            coursesDataTable.reload();
+            courseDocumentsDataTable.reload();
         },
-        onError: (err) => { console.error('Error editing courses', err); },
+        onError: (err) => { console.error('Error editing courseDocuments', err); },
     };
 
-    const form = new $SingleFormPostController(editCoursesConfig);
+    const form = new $SingleFormPostController(editCourseDocumentsConfig);
     form.init();
 }
-editCourses();
+editCourseDocuments();

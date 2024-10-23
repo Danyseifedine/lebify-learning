@@ -40,6 +40,7 @@ class CoursesController extends Controller
             'instructor_id' => 'required|exists:instructors,id',
             'description' => 'required|string',
             'duration' => 'required|string',
+            'difficulty_level' => 'required|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -83,6 +84,7 @@ class CoursesController extends Controller
             'title' => 'required|string',
             'instructor_id' => 'required|exists:instructors,id',
             'description' => 'required|string',
+            'difficulty_level' => 'required|string',
             'duration' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -114,6 +116,14 @@ class CoursesController extends Controller
         return response()->json($Courses);
     }
 
+    public function changeStatus(string $id)
+    {
+        $course = Course::find($id);
+        $course->is_published = !$course->is_published;
+        $course->save();
+        return response()->json(['message' => 'Course status changed successfully']);
+    }
+
     /**
      * Remove the specified resource from storage.
      */
@@ -133,6 +143,7 @@ class CoursesController extends Controller
             'courses.id',
             'courses.title',
             'courses.duration',
+            'courses.is_published',
             'courses.created_at',
             'users.name as instructor_name'
         )
@@ -142,7 +153,8 @@ class CoursesController extends Controller
                 return $query->where(function ($query) use ($value) {
                     $query->where('courses.title', 'like', '%' . $value . '%')
                         ->orWhere('users.name', 'like', '%' . $value . '%')
-                        ->orWhere('courses.duration', 'like', '%' . $value . '%');
+                        ->orWhere('courses.duration', 'like', '%' . $value . '%')
+                        ->orWhere('courses.is_published', 'like', '%' . $value . '%');
                 });
             });
 
