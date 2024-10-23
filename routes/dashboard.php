@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\InstructorsController;
 use App\Http\Controllers\Dashboard\User\UserRolesController;
 use App\Http\Controllers\Dashboard\User\UsersController;
 use Illuminate\Support\Facades\Auth;
@@ -20,14 +21,17 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/', 'index')->name('index');
     });
 
+    // Users routes
     Route::controller(UsersController::class)->group(function () {
         Route::get('users/datatable', 'datatable')->name('users.datatable');
         Route::get('users/get/{id}', 'getUser')->name('users.get');
         Route::post('users/edit', 'update')->name('users.edit');
         Route::put('users/status/{id}', 'changeStatus')->name('users.status');
+        Route::post('users/convert', 'convertToInstructor')->name('users.convert');
         Route::resource('users', UsersController::class);
     });
 
+    // User roles routes
     Route::controller(UserRolesController::class)->group(function () {
         Route::prefix('user/role')->name('user.role.')->group(function () {
             Route::get('', 'index')->name('index');
@@ -35,6 +39,17 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('get/{id}', 'getUserRole')->name('get');
             Route::post('delete', 'deleteRole')->name('delete');
             Route::post('add', 'addRole')->name('add');
+        });
+    });
+
+    // Instructors routes
+    Route::controller(InstructorsController::class)->group(function () {
+        Route::prefix('instructors')->name('instructors.')->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::delete('delete/{id}', 'destroy')->name('delete');
+            Route::get('datatable', 'datatable')->name('datatable');
+            Route::get('get/{id}', 'getInstructor')->name('get');
+            Route::post('edit', 'update')->name('edit');
         });
     });
 });

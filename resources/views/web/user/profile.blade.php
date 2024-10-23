@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('layouts.user')
 
 @section('title', 'Profile')
 
@@ -8,7 +8,7 @@
 
 @section('content')
     <div class="mx-5">
-        <div class="container p-5 card-bg px-12 mb-5 mb-xxl-8" style="margin-top: 100px !important;border-radius: 10px;">
+        <div class="container p-5 card px-12 mb-5 mb-xxl-8" style="margin-top: 100px !important;border-radius: 10px;">
             <div class="card-body pt-9 pb-0">
                 <!--begin::Details-->
                 <div class="d-flex flex-wrap flex-sm-nowrap">

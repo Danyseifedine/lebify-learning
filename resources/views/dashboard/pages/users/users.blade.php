@@ -86,9 +86,9 @@
                                         <!-- start of option in here -->
                                         <!-- example: -->
                                         <!-- <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                                                                                                    <input class="form-check-input" type="checkbox" name="name_with_4_letter" value="4_letter">
-                                                                                                                                    <span class="form-check-label">4 letter</span>
-                                                                                                                                </label> -->
+                                                                                                                                                                    <input class="form-check-input" type="checkbox" name="name_with_4_letter" value="4_letter">
+                                                                                                                                                                    <span class="form-check-label">4 letter</span>
+                                                                                                                                                                </label> -->
                                         <!-- end of option -->
                                     </div>
                                 </div>
@@ -207,7 +207,7 @@
                 </div>
                 <div class="modal-body">
                     <form id="edit-users-form">
-                        <input type="hidden" name="id" id="id">
+                        <input type="hidden" class="user-id" name="id" id="id">
                         <div class="mb-3">
                             <label for="name" class="form-label">name</label>
                             <input type="text" class="form-control" name="name" id="name">
@@ -228,7 +228,20 @@
                                 id="uuid">
                         </div>
                     </form>
+                    <form form-id="convert-to-instructor-form" http-request route="{{ route('dashboard.users.convert') }}"
+                        identifier="single-form-post-handler" on-success="onSuccess" success-toast close-modal feedback
+                        id="convert-to-instructor-form">
+                        <h1 class="pt-5">Convert to Instructor</h1>
+                        <input type="hidden" class="converter-id" name="id" id="id">
+                        <input placeholder="Specialization" type="text" class="form-control" name="specialization"
+                            id="specialization" feedback-id="specialization-feedback">
+                        <div class="invalid-feedback" id="specialization-feedback"></div>
+
+                        <button type="submit" submit-form-id="convert-to-instructor-form"
+                            class="btn btn-primary mt-3">Convert</button>
+                    </form>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn close-modal btn-light">Close</button>
                     <button type="button" with-spinner="true" class="btn btn-primary" id="edit-users-button">

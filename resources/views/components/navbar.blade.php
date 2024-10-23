@@ -8,10 +8,10 @@
             <span>
                 <div class="d-flex align-items-center">
                     <img alt="Logo" src="{{ asset('vendor/img/logo/lebify-logo.svg') }}"
-                        class="h-30px h-lg-50px app-sidebar-logo-default me-1">
+                        class="h-30px h-50px app-sidebar-logo-default me-1">
                     <div class="d-flex flex-column">
-                        <span class="fs-2 fw-bold">Lebify Learning</span>
-                        <span class="text-muted fs-8">By Dany Seifeddine</span>
+                        <span class="fs-2 fw-bold d-none d-lg-block">Lebify Learning</span>
+                        <span class="text-muted fs-8 d-none d-lg-block">By Dany Seifeddine</span>
                     </div>
                 </div>
             </span>
@@ -33,7 +33,8 @@
                     id="kt_app_header_menu" data-kt-menu="true">
                     @guest
                         <div class="menu-item px-3">
-                            <a href="/" class="text-hover menu-link fs-5 text-logo-hover-color fw-bold px-3 py-2">
+                            <a href="/"
+                                class="text-hover {{ request()->routeIs('landing') ? 'active-nav' : '' }} menu-link fs-5 text-logo-hover-color fw-bold px-3 py-2">
                                 {{ __('common.home') }}
                             </a>
                         </div>
@@ -57,14 +58,10 @@
                                 {{ __('common.quizzes') }}
                             </a>
                         </div>
-                        <div class="menu-item px-3 d-flex align-items-center justify-content-center flex-lg-grow-1">
-                            <button data-bs-toggle="modal" data-bs-target="#join-now-modal" class="btn btn-sm bg-logo">
-                                <i class="bi bi-person text-white me-1"></i>{{ __('common.join_now') }}
-                            </button>
-                        </div>
                     @else
                         <div class="menu-item px-3">
-                            <a href="/" class="text-hover menu-link fs-5 text-logo-hover-color fw-bold px-3 py-2">
+                            <a href="/"
+                                class="text-hover menu-link {{ request()->routeIs('landing') ? 'active-nav' : '' }} fs-5 text-logo-hover-color fw-bold px-3 py-2">
                                 {{ __('common.home') }}
                             </a>
                         </div>
@@ -206,6 +203,14 @@
                         <!--end::Menu-->
                     </div>
                 </div>
+
+                @guest
+                    <div class="menu-item px-3 d-flex align-items-center justify-content-center flex-lg-grow-1">
+                        <button data-bs-toggle="modal" data-bs-target="#join-now-modal" class="btn btn-sm bg-logo">
+                            <i class="bi bi-person text-white me-1"></i>{{ __('common.join_now') }}
+                        </button>
+                    </div>
+                @endguest
                 {{-- End Language --}}
                 @auth
                     <!--begin::User menu-->
@@ -232,7 +237,7 @@
                                     <!--begin::User Info-->
                                     <div class="d-flex flex-column flex-grow-1">
                                         <div class="d-flex align-items-center mb-1">
-                                            <span class="fw-bold fs-5 text-dark me-2">{{ auth()->user()->name }}</span>
+                                            <span class="fw-bold fs-5 me-2">{{ auth()->user()->name }}</span>
                                             <span class="badge bg-success text-white fs-8 px-2 py-1">
                                                 {{ $role == 'student' ? 'Student' : 'admin' }}
                                             </span>
@@ -245,7 +250,7 @@
                             <!--end::Menu item-->
 
                             <!--begin::Menu separator-->
-                            <div class="separator my-2" style="all: unset;border-top: 1px solid #e4e7ec;"></div>
+                            <div class="separator my-2"></div>
                             <!--end::Menu separator-->
 
                             <!--begin::Menu item-->
@@ -256,7 +261,7 @@
                             </div>
                             <!--end::Menu item-->
                             <!--begin::Menu separator-->
-                            <div class="separator my-2" style="all: unset;border-top: 1px solid #e4e7ec;"></div>
+                            <div class="separator my-2"></div>
                             <!--end::Menu separator-->
 
                             <!--begin::Menu item-->

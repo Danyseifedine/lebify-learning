@@ -30,7 +30,7 @@ Route::group([
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     });
 
-    Route::middleware(['verified'])->group(function () {
+    Route::middleware(['verified', 'role:admin'])->group(function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
         include __DIR__ . DIRECTORY_SEPARATOR . 'dashboard.php';

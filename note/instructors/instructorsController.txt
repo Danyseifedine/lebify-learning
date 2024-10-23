@@ -1,0 +1,114 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Instructors;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class InstructorsController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        return view('dashboard.pages.instructors', compact('user'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'specialization' => 'required|string',
+        ]);
+
+        Instructors::create($request->all());
+        return response()->json(['message' => 'Instructors created successfully']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'specialization' => 'required|string',
+        ]);
+
+        Instructors::update($request->all());
+        return response()->json(['message' => 'Instructors updated successfully']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $instructors = Instructors::find($id);
+        $instructors->delete();
+        return response()->json(['message' => 'Instructors deleted successfully']);
+    }
+
+    public function datatable(Request $request)
+    {
+        $search = request()->get('search');
+        $value = isset($search['value']) ? $search['value'] : null;
+
+        $instructorss = Instructors::select('id',
+'name', 'specialization', 'created_at')
+            ->when($value, function ($query) use ($value) {
+                return $query->where(function ($query) use ($value) {
+                    $query->where('name', 'like', '%' . $value . '%')
+                        ->orWhere('specialization', 'like', '%' . $value . '%')
+                });
+            });
+
+        return DataTables::of($instructorss->get())
+            ->editColumn('created_at', function ($instructors) {
+                return $instructors->created_at->diffForHumans();
+            })->make(true);
+    }
+}
+
+        public function get Instructors(string $id)
+{
+    $Instructors = Instructors::find($id);
+    return response()->json($Instructors);
+}
+
+Route::controller(InstructorsController::class)->group(function () {
+    Route::get('instructors/datatable', 'datatable')->name('instructors.datatable');
+    Route::get('instructors/get/{id}', 'get{$modelName}')->name('instructors.get');
+    Route::post('instructors/edit', 'update')->name('instructors.edit');
+    Route::resource('instructors', InstructorsController::class);
+});

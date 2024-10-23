@@ -7,7 +7,7 @@ import { FunctionUtility } from '../../../common/base/utils/utils.js';
 import { $SingleFormPostController, $DatatableController, $ModalFormFetchController } from '../../../common/core/controllers.js'
 
 
-const usersDataTable = new $DatatableController('users-datatable', {
+const instructorsDataTable = new $DatatableController('instructors-datatable', {
 
     lengthMenu: [[5, 10, 20, 50, -1], [5, 10, 20, 50, 'All']],
 
@@ -23,7 +23,7 @@ const usersDataTable = new $DatatableController('users-datatable', {
     },
 
     ajax: {
-        url: `${__API_CFG__.LOCAL_URL}/dashboard/users/datatable`,
+        url: `${__API_CFG__.LOCAL_URL}/dashboard/instructors/datatable`,
         data: (d) => ({
             ...d,
             // note: add your data here such as fiter option
@@ -35,9 +35,7 @@ const usersDataTable = new $DatatableController('users-datatable', {
     columns: [
         { data: 'id' },
         { data: 'name' },
-        { data: 'uuid' },
-        { data: 'phone' },
-        { data: 'status' },
+        { data: 'specialization' },
         { data: null },
     ],
 
@@ -46,20 +44,15 @@ const usersDataTable = new $DatatableController('users-datatable', {
         // note: add your columnDef here
         // example: { targets: [1], htmlType: 'badge', badgeClass: 'badge-light-danger' },
         // example: {
-        {
-            targets: [4], htmlType: 'toggle', dataClassName: 'status-toggle',
-            checkWhen: (data, type, row) => {
-                return data === 'active';
-            },
-            uncheckWhen: (data, type, row) => {
-                return data === 'inactive';
-            },
-        },
+        // example: targets: [4], htmlType: 'toggle',
+        // example: checkWhen: (data, type, row) => {
+        // example: return data === 'in';
+        // example: },
         // example: uncheckWhen: (data, type, row) => {
         // example: return data === 'pending';
         // example: },
         // example: },
-        { targets: [-1], htmlType: 'actions', className: 'text-end', actionButtons: { edit: true, delete: true, view: false } },
+        { targets: [-1], htmlType: 'actions', className: 'text-end', actionButtons: { edit: true, delete: true, view: true } },
     ]),
 
 
@@ -82,7 +75,7 @@ const usersDataTable = new $DatatableController('users-datatable', {
 
         // note: show:
         _SHOW_: async function (id, endpoint, onSuccess, onError) {
-            console.log("Show users", id);
+            console.log("Show instructors", id);
         },
 
         // note: edit:
@@ -90,7 +83,7 @@ const usersDataTable = new $DatatableController('users-datatable', {
             const modalHandler = new $ModalFormFetchController({
                 modalId: 'edit-modal',
                 endpoint: `${endpoint}`,
-                formId: '#edit-users-form',
+                formId: '#edit-instructors-form',
                 // quillSelector: '#edit_content',
                 onSuccess: (data) => {
                     onSuccess(data);
@@ -112,16 +105,6 @@ const usersDataTable = new $DatatableController('users-datatable', {
                 onError(error);
             }
         },
-
-        changeStatus: async function (endpoint, onSuccess, onError) {
-            try {
-                const response = await
-                    HttpRequest.put(endpoint);
-                onSuccess(response);
-            } catch (error) {
-                onError(error);
-            }
-        }
     },
 
 
@@ -132,7 +115,7 @@ const usersDataTable = new $DatatableController('users-datatable', {
             handler: function (id, event) {
                 this.callCustomFunction(
                     '_DELETE_WITH_ALERT_',
-                    `${__API_CFG__.LOCAL_URL}/dashboard/users/${id}`,
+                    `${__API_CFG__.LOCAL_URL}/dashboard/instructors/delete/${id}`,
                     (res) => {
                         if (res.risk) {
                             SweetAlert.error();
@@ -141,7 +124,7 @@ const usersDataTable = new $DatatableController('users-datatable', {
                             this.reload();
                         }
                     },
-                    (err) => { console.error('Error deleting users', err); }
+                    (err) => { console.error('Error deleting instructors', err); }
                 );
             }
         },
@@ -153,35 +136,16 @@ const usersDataTable = new $DatatableController('users-datatable', {
             }
         },
         {
-            event: 'change',
-            selector: '.status-toggle',
-            handler: function (id, event) {
-                this.callCustomFunction('changeStatus', `${__API_CFG__.LOCAL_URL}/dashboard/users/status/${id}`, (res) => {
-                }, (err) => { console.error('Error changing status', err); });
-            }
-        },
-        {
             event: 'click',
             selector: '.btn-edit',
             handler: function (id, event) {
                 this.callCustomFunction('_EDIT_WITH_MODAL_',
                     id,
-                    `${__API_CFG__.LOCAL_URL}/dashboard/users/get`,
+                    `${__API_CFG__.LOCAL_URL}/dashboard/instructors/get`,
                     (res) => {
-                        const converterIdElement = document.querySelector('.converter-id');
-                        const converterForm = document.getElementById('convert-to-instructor-form');
-
-                        if (converterIdElement && converterForm) {
-                            converterIdElement.value = res.id;
-
-                            if (res.isInstructor) {
-                                converterForm.style.display = 'none';
-                            } else {
-                                converterForm.style.display = 'block';
-                            }
-                        }
+                        console.log('res: ', res);
                     },
-                    (err) => { console.error('Error editing users', err); },
+                    (err) => { console.error('Error editing instructors', err); },
                 );
             }
         }
@@ -189,32 +153,50 @@ const usersDataTable = new $DatatableController('users-datatable', {
 
 });
 
+function createInstructors() {
+    FunctionUtility.closeModalWithButton('create-modal', '.close-modal', () => {
+        FunctionUtility.clearForm('#create-instructors-form');
+    });
 
-window.onSuccess = () => {
-    usersDataTable.reload();
-}
-
-const editUsers = () => {
-    FunctionUtility.closeModalWithButton('edit-modal', '.close-modal');
-
-    const editUsersConfig = {
-        formSelector: '#edit-users-form',
-        externalButtonSelector: '#edit-users-button',
-        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/users/edit`,
+    const createInstructorsConfig = {
+        formSelector: '#create-instructors-form',
+        externalButtonSelector: '#create-instructors-button',
+        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/instructors`,
         feedback: true,
         onSuccess: (res) => {
-
-
             Toast.showNotificationToast('', res.message)
-            FunctionUtility.closeModal('edit-modal', () => {
-                FunctionUtility.clearForm('#edit-users-form');
+            FunctionUtility.closeModal('create-modal', () => {
+                FunctionUtility.clearForm('#create-instructors-form');
             });
-            usersDataTable.reload();
+            instructorsDataTable.reload();
         },
-        onError: (err) => { console.error('Error editing users', err); },
+        onError: (err) => { console.error('Error adding instructors', err); },
     };
 
-    const form = new $SingleFormPostController(editUsersConfig);
+    const form = new $SingleFormPostController(createInstructorsConfig);
     form.init();
 }
-editUsers();
+createInstructors();
+
+const editInstructors = () => {
+    FunctionUtility.closeModalWithButton('edit-modal', '.close-modal');
+
+    const editInstructorsConfig = {
+        formSelector: '#edit-instructors-form',
+        externalButtonSelector: '#edit-instructors-button',
+        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/instructors/edit`,
+        feedback: true,
+        onSuccess: (res) => {
+            Toast.showNotificationToast('', res.message)
+            FunctionUtility.closeModal('edit-modal', () => {
+                FunctionUtility.clearForm('#edit-instructors-form');
+            });
+            instructorsDataTable.reload();
+        },
+        onError: (err) => { console.error('Error editing instructors', err); },
+    };
+
+    const form = new $SingleFormPostController(editInstructorsConfig);
+    form.init();
+}
+editInstructors();

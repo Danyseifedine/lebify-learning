@@ -1,0 +1,19 @@
+Datatable: instructors
+Created at: 2024-10-23 16:39:49
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- name
+- specialization
+
+JS File: public/js/dashboard/instructors/instructors.js
+View File: resources/views/dashboard/pages/instructors/instructors.blade.php

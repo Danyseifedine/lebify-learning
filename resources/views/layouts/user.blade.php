@@ -129,7 +129,6 @@
                                 <div id="kt_app_content_container">
                                     <!-- Page Content -->
                                     @yield('content')
-                                    @include('components.footer')
                                 </div>
                             </div>
                         </div>

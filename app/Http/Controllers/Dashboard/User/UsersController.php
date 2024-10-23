@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard\User;
 
 use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
+use App\Models\Instructor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -108,6 +109,21 @@ class UsersController extends BaseController
         return response()->json(['message' => 'Users deleted successfully']);
     }
 
+    public function convertToInstructor(Request $request)
+    {
+
+        $request->validate([
+            'specialization' => 'required|string',
+        ]);
+
+        $user = User::find($request->id);
+        $instructor = Instructor::create([
+            'user_id' => $user->id,
+            'specialization' => $request->specialization,
+        ]);
+        return $this->modalToastResponse('User converted to instructor successfully');
+    }
+
     public function datatable(Request $request)
     {
         $search = request()->get('search');
@@ -139,6 +155,7 @@ class UsersController extends BaseController
     public function getUser(string $id)
     {
         $user = User::find($id);
+        $user->isInstructor = $user->isInstructor();
         return response()->json($user);
     }
 }

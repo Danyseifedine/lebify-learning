@@ -34,8 +34,10 @@
                 <span class="gsap-typewriter"></span>
             </p>
             <nav class="d-flex justify-content-center gsap-fade-up" style="margin-top: 50px;">
-                <button data-bs-toggle="modal" data-bs-target="#join-now-modal"
-                    class="btn bg-logo btn-lg me-3 gsap-button">{{ __('common.join_now') }}</button>
+                @guest
+                    <button data-bs-toggle="modal" data-bs-target="#join-now-modal"
+                        class="btn bg-logo btn-lg me-3 gsap-button">{{ __('common.join_now') }}</button>
+                @endguest
                 <a href="#courses-features"
                     class="btn logo-border btn-outline-secondary btn-lg gsap-button">{{ __('common.learn_more') }}</a>
             </nav>
