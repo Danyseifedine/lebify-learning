@@ -1,0 +1,19 @@
+Datatable: userRole
+Created at: 2024-10-21 10:59:06
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- name
+- role
+
+JS File: public/js/web/dashboard/users/userRole.js
+View File: resources/views/dashboard/pages/users/userRole.blade.php

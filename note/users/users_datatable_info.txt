@@ -1,0 +1,19 @@
+Datatable: users
+Created at: 2024-10-17 03:45:51
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- name
+- email
+
+JS File: public/js/web/dashboard/users.js
+View File: resources/views/dashboard/pages/users.blade.php

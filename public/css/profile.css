@@ -1,0 +1,23 @@
+.app-content {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.tab-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-item:hover {
+    color: #F77E15;
+}
+
+.tab-item.active {
+    color: #ff7700;
+    border-bottom: 2px solid #ff7700;
+}
+
+
+.loading {
+    color: #999;
+}

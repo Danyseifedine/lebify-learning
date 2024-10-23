@@ -1,0 +1,114 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\UserRole;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class UserRoleController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        return view('dashboard.pages.userrole', compact('user'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'role' => 'required|string',
+        ]);
+
+        UserRole::create($request->all());
+        return response()->json(['message' => 'UserRole created successfully']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'role' => 'required|string',
+        ]);
+
+        UserRole::update($request->all());
+        return response()->json(['message' => 'UserRole updated successfully']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $userrole = UserRole::find($id);
+        $userrole->delete();
+        return response()->json(['message' => 'UserRole deleted successfully']);
+    }
+
+    public function datatable(Request $request)
+    {
+        $search = request()->get('search');
+        $value = isset($search['value']) ? $search['value'] : null;
+
+        $userroles = UserRole::select('id',
+'name', 'role', 'created_at')
+            ->when($value, function ($query) use ($value) {
+                return $query->where(function ($query) use ($value) {
+                    $query->where('name', 'like', '%' . $value . '%')
+                        ->orWhere('role', 'like', '%' . $value . '%')
+                });
+            });
+
+        return DataTables::of($userroles->get())
+            ->editColumn('created_at', function ($userrole) {
+                return $userrole->created_at->diffForHumans();
+            })->make(true);
+    }
+}
+
+        public function get UserRole(string $id)
+{
+    $UserRole = UserRole::find($id);
+    return response()->json($UserRole);
+}
+
+Route::controller(UserRoleController::class)->group(function () {
+    Route::get('userrole/datatable', 'datatable')->name('userrole.datatable');
+    Route::get('userrole/get/{id}', 'get{$modelName}')->name('userrole.get');
+    Route::post('userrole/edit', 'update')->name('userrole.edit');
+    Route::resource('userrole', UserRoleController::class);
+});
