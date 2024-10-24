@@ -6,6 +6,30 @@ import { Toast } from '../../../common/base/messages/toast.js';
 import { FunctionUtility } from '../../../common/base/utils/utils.js';
 import { $SingleFormPostController, $DatatableController, $ModalFormFetchController } from '../../../common/core/controllers.js'
 
+document.addEventListener('DOMContentLoaded', function () {
+    function initAceEditor(elementId, textareaId) {
+        var editor = ace.edit(elementId);
+        editor.setTheme("ace/theme/monokai");
+        editor.session.setMode("ace/mode/html");
+        editor.setOptions({
+            fontSize: "14px",
+            showPrintMargin: false,
+            showGutter: true,
+            highlightActiveLine: true,
+            wrap: true
+        });
+
+        // Sync editor content with textarea
+        editor.getSession().on("change", function () {
+            document.getElementById(textareaId).value = editor.getSession().getValue();
+        });
+    }
+
+    initAceEditor("editor_en", "content_en");
+    initAceEditor("editor_ar", "content_ar");
+    initAceEditor("edit-editor_en", "edit-content_en");
+    initAceEditor("edit-editor_ar", "edit-content_ar");
+});
 
 const courseDocumentsDataTable = new $DatatableController('courseDocuments-datatable', {
 
@@ -144,7 +168,9 @@ const courseDocumentsDataTable = new $DatatableController('courseDocuments-datat
                     id,
                     `${__API_CFG__.LOCAL_URL}/dashboard/course/documents/get`,
                     (res) => {
-                        console.log('res: ', res);
+                        const { content_en, content_ar } = res;
+                        ace.edit("edit-editor_en").setValue(content_en);
+                        ace.edit("edit-editor_ar").setValue(content_ar);
                     },
                     (err) => { console.error('Error editing courseDocuments', err); },
                 );

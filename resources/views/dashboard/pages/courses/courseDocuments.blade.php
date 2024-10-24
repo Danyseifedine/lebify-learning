@@ -94,9 +94,9 @@
                                         <!-- start of option in here -->
                                         <!-- example: -->
                                         <!-- <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                                                        <input class="form-check-input" type="checkbox" name="name_with_4_letter" value="4_letter">
-                                                                                        <span class="form-check-label">4 letter</span>
-                                                                                    </label> -->
+                                                                                                            <input class="form-check-input" type="checkbox" name="name_with_4_letter" value="4_letter">
+                                                                                                            <span class="form-check-label">4 letter</span>
+                                                                                                        </label> -->
                                         <!-- end of option -->
                                     </div>
                                 </div>
@@ -187,6 +187,14 @@
                             <input type="text" class="form-control" name="title_ar" id="title_ar">
                         </div>
                         <div class="mb-3">
+                            <label for="description_en" class="form-label">description English</label>
+                            <textarea type="text" class="form-control" name="description_en" id="description_en"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description_ar" class="form-label">description Arabic</label>
+                            <textarea type="text" class="form-control" name="description_ar" id="description_ar"></textarea>
+                        </div>
+                        <div class="mb-3">
                             <label for="content_en" class="form-label">Content English</label>
                             <div id="editor_en" class="ace-editor"></div>
                             <textarea name="content_en" id="content_en" style="display: none;"></textarea>
@@ -229,12 +237,39 @@
                     <form id="edit-courseDocuments-form">
                         <input type="hidden" name="id" id="id">
                         <div class="mb-3">
-                            <label for="course" class="form-label">course</label>
-                            <input type="text" class="form-control" name="course" id="course">
+                            <label for="course_id" class="form-label">course</label>
+                            <select class="form-control" name="course_id" id="course_id">
+                                <option value="">Select Course</option>
+                                @foreach ($courses as $course)
+                                    <option value="{{ $course->id }}">{{ $course->title }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="mb-3">
-                            <label for="title" class="form-label">title</label>
-                            <input type="text" class="form-control" name="title" id="title">
+                            <label for="title_en" class="form-label">title English</label>
+                            <input type="text" class="form-control" name="title_en" id="title_en">
+                        </div>
+                        <div class="mb-3">
+                            <label for="title_ar" class="form-label">title Arabic</label>
+                            <input type="text" class="form-control" name="title_ar" id="title_ar">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description_en" class="form-label">description English</label>
+                            <textarea type="text" class="form-control" name="description_en" id="description_en"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description_ar" class="form-label">description Arabic</label>
+                            <textarea type="text" class="form-control" name="description_ar" id="description_ar"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="edit-content_en" class="form-label">Content English</label>
+                            <div id="edit-editor_en" class="ace-editor"></div>
+                            <textarea name="edit-content_en" id="edit-content_en" style="display: none;"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="content_ar" class="form-label">Content Arabic</label>
+                            <div id="edit-editor_ar" class="ace-editor"></div>
+                            <textarea name="edit-content_ar" id="edit-content_ar" style="display: none;"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="order" class="form-label">order</label>
@@ -259,28 +294,4 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/ace.js"></script>
     <script src="{{ asset('js/web/dashboard/courses/courseDocuments.js') }}" type="module"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            function initAceEditor(elementId, textareaId) {
-                var editor = ace.edit(elementId);
-                editor.setTheme("ace/theme/monokai");
-                editor.session.setMode("ace/mode/html");
-                editor.setOptions({
-                    fontSize: "14px",
-                    showPrintMargin: false,
-                    showGutter: true,
-                    highlightActiveLine: true,
-                    wrap: true
-                });
-
-                // Sync editor content with textarea
-                editor.getSession().on("change", function() {
-                    document.getElementById(textareaId).value = editor.getSession().getValue();
-                });
-            }
-
-            initAceEditor("editor_en", "content_en");
-            initAceEditor("editor_ar", "content_ar");
-        });
-    </script>
 @endpush

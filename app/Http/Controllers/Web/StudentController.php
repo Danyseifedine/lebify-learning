@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Controllers\Controller;
 use App\Models\Course;
 use App\Models\Feedback;
 use App\Models\User;
@@ -109,5 +108,17 @@ class StudentController extends BaseController
         $role = $user->roles->first()->name;
         $courses = Course::with('media')->get();
         return view('web.courses.courses', compact('courses', 'role'));
+    }
+
+    // single course
+    public function singleCourse($id)
+    {
+        $user = auth()->user();
+        $role = $user->roles->first()->name;
+        $course = Course::with('media')->find($id);
+        $documents = $course->documents;
+
+        // dd($documents);
+        return view('web.courses.singleCourse', compact('course', 'role', 'documents'));
     }
 }

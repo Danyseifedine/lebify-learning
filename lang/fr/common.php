@@ -208,4 +208,10 @@ return [
     'hours' => 'Heures',
     'published_at' => 'Publié à',
     'time_to_master' => 'Temps pour Maîtriser',
+    'difficulty_level' => 'Niveau de difficulté',
+    'full_explanation' => 'Explication complète',
+    'course_content' => 'Contenu détaillé du cours',
+    'view_full_document' => 'Voir le document complet',
+    'english' => 'Anglais',
+    'arabic' => 'Arabe',
 ];

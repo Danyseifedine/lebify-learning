@@ -86,9 +86,9 @@
                                         <!-- start of option in here -->
                                         <!-- example: -->
                                         <!-- <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                            <input class="form-check-input" type="checkbox" name="name_with_4_letter" value="4_letter">
-                                                            <span class="form-check-label">4 letter</span>
-                                                        </label> -->
+                                                                        <input class="form-check-input" type="checkbox" name="name_with_4_letter" value="4_letter">
+                                                                        <span class="form-check-label">4 letter</span>
+                                                                    </label> -->
                                         <!-- end of option -->
                                     </div>
                                 </div>
@@ -177,8 +177,12 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="description" class="form-label">description</label>
-                            <textarea class="form-control" name="description" id="description"></textarea>
+                            <label for="description_ar" class="form-label">description ar</label>
+                            <textarea class="form-control" name="description_ar" id="description_ar"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description_en" class="form-label">description en</label>
+                            <textarea class="form-control" name="description_en" id="description_en"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="difficulty_level" class="form-label">difficulty level</label>
@@ -189,6 +193,10 @@
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="color" class="form-label">color</label>
+                            <input type="color" class="form-control" name="color" id="color">
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">image</label>
@@ -238,8 +246,12 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="description" class="form-label">description</label>
-                            <textarea class="form-control" name="description" id="description"></textarea>
+                            <label for="description_ar" class="form-label">description ar</label>
+                            <textarea class="form-control" name="description_ar" id="description_ar"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description_en" class="form-label">description en</label>
+                            <textarea class="form-control" name="description_en" id="description_en"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="difficulty_level" class="form-label">difficulty level</label>
@@ -250,6 +262,10 @@
                                 <option value="4">4</option>
                                 <option value="5">5</option>
                             </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="color" class="form-label">color</label>
+                            <input type="color" class="form-control" name="color" id="color">
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">image</label>

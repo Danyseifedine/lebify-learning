@@ -10,7 +10,7 @@ Route::post('/student/login', [StudentController::class, 'login'])->name('login'
 Route::post('/student/feedback', [StudentController::class, 'feedback'])->name('feedback');
 
 
-Route::middleware(['auth', 'role:student,admin'])->controller(StudentController::class)->group(function () {
+Route::middleware(['auth', 'role:student|admin'])->controller(StudentController::class)->group(function () {
 
     // profile routes
     Route::get('/profile', 'profile')->name('profile');
@@ -19,4 +19,5 @@ Route::middleware(['auth', 'role:student,admin'])->controller(StudentController:
 
     // courses routes
     Route::get('/courses', 'courses')->name('courses');
+    Route::get('/courses/{id}', 'singleCourse')->name('singleCourse');
 });

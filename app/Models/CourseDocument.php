@@ -5,21 +5,27 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\App;
 
 class CourseDocument extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['course_id', 'title_en', 'title_ar', 'content_en', 'content_ar', 'order'];
+    protected $fillable = ['course_id', 'title_en', 'title_ar', 'description_en', 'description_ar', 'content_en', 'content_ar', 'order'];
 
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
     }
 
-    public function getTitle($lang = 'en')
+    public function getTitle()
     {
-        return $lang == 'en' ? $this->title_en : $this->title_ar;
+        return app()->getLocale() == 'ar' ? $this->title_ar : $this->title_en;
+    }
+
+    public function getDescription()
+    {
+        return app()->getLocale() == 'ar' ? $this->description_ar : $this->description_en;
     }
 
     public function getContent($lang = 'en')

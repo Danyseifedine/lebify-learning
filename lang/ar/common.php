@@ -208,4 +208,10 @@ return [
     'hours' => 'ساعات',
     'published_at' => 'منشور في',
     'time_to_master' => 'الوقت اللازم لإتقان المهارة',
+    'difficulty_level' => 'مستوى الصعوبة',
+    'full_explanation' => 'الشرح المفصل',
+    'course_content' => 'محتوى الدورة التفصيلي',
+    'view_full_document' => 'عرض الملف الكامل',
+    'english' => 'الإنجليزية',
+    'arabic' => 'العربية',
 ];

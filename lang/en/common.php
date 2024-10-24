@@ -209,4 +209,10 @@ return [
     'hours' => 'Hours',
     'published_at' => 'Published at',
     'time_to_master' => 'Time to Master',
+    'difficulty_level' => 'Difficulty Level',
+    'full_explanation' => 'Full Explanation',
+    'course_content' => 'Detailed Course Content',
+    'view_full_document' => 'View Full Document',
+    'english' => 'English',
+    'arabic' => 'Arabic',
 ];

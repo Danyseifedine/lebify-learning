@@ -38,6 +38,8 @@ class CourseDocumentsController extends Controller
             'course_id' => 'required|string',
             'title_en' => 'required|string',
             'title_ar' => 'required|string',
+            'description_en' => 'required|string',
+            'description_ar' => 'required|string',
             'content_en' => 'required|string',
             'content_ar' => 'required|string',
             'order' => 'required|string',
@@ -66,15 +68,21 @@ class CourseDocumentsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(Request $request, string $id)
     {
         $request->validate([
-            'course' => 'required|string',
-            'title' => 'required|string',
+            'course_id' => 'required|string',
+            'title_en' => 'required|string',
+            'title_ar' => 'required|string',
+            'description_en' => 'required|string',
+            'description_ar' => 'required|string',
+            'content_en' => 'required|string',
+            'content_ar' => 'required|string',
             'order' => 'required|string',
         ]);
 
-        CourseDocument::update($request->all());
+        $courseDocument = CourseDocument::findOrFail($id);
+        $courseDocument->update($request->all());
         return response()->json(['message' => 'CourseDocuments updated successfully']);
     }
 

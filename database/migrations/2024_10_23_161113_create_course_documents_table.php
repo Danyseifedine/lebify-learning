@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('course_id');
             $table->string('title_en');
             $table->string('title_ar');
+            $table->text('description_en');
+            $table->text('description_ar');
             $table->longText('content_en');
             $table->longText('content_ar');
             $table->integer('order')->default(0);
