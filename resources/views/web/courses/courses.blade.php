@@ -12,7 +12,7 @@
     </div>
 
     <section class="py-5">
-        <div class="container py-5">
+        <div class="container app-bg py-5">
             <div class="row g-6 g-xl-9">
                 @foreach ($courses as $course)
                     @if ($course->is_published || Auth::user()->hasRole('admin'))
