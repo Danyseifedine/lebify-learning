@@ -214,4 +214,6 @@ return [
     'view_full_document' => 'Voir le document complet',
     'english' => 'Anglais',
     'arabic' => 'Arabe',
+    'helpful_links' => 'Liens utiles',
+    'we_are_working_on_it' => 'Nous travaillons dessus',
 ];

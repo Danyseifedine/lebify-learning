@@ -215,4 +215,6 @@ return [
     'view_full_document' => 'View Full Document',
     'english' => 'English',
     'arabic' => 'Arabic',
+    'helpful_links' => 'Helpful Links',
+    'we_are_working_on_it' => 'We are working on it',
 ];

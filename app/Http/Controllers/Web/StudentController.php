@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\BaseController;
 use App\Models\Course;
+use App\Models\CourseDocument;
 use App\Models\Feedback;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -116,9 +117,23 @@ class StudentController extends BaseController
         $user = auth()->user();
         $role = $user->roles->first()->name;
         $course = Course::with('media')->find($id);
+        $course->views += 1;
+        $course->save();
         $documents = $course->documents;
 
         // dd($documents);
         return view('web.courses.singleCourse', compact('course', 'role', 'documents'));
+    }
+
+    // document
+    public function document($course, $lang, $id)
+    {
+        $document = CourseDocument::find($id);
+        if ($lang == 'ar') {
+            $content = $document->content_ar;
+        } else {
+            $content = $document->content_en;
+        }
+        return view('web.courses.document', compact('document', 'content', 'lang'));
     }
 }

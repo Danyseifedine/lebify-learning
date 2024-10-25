@@ -20,4 +20,5 @@ Route::middleware(['auth', 'role:student|admin'])->controller(StudentController:
     // courses routes
     Route::get('/courses', 'courses')->name('courses');
     Route::get('/courses/{id}', 'singleCourse')->name('singleCourse');
+    Route::get('/courses/document/{name}/{lang}/{id}', 'document')->name('document');
 });

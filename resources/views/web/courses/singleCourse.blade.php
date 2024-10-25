@@ -10,14 +10,13 @@
         </section>
     </div>
 
-    <section
-        style="background-image: url('{{ asset('vendor/img/bg/course-bg.svg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;background-size: cover;">
+    <section {{-- style="background-image: url('{{ asset('vendor/img/bg/course-.svg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;background-size: cover;" --}}>
         <div class="container mt-5">
             <div class="row align-items-center">
                 <!-- start course image -->
                 <div class="col-md-6">
-                    <img width="500" src="{{ $course->getFirstMedia('course_images')->getUrl() }}" alt="{{ $course->title }}"
-                        class="img-fluid rounded">
+                    <img width="500" src="{{ $course->getFirstMedia('course_images')->getUrl() }}"
+                        alt="{{ $course->title }}" class="img-fluid rounded">
                 </div>
                 <!-- end course image -->
                 <!-- start course details -->
@@ -52,7 +51,7 @@
                 <!-- end course details -->
             </div>
         </div>
-        <section class="py-5" style="padding-top: 100px !important; padding-bottom: 1000px !important;">
+        <section class="py-5" style="padding-top: 100px !important; padding-bottom: 100px !important;">
             <div class="container">
                 <!-- start course content -->
                 <h2 class="mb-4 display-4 fw-bold">{{ __('common.course_content') }}</h2>
@@ -61,17 +60,19 @@
                         <h3 class="mb-8 fw-bold">{{ __('common.full_explanation') }}</h3>
                         @foreach ($documents as $document)
                             <div class="accordion" id="accordion_{{ $document->id }}">
-                                <div class="accordion-item">
+                                <div class="accordion-item mt-3">
                                     <h2 class="accordion-header" id="accordion_header_{{ $document->id }}">
                                         <button class="accordion-button  fs-4 fw-bold" type="button"
                                             data-bs-toggle="collapse" data-bs-target="#accordion_body_{{ $document->id }}"
-                                            aria-expanded="true" aria-controls="accordion_body_{{ $document->id }}">
+                                            aria-expanded="{{ $loop->first ? 'true' : 'false' }}"
+                                            aria-controls="accordion_body_{{ $document->id }}">
                                             <!-- start course document title -->
                                             {{ $document->getTitle() }}
                                             <!-- end course document title -->
                                         </button>
                                     </h2>
-                                    <div id="accordion_body_{{ $document->id }}" class="accordion-collapse collapse show"
+                                    <div id="accordion_body_{{ $document->id }}"
+                                        class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
                                         aria-labelledby="accordion_header_{{ $document->id }}"
                                         data-bs-parent="#accordion_{{ $document->id }}">
                                         <div class="accordion-body">
@@ -81,11 +82,11 @@
                                             <!-- end course document description -->
                                             <!-- button to move to the document -->
                                             <div class="d-flex mt-5 align-items-center gap-5 justify-content-end">
-                                                <a href=""
+                                                <a href="{{ route('students.document', ['name' => $course->title, 'lang' => 'en', 'id' => $document->id]) }}"
                                                     class="btn logo-border">{{ __('common.view_full_document') }}
                                                     ({{ __('common.english') }})
                                                 </a>
-                                                <a href=""
+                                                <a href="{{ route('students.document', ['name' => $course->title, 'lang' => 'ar', 'id' => $document->id]) }}"
                                                     class="btn logo-border">{{ __('common.view_full_document') }}
                                                     ({{ __('common.arabic') }})</a>
                                             </div>
@@ -96,19 +97,11 @@
                             </div>
                         @endforeach
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-1 mt-12"></div>
+                    <div class="col-md-3">
                         <!-- start helpful links -->
-                        <h3 class="mb-8 fw-bold">Helpful Links</h3>
-                        <ul class="list-group">
-                            <li class="list-group-item"><a href="#" class="text-decoration-none">Additional Resource
-                                    1</a></li>
-                            <li class="list-group-item"><a href="#" class="text-decoration-none">Additional Resource
-                                    2</a></li>
-                            <li class="list-group-item"><a href="#" class="text-decoration-none">Additional Resource
-                                    3</a></li>
-                            <li class="list-group-item"><a href="#" class="text-decoration-none">Additional Resource
-                                    4</a></li>
-                        </ul>
+                        <h3 class="mb-8 fw-bold">{{ __('common.helpful_links') }}</h3>
+                        <p class="text-muted">{{ __('common.we_are_working_on_it') }}</p>
                         <!-- end helpful links -->
                     </div>
                 </div>
