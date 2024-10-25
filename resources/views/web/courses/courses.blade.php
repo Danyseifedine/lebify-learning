@@ -71,7 +71,7 @@
                                         <div
                                             class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 mb-3">
                                             <div class="fs-6 text-gray-800 fw-bold">
-                                                {{ $course->created_at->format('d M Y') }}
+                                                {{ $course->created_at->diffForHumans() }}
                                             </div>
                                             <div class="fw-semibold text-gray-500">{{ __('common.published_at') }}</div>
                                         </div>
