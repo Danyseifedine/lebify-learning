@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('uuid')->unique()->nullable();
             $table->string('password')->default(Hash::make('password'));
             $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->unsignedInteger('login_count')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
