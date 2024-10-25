@@ -10,7 +10,7 @@
         </section>
     </div>
 
-    <section {{-- style="background-image: url('{{ asset('vendor/img/bg/course-.svg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;background-size: cover;" --}}>
+    <section style="background-image: url('{{ asset('vendor/img/bg/single-course-bg.svg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;background-size: cover;">
         <div class="container mt-5">
             <div class="row align-items-center">
                 <!-- start course image -->
