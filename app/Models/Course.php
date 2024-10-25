@@ -41,14 +41,15 @@ class Course extends Model implements HasMedia
 
     public function getDifficultyColor()
     {
-        return match ($this->difficulty_level) {
+        $colors = [
             1 => '#4CAF50',
             2 => '#8BC34A',
             3 => '#FFC107',
             4 => '#FF9800',
-            5 => '#F44336',
-            default => '#9E9E9E',
-        };
+            5 => '#F44336'
+        ];
+
+        return $colors[$this->difficulty_level] ?? '#9E9E9E';
     }
 
     public function getDifficultyPercentage()
