@@ -20,12 +20,54 @@
             border-radius: 5px;
             z-index: 1000;
         }
+
+        .next-button {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            z-index: 1000;
+        }
+
+        .change-language-button {
+            position: fixed;
+            top: 120px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            z-index: 1000;
+        }
     </style>
 </head>
 
 <body>
-    <a href="{{ url()->previous() }}" class="back-button">{{ __('common.back') }}</a>
+
     {!! $content !!}
+    <div class="d-flex mt-5 align-items-center gap-5 justify-content-end">
+        @if ($document->order > 1)
+            <a href="{{ route('students.document', ['name' => $course, 'lang' => $lang, 'id' => $document->id, 'order' => $document->order - 1]) }}"
+                class="btn logo-border back-button">
+                {{ __('common.previous_lesson') }}
+            </a>
+        @endif
+        @if ($document->order < $document->course->documents->count())
+            <a href="{{ route('students.document', ['name' => $course, 'lang' => $lang, 'id' => $document->id, 'order' => $document->order + 1]) }}"
+                class="btn logo-border next-button">
+                {{ __('common.next_lesson') }}
+            </a>
+        @endif
+        <a href="{{ route('students.document', ['name' => $course, 'lang' => $lang == 'ar' ? 'en' : 'ar', 'id' => $document->id, 'order' => $document->order]) }}"
+            class="btn logo-border change-language-button">
+            {{ __('common.change_language') }}
+        </a>
+    </div>
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-core.min.js"></script>

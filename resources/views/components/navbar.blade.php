@@ -334,7 +334,7 @@
                                     <div class="input-group input-group-lg bg-light">
                                         <input type="text" class="form-control bg-transparent border-0 px-3"
                                             id="uuid" name="uuid" feedback-id="uuid-feedback"
-                                            placeholder="{{ __('common.enter_your_uuid') }}">
+                                            placeholder="{{ __('common.enter_your_uuid') }}" data-uuid-input>
                                     </div>
                                     <div id="uuid-feedback" class="invalid-feedback"></div>
                                 </div>

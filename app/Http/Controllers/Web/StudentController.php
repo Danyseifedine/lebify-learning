@@ -126,14 +126,15 @@ class StudentController extends BaseController
     }
 
     // document
-    public function document($course, $lang, $id)
+    public function document($course, $lang, $id, $order)
     {
-        $document = CourseDocument::find($id);
+        $document = CourseDocument::find($id)->where('order', $order)->first();
+
         if ($lang == 'ar') {
             $content = $document->content_ar;
         } else {
             $content = $document->content_en;
         }
-        return view('web.courses.document', compact('document', 'content', 'lang'));
+        return view('web.courses.document', compact('document', 'content', 'lang', 'order', 'course'));
     }
 }

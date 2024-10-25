@@ -216,4 +216,7 @@ return [
     'arabic' => 'العربية',
     'helpful_links' => 'روابط مفيدة',
     'we_are_working_on_it' => 'نحن نعمل عليه',
+    'previous_lesson' => 'درس سابق',
+    'next_lesson' => 'درس لاحق',
+    'change_language' => 'تغيير اللغة',
 ];

@@ -72,6 +72,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('datatable', 'datatable')->name('datatable');
             Route::get('get/{id}', 'getCourseDocuments')->name('get');
             Route::post('edit', 'update')->name('edit');
+            Route::delete('delete/{id}', 'destroy')->name('delete');
         });
     });
 });

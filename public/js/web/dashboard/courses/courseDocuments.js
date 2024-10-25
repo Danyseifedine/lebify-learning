@@ -140,7 +140,7 @@ const courseDocumentsDataTable = new $DatatableController('courseDocuments-datat
             handler: function (id, event) {
                 this.callCustomFunction(
                     '_DELETE_WITH_ALERT_',
-                    `${__API_CFG__.LOCAL_URL}/dashboard/course/documents/${id}`,
+                    `${__API_CFG__.LOCAL_URL}/dashboard/course/documents/delete/${id}`,
                     (res) => {
                         if (res.risk) {
                             SweetAlert.error();
@@ -171,6 +171,9 @@ const courseDocumentsDataTable = new $DatatableController('courseDocuments-datat
                         const { content_en, content_ar } = res;
                         ace.edit("edit-editor_en").setValue(content_en);
                         ace.edit("edit-editor_ar").setValue(content_ar);
+
+                        document.getElementById('edit-content_en').value = ace.edit("edit-editor_en").getValue();
+                        document.getElementById('edit-content_ar').value = ace.edit("edit-editor_ar").getValue();
                     },
                     (err) => { console.error('Error editing courseDocuments', err); },
                 );
@@ -233,4 +236,5 @@ const editCourseDocuments = () => {
     const form = new $SingleFormPostController(editCourseDocumentsConfig);
     form.init();
 }
+
 editCourseDocuments();

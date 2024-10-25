@@ -25,3 +25,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const uuidInput = document.querySelector('[data-uuid-input]');
+
+    if (uuidInput) {
+        uuidInput.addEventListener('input', function (e) {
+            let value = e.target.value.replace(/-/g, '');
+            let formattedValue = '';
+
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 2 === 0 && i < 30) {
+                    formattedValue += '-';
+                }
+                formattedValue += value[i];
+            }
+
+            e.target.value = formattedValue.toUpperCase();
+        });
+    }
+});

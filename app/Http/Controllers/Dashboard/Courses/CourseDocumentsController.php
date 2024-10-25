@@ -68,21 +68,27 @@ class CourseDocumentsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
         $request->validate([
-            'course_id' => 'required|string',
+            'id' => 'required|exists:course_documents,id',
+            'course_id' => 'required|exists:courses,id',
             'title_en' => 'required|string',
             'title_ar' => 'required|string',
             'description_en' => 'required|string',
             'description_ar' => 'required|string',
-            'content_en' => 'required|string',
-            'content_ar' => 'required|string',
-            'order' => 'required|string',
+            'edit-content_en' => 'required|string',
+            'edit-content_ar' => 'required|string',
+            'order' => 'required|integer',
         ]);
 
-        $courseDocument = CourseDocument::findOrFail($id);
-        $courseDocument->update($request->all());
+        $courseDocument = CourseDocument::findOrFail($request->id);
+        $data = $request->all();
+        $data['content_en'] = $data['edit-content_en'];
+        $data['content_ar'] = $data['edit-content_ar'];
+        unset($data['edit-content_en'], $data['edit-content_ar']);
+        $courseDocument->update($data);
+
         return response()->json(['message' => 'CourseDocuments updated successfully']);
     }
 
