@@ -10,7 +10,8 @@
         </section>
     </div>
 
-    <section style="background-image: url('{{ asset('vendor/img/bg/single-course-bg.svg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;background-size: cover;">
+    <section
+        style="background-image: url('{{ asset('vendor/img/bg/single-course-bg.svg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;background-size: cover;">
         <div class="container mt-5">
             <div class="row align-items-center">
                 <!-- start course image -->
@@ -58,23 +59,22 @@
                 <div class="row mt-12">
                     <div class="col-md-8">
                         <h3 class="mb-8 fw-bold">{{ __('common.full_explanation') }}</h3>
-                        @foreach ($documents as $document)
-                            <div class="accordion" id="accordion_{{ $document->id }}">
+                        <div class="accordion" id="courseAccordion">
+                            @foreach ($documents as $index => $document)
                                 <div class="accordion-item mt-3">
                                     <h2 class="accordion-header" id="accordion_header_{{ $document->id }}">
-                                        <button class="accordion-button  fs-4 fw-bold" type="button"
+                                        <button class="accordion-button collapsed fs-4 fw-bold" type="button"
                                             data-bs-toggle="collapse" data-bs-target="#accordion_body_{{ $document->id }}"
-                                            aria-expanded="{{ $loop->first ? 'true' : 'false' }}"
-                                            aria-controls="accordion_body_{{ $document->id }}">
+                                            aria-expanded="false" aria-controls="accordion_body_{{ $document->id }}">
                                             <!-- start course document title -->
+                                            <span class="me-3 fs-3 text-muted" style="min-width: 30px;">{{ $index + 1 }}.</span>
                                             {{ $document->getTitle() }}
                                             <!-- end course document title -->
                                         </button>
                                     </h2>
-                                    <div id="accordion_body_{{ $document->id }}"
-                                        class="accordion-collapse collapse {{ $loop->first ? 'show' : '' }}"
+                                    <div id="accordion_body_{{ $document->id }}" class="accordion-collapse collapse"
                                         aria-labelledby="accordion_header_{{ $document->id }}"
-                                        data-bs-parent="#accordion_{{ $document->id }}">
+                                        data-bs-parent="#courseAccordion">
                                         <div class="accordion-body">
                                             <!-- start course document description -->
                                             <p style="text-align: justify">{{ $document->getDescription() }}
@@ -94,8 +94,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
                     <div class="col-md-1 mt-12"></div>
                     <div class="col-md-3">
