@@ -8,43 +8,84 @@
     <link rel="stylesheet" href="{{ asset('css/document.css') }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $document->getTitle() }}</title>
-    <style>
-        .back-button {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #2c3e50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            z-index: 1000;
-        }
 
-        .next-button {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #2c3e50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            z-index: 1000;
-        }
+    @if ($lang == 'en')
+        <style>
+            .back-button {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 10px 20px;
+                background-color: #2c3e50;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                z-index: 1000;
+            }
 
-        .change-language-button {
-            position: fixed;
-            top: 120px;
-            right: 20px;
-            padding: 10px 20px;
-            background-color: #2c3e50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            z-index: 1000;
-        }
-    </style>
+            .next-button {
+                position: fixed;
+                top: 70px;
+                right: 20px;
+                padding: 10px 20px;
+                background-color: #2c3e50;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                z-index: 1000;
+            }
+
+            .change-language-button {
+                position: fixed;
+                top: 120px;
+                right: 20px;
+                padding: 10px 20px;
+                background-color: #2c3e50;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                z-index: 1000;
+            }
+        </style>
+    @elseif ($lang == 'ar')
+        <style>
+            .back-button {
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                padding: 10px 20px;
+                background-color: #2c3e50;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                z-index: 1000;
+            }
+
+            .next-button {
+                position: fixed;
+                top: 70px;
+                left: 20px;
+                padding: 10px 20px;
+                background-color: #2c3e50;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                z-index: 1000;
+            }
+
+            .change-language-button {
+                position: fixed;
+                top: 120px;
+                left: 20px;
+                padding: 10px 20px;
+                background-color: #2c3e50;
+                color: white;
+                text-decoration: none;
+                border-radius: 5px;
+                z-index: 1000;
+            }
+        </style>
+    @endif
 </head>
 
 <body>
