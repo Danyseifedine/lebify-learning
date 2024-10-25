@@ -22,9 +22,9 @@ class DatabaseSeeder extends Seeder
         Role::create(['name' => 'student']);
 
         \App\Models\User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'x@x.com',
-            'password' => Hash::make('x'),
+            'name' => 'Dany Seifeddine',
+            'email' => 'dany.a.seifeddine@gmail.com',
+            'password' => Hash::make('idkpass881@@'),
         ])->addRole('admin');
     }
 }
