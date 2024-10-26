@@ -92,14 +92,14 @@
 
     {!! $content !!}
     <div class="d-flex mt-5 align-items-center gap-5 justify-content-end">
-        @if ($document->order > 1)
-            <a href="{{ route('students.document', ['name' => $course, 'lang' => $lang, 'id' => $document->id, 'order' => $document->order - 1]) }}"
+        @if ($prevDocument)
+            <a href="{{ route('students.document', ['name' => $course, 'lang' => $lang, 'id' => $prevDocument->id, 'order' => $prevDocument->order]) }}"
                 class="btn logo-border back-button">
                 {{ __('common.previous_lesson') }}
             </a>
         @endif
-        @if ($document->order < $document->course->documents->count())
-            <a href="{{ route('students.document', ['name' => $course, 'lang' => $lang, 'id' => $document->id, 'order' => $document->order + 1]) }}"
+        @if ($nextDocument)
+            <a href="{{ route('students.document', ['name' => $course, 'lang' => $lang, 'id' => $nextDocument->id, 'order' => $nextDocument->order]) }}"
                 class="btn logo-border next-button">
                 {{ __('common.next_lesson') }}
             </a>

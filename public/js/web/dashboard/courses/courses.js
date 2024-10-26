@@ -34,7 +34,7 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
 
     columns: [
         { data: 'id' },
-        { data: 'image', name: 'image', orderable: false, searchable: false },
+        { data: 'image', name: 'image' },
         { data: 'title' },
         { data: 'instructor_name' },
         { data: 'is_published' },

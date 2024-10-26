@@ -61,7 +61,7 @@ const courseDocumentsDataTable = new $DatatableController('courseDocuments-datat
         { data: 'course', name: 'courses.title' },
         { data: 'title_en', name: 'course_documents.title_en' },
         { data: 'order', name: 'course_documents.order' },
-        { data: null },  // For actions
+        { data: null },
     ],
 
     columnDefs: $DatatableController.generateColumnDefs([
