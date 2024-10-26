@@ -49,8 +49,14 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
         {
             targets: [4],
             htmlType: 'toggle', dataClassName: 'status-toggle',
-            checkWhen: (data, type, row) => { return data === 1; },
-            uncheckWhen: (data, type, row) => { return data === 0; }
+            checkWhen: (data, type, row) => {
+                console.log('checkWhen: ', data, type, row);
+                return data == false;
+            },
+            uncheckWhen: (data, type, row) => {
+                console.log('uncheckWhen: ', data, type, row);
+                return data == true;
+            }
         },
         { targets: [-1], htmlType: 'actions', className: 'text-end', actionButtons: { edit: true, delete: true, view: true } },
     ]),
