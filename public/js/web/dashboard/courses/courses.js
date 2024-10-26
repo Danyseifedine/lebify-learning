@@ -51,11 +51,11 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
             htmlType: 'toggle', dataClassName: 'status-toggle',
             checkWhen: (data, type, row) => {
                 console.log('checkWhen: ', data, type, row);
-                return data == false;
+                return data == true;
             },
             uncheckWhen: (data, type, row) => {
                 console.log('uncheckWhen: ', data, type, row);
-                return data == true;
+                return data == false;
             }
         },
         { targets: [-1], htmlType: 'actions', className: 'text-end', actionButtons: { edit: true, delete: true, view: true } },
