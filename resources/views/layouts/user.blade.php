@@ -7,45 +7,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-
-    <!-- SEO Meta Tags -->
-    <title>@yield('title', 'Full Stack Development') | {{ env('APP_NAME') }}</title>
-    <meta name="keywords"
-        content="learning platform, online courses, web development, programming, full stack, Laravel, PHP, JavaScript, HTML, CSS, database, SQL, React, Vue.js, Node.js, API development, responsive design, version control, Git, Agile methodology, software engineering, coding bootcamp, tech education, career development, IT skills, web applications, mobile development, cloud computing, cybersecurity, data structures, algorithms, user experience, UI/UX design, DevOps, continuous integration, software architecture, test-driven development, scalability, performance optimization, front-end development, back-end development">
-    <meta name="description"
-        content="Comprehensive online learning platform for full stack web development, offering courses in Laravel, JavaScript frameworks, database management, and more. Enhance your programming skills and advance your tech career.">
-    <meta name="author" content="Dany Seifeddine">
-    <meta name="robots" content="index, follow">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
-    <meta property="og:title" content="@yield('og_title', 'Full Stack Development with Lebify')">
-    <meta property="og:description" content="@yield('og_description', 'Master web development and advance your career with our comprehensive courses.')">
-    <meta property="og:image" content="@yield('og_image', asset('vendor/img/favicons/favicon.ico'))">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="{{ url()->current() }}">
-    <meta property="twitter:title" content="@yield('twitter_title', 'Full Stack Development with Lebify')">
-    <meta property="twitter:description" content="@yield('twitter_description', 'Master web development and advance your career with our comprehensive courses.')">
-    <meta property="twitter:image" content="@yield('twitter_image', asset('vendor/img/favicons/favicon.ico'))">
-
-    <!-- Canonical URL -->
-    <link rel="canonical" href="{{ url()->current() }}">
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>@yield('title') | {{ env('APP_NAME') }}</title>
+    <title>@yield('title') | Lebify Learning - Your Gateway to Development Mastery</title>
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
+    <meta name="keywords" content="Lebify Learning, online courses, web development, programming, full stack, Laravel, PHP, JavaScript, HTML, CSS, database, SQL, React, Vue.js, Node.js, API development, responsive design, version control, Git, Agile methodology, software engineering, coding bootcamp, tech education, career development, IT skills, web applications, mobile development, cloud computing, cybersecurity, data structures, algorithms, user experience, UI/UX design, DevOps, continuous integration, software architecture, test-driven development, scalability, performance optimization, front-end development, back-end development, quizzes, interactive learning">
+    <meta name="description" content="Lebify Learning: Your premier destination for mastering development skills. Dive into our comprehensive courses, engaging quizzes, and interactive learning experiences. From web development to mobile apps, we offer cutting-edge curriculum to boost your tech career. Join Lebify Learning today and transform your coding journey!">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('vendor/img/favicons/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('vendor/img/favicons/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('vendor/img/favicons/favicon-16x16.png') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('vendor/img/favicons/favicon.ico') }}">
+    <link rel="canonical" href="{{ url()->current() }}">
     <meta name="msapplication-TileColor" content="#008382">
-    <meta name="msapplication-TileImage" content="{{ asset('vendor/img/favicons/favicon.ico') }}">
+    <meta name="msapplication-TileImage" content="{{ asset('vendor/img/favicons/mstile-150x150.png') }}">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:title" content="Lebify Learning - Your Gateway to Development Mastery">
+    <meta property="og:description" content="Elevate your coding skills with Lebify Learning. Explore our diverse range of development courses, interactive quizzes, and hands-on projects. Start your journey to becoming a proficient developer today!">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url()->current() }}">
+    <meta property="twitter:title" content="Lebify Learning - Your Gateway to Development Mastery">
+    <meta property="twitter:description" content="Elevate your coding skills with Lebify Learning. Explore our diverse range of development courses, interactive quizzes, and hands-on projects. Start your journey to becoming a proficient developer today!">
     <!-- ===============================================-->
     <!--    Package-->
     <!-- ===============================================-->
@@ -53,12 +40,13 @@
     <!-- ===============================================-->
     <!--    Meta-->
     <!-- ===============================================-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name="google" content="notranslate">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#FFFFFF" />
-    <meta name="author" content="Dany Seifeddine">
-    <meta name="robots" content="index, nofollow">
+    <meta name="author" content="Lebify Learning">
+    <meta name="robots" content="index, follow">
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
@@ -85,9 +73,9 @@
             {
                 "@context": "http://schema.org",
                 "@type": "EducationalOrganization",
-                "name": "{{ env('APP_NAME') }}",
+                "name": "Lebify Learning - Your Gateway to Development Mastery",
                 "description": "Learn full stack development with Lebify",
-                "url": "{{ url('/') }}",
+                "url": "https://learning.lebify.online/en",
                 "logo": "{{ asset('vendor/img/favicons/favicon.ico') }}",
         }
     </script>

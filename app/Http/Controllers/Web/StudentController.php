@@ -128,6 +128,9 @@ class StudentController extends BaseController
     // document
     public function document($course, $lang, $id, $order)
     {
+        $id = decrypt($id);
+        $order = decrypt($order);
+        
         $document = CourseDocument::where('id', $id)
             ->where('order', $order)
             ->firstOrFail();

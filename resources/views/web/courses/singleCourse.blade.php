@@ -67,7 +67,8 @@
                                             data-bs-toggle="collapse" data-bs-target="#accordion_body_{{ $document->id }}"
                                             aria-expanded="false" aria-controls="accordion_body_{{ $document->id }}">
                                             <!-- start course document title -->
-                                            <span class="me-3 fs-3 text-muted" style="min-width: 30px;">{{ $index + 1 }}.</span>
+                                            <span class="me-3 fs-3 text-muted"
+                                                style="min-width: 30px;">{{ $index + 1 }}.</span>
                                             {{ $document->getTitle() }}
                                             <!-- end course document title -->
                                         </button>
@@ -82,11 +83,11 @@
                                             <!-- end course document description -->
                                             <!-- button to move to the document -->
                                             <div class="d-flex mt-5 align-items-center gap-5 justify-content-end">
-                                                <a href="{{ route('students.document', ['name' => $course->title, 'lang' => 'en', 'id' => $document->id, 'order' => $document->order]) }}"
+                                                <a href="{{ route('students.document', ['name' => $course->title, 'lang' => 'en', 'id' => encrypt($document->id), 'order' => encrypt($document->order)]) }}"
                                                     class="btn logo-border">{{ __('common.view_full_document') }}
                                                     ({{ __('common.english') }})
                                                 </a>
-                                                <a href="{{ route('students.document', ['name' => $course->title, 'lang' => 'ar', 'id' => $document->id, 'order' => $document->order]) }}"
+                                                <a href="{{ route('students.document', ['name' => $course->title, 'lang' => 'ar', 'id' => encrypt($document->id), 'order' => encrypt($document->order)]) }}"
                                                     class="btn logo-border">{{ __('common.view_full_document') }}
                                                     ({{ __('common.arabic') }})</a>
                                             </div>

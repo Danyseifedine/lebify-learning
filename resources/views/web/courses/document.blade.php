@@ -93,18 +93,18 @@
     {!! $content !!}
     <div class="d-flex mt-5 align-items-center gap-5 justify-content-end">
         @if ($prevDocument)
-            <a href="{{ route('students.document', ['name' => $course, 'lang' => $lang, 'id' => $prevDocument->id, 'order' => $prevDocument->order]) }}"
+            <a href="{{ route('students.document', ['name' => $course, 'lang' => $lang, 'id' => encrypt($prevDocument->id), 'order' => encrypt($prevDocument->order)]) }}"
                 class="btn logo-border back-button">
                 {{ __('common.previous_lesson') }}
             </a>
         @endif
         @if ($nextDocument)
-            <a href="{{ route('students.document', ['name' => $course, 'lang' => $lang, 'id' => $nextDocument->id, 'order' => $nextDocument->order]) }}"
+            <a href="{{ route('students.document', ['name' => $course, 'lang' => $lang, 'id' => encrypt($nextDocument->id), 'order' => encrypt($nextDocument->order)]) }}"
                 class="btn logo-border next-button">
                 {{ __('common.next_lesson') }}
             </a>
         @endif
-        <a href="{{ route('students.document', ['name' => $course, 'lang' => $lang == 'ar' ? 'en' : 'ar', 'id' => $document->id, 'order' => $document->order]) }}"
+        <a href="{{ route('students.document', ['name' => $course, 'lang' => $lang == 'ar' ? 'en' : 'ar', 'id' => encrypt($document->id), 'order' => encrypt($document->order)]) }}"
             class="btn logo-border change-language-button">
             {{ __('common.change_language') }}
         </a>
