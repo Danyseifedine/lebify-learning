@@ -1,6 +1,6 @@
-@extends('layouts.dashboard')
+@extends('dashboard.layout.dashboard')
 
-@section('title', 'instructors')
+@section('title', 'Instructors')
 
 
 
@@ -8,7 +8,7 @@
 @section('toolbar')
     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
         <!--begin::Title-->
-        <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">instructors</h1>
+        <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">Instructors</h1>
         <!--end::Title-->
         <!--begin::Breadcrumb-->
         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -136,5 +136,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/web/dashboard/instructors/instructors.js') }}" type="module"></script>
+    <script src="{{ asset('js/web/dashboard/instructors/instructors.js', true) }}" type="module"></script>
 @endpush

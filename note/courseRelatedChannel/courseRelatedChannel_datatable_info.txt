@@ -1,0 +1,20 @@
+Datatable: courseRelatedChannel
+Created at: 2024-10-27 15:11:42
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- course
+- channel
+- url
+
+JS File: public/js/web/dashboard/courses/courseRelatedChannel.js
+View File: resources/views/dashboard/pages/courses/courseRelatedChannel.blade.php

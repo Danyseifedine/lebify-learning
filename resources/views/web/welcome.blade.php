@@ -1,11 +1,11 @@
-@extends('layouts.main')
+@extends('web.layouts.main')
 
 @section('title', 'Full Stack Development with Dany Seifeddine')
 
 @section('content')
 
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/landing.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/landing.css', true) }}">
     @endpush
 
     {{-- hero --}}

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\Courses\CourseDocumentsController;
+use App\Http\Controllers\Dashboard\Courses\CourseRelatedChannelController;
 use App\Http\Controllers\Dashboard\Courses\CoursesController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\InstructorsController;
@@ -57,11 +58,14 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
     // Courses routes
     Route::controller(CoursesController::class)->group(function () {
-        Route::get('courses/datatable', 'datatable')->name('courses.datatable');
-        Route::get('courses/get/{id}', 'getCourses')->name('courses.get');
-        Route::post('courses/edit', 'update')->name('courses.edit');
-        Route::put('courses/status/{id}', 'changeStatus')->name('courses.status');
-        Route::resource('courses', CoursesController::class);
+        Route::prefix('course')->name('course.')->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::get('datatable', 'datatable')->name('datatable');
+            Route::get('get/{id}', 'getCourses')->name('get');
+            Route::post('edit', 'update')->name('edit');
+            Route::put('status/{id}', 'changeStatus')->name('status');
+            Route::post('store', 'store')->name('store');
+        });
     });
 
     // Course documents routes
@@ -71,6 +75,18 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::post('store', 'store')->name('store');
             Route::get('datatable', 'datatable')->name('datatable');
             Route::get('get/{id}', 'getCourseDocuments')->name('get');
+            Route::post('edit', 'update')->name('edit');
+            Route::delete('delete/{id}', 'destroy')->name('delete');
+        });
+    });
+
+    // Course related channels routes
+    Route::controller(CourseRelatedChannelController::class)->group(function () {
+        Route::prefix('course/related/channels')->name('course.related.channels.')->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::post('store', 'store')->name('store');
+            Route::get('datatable', 'datatable')->name('datatable');
+            Route::get('get/{id}', 'getCourseRelatedChannel')->name('get');
             Route::post('edit', 'update')->name('edit');
             Route::delete('delete/{id}', 'destroy')->name('delete');
         });

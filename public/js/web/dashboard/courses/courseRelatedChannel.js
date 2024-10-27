@@ -6,8 +6,7 @@ import { Toast } from '../../../common/base/messages/toast.js';
 import { FunctionUtility } from '../../../common/base/utils/utils.js';
 import { $SingleFormPostController, $DatatableController, $ModalFormFetchController } from '../../../common/core/controllers.js'
 
-
-const coursesDataTable = new $DatatableController('courses-datatable', {
+const courseRelatedChannelDataTable = new $DatatableController('courseRelatedChannel-datatable', {
 
     lengthMenu: [[5, 10, 20, 50, -1], [5, 10, 20, 50, 'All']],
 
@@ -23,7 +22,7 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
     },
 
     ajax: {
-        url: `${__API_CFG__.LOCAL_URL}/dashboard/course/datatable`,
+        url: `${__API_CFG__.LOCAL_URL}/dashboard/course/related/channels/datatable`,
         data: (d) => ({
             ...d,
             // note: add your data here such as fiter option
@@ -34,11 +33,10 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
 
     columns: [
         { data: 'id' },
-        { data: 'image', name: 'image' },
-        { data: 'title' },
-        { data: 'instructor_name' },
-        { data: 'is_published' },
-        { data: 'duration' },
+        { data: 'course_id' },
+        { data: 'channel_name' },
+        { data: 'url' },
+        { data: 'image' },
         { data: null },
     ],
 
@@ -46,16 +44,15 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
         { targets: [0], htmlType: 'selectCheckbox' },
         // note: add your columnDef here
         // example: { targets: [1], htmlType: 'badge', badgeClass: 'badge-light-danger' },
-        {
-            targets: [4],
-            htmlType: 'toggle', dataClassName: 'status-toggle',
-            checkWhen: (data, type, row) => {
-                return data == true;
-            },
-            uncheckWhen: (data, type, row) => {
-                return data == false;
-            }
-        },
+        // example: {
+        // example: targets: [4], htmlType: 'toggle',
+        // example: checkWhen: (data, type, row) => {
+        // example: return data === 'in';
+        // example: },
+        // example: uncheckWhen: (data, type, row) => {
+        // example: return data === 'pending';
+        // example: },
+        // example: },
         { targets: [-1], htmlType: 'actions', className: 'text-end', actionButtons: { edit: true, delete: true, view: true } },
     ]),
 
@@ -79,17 +76,7 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
 
         // note: show:
         _SHOW_: async function (id, endpoint, onSuccess, onError) {
-            console.log("Show courses", id);
-        },
-
-        changeStatus: async function (endpoint, onSuccess, onError) {
-            try {
-                const response = await
-                    HttpRequest.put(endpoint);
-                onSuccess(response);
-            } catch (error) {
-                onError(error);
-            }
+            console.log("Show courseRelatedChannel", id);
         },
 
         // note: edit:
@@ -97,7 +84,7 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
             const modalHandler = new $ModalFormFetchController({
                 modalId: 'edit-modal',
                 endpoint: `${endpoint}`,
-                formId: '#edit-courses-form',
+                formId: '#edit-courseRelatedChannel-form',
                 // quillSelector: '#edit_content',
                 onSuccess: (data) => {
                     onSuccess(data);
@@ -124,21 +111,12 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
 
     eventListeners: [
         {
-            event: 'change',
-            selector: '.status-toggle',
-            handler: function (id, event) {
-                this.callCustomFunction('changeStatus', `${__API_CFG__.LOCAL_URL}/dashboard/courses/status/${id}`, (res) => {
-                }, (err) => { console.error('Error changing status', err); });
-            }
-        },
-
-        {
             event: 'click',
             selector: '.delete-btn',
             handler: function (id, event) {
                 this.callCustomFunction(
                     '_DELETE_WITH_ALERT_',
-                    `${__API_CFG__.LOCAL_URL}/dashboard/course/${id}`,
+                    `${__API_CFG__.LOCAL_URL}/dashboard/course/related/channels/delete/${id}`,
                     (res) => {
                         if (res.risk) {
                             SweetAlert.error();
@@ -147,7 +125,7 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
                             this.reload();
                         }
                     },
-                    (err) => { console.error('Error deleting courses', err); }
+                    (err) => { console.error('Error deleting courseRelatedChannel', err); }
                 );
             }
         },
@@ -164,11 +142,11 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
             handler: function (id, event) {
                 this.callCustomFunction('_EDIT_WITH_MODAL_',
                     id,
-                    `${__API_CFG__.LOCAL_URL}/dashboard/course/get`,
+                    `${__API_CFG__.LOCAL_URL}/dashboard/course/related/channels/get`,
                     (res) => {
                         console.log('res: ', res);
                     },
-                    (err) => { console.error('Error editing courses', err); },
+                    (err) => { console.error('Error editing courseRelatedChannel', err); },
                 );
             }
         }
@@ -176,50 +154,50 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
 
 });
 
-function createCourses() {
+function createCourseRelatedChannel() {
     FunctionUtility.closeModalWithButton('create-modal', '.close-modal', () => {
-        FunctionUtility.clearForm('#create-courses-form');
+        FunctionUtility.clearForm('#create-courseRelatedChannel-form');
     });
 
-    const createCoursesConfig = {
-        formSelector: '#create-courses-form',
-        externalButtonSelector: '#create-courses-button',
-        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/course/store`,
+    const createCourseRelatedChannelConfig = {
+        formSelector: '#create-courseRelatedChannel-form',
+        externalButtonSelector: '#create-courseRelatedChannel-button',
+        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/course/related/channels/store`,
         feedback: true,
         onSuccess: (res) => {
             Toast.showNotificationToast('', res.message)
             FunctionUtility.closeModal('create-modal', () => {
-                FunctionUtility.clearForm('#create-courses-form');
+                FunctionUtility.clearForm('#create-courseRelatedChannel-form');
             });
-            coursesDataTable.reload();
+            courseRelatedChannelDataTable.reload();
         },
-        onError: (err) => { console.error('Error adding courses', err); },
+        onError: (err) => { console.error('Error adding courseRelatedChannel', err); },
     };
 
-    const form = new $SingleFormPostController(createCoursesConfig);
+    const form = new $SingleFormPostController(createCourseRelatedChannelConfig);
     form.init();
 }
-createCourses();
+createCourseRelatedChannel();
 
-const editCourses = () => {
+const editCourseRelatedChannel = () => {
     FunctionUtility.closeModalWithButton('edit-modal', '.close-modal');
 
-    const editCoursesConfig = {
-        formSelector: '#edit-courses-form',
-        externalButtonSelector: '#edit-courses-button',
-        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/course/edit`,
+    const editCourseRelatedChannelConfig = {
+        formSelector: '#edit-courseRelatedChannel-form',
+        externalButtonSelector: '#edit-courseRelatedChannel-button',
+        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/course/related/channels/edit`,
         feedback: true,
         onSuccess: (res) => {
             Toast.showNotificationToast('', res.message)
             FunctionUtility.closeModal('edit-modal', () => {
-                FunctionUtility.clearForm('#edit-courses-form');
+                FunctionUtility.clearForm('#edit-courseRelatedChannel-form');
             });
-            coursesDataTable.reload();
+            courseRelatedChannelDataTable.reload();
         },
-        onError: (err) => { console.error('Error editing courses', err); },
+        onError: (err) => { console.error('Error editing courseRelatedChannel', err); },
     };
 
-    const form = new $SingleFormPostController(editCoursesConfig);
+    const form = new $SingleFormPostController(editCourseRelatedChannelConfig);
     form.init();
 }
-editCourses();
+editCourseRelatedChannel();

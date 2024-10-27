@@ -1,23 +1,15 @@
 @extends('dashboard.layout.dashboard')
 
-@section('title', 'Course Documents')
+@section('title', 'Course Related Channel')
 
 
-@push('styles')
-    <style>
-        .ace-editor {
-            height: 300px;
-            width: 100%;
-        }
-    </style>
-@endpush
+
 <!-- start header -->
 @section('toolbar')
     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
         <!--begin::Title-->
-        <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">Course
-            Documents
-        </h1>
+        <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">
+            Course Related Channel</h1>
         <!--end::Title-->
         <!--begin::Breadcrumb-->
         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -95,9 +87,9 @@
                                         <!-- start of option in here -->
                                         <!-- example: -->
                                         <!-- <label class="form-check form-check-sm form-check-custom form-check-solid me-5">
-                                                                                                            <input class="form-check-input" type="checkbox" name="name_with_4_letter" value="4_letter">
-                                                                                                            <span class="form-check-label">4 letter</span>
-                                                                                                        </label> -->
+                                                        <input class="form-check-input" type="checkbox" name="name_with_4_letter" value="4_letter">
+                                                        <span class="form-check-label">4 letter</span>
+                                                    </label> -->
                                         <!-- end of option -->
                                     </div>
                                 </div>
@@ -134,7 +126,7 @@
 
 
                 <!-- start table -->
-                <table id="courseDocuments-datatable" class="table align-middle table-row-dashed fs-6 gy-5">
+                <table id="courseRelatedChannel-datatable" class="table align-middle table-row-dashed fs-6 gy-5">
                     <thead>
                         <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
                             <th class="w-10px pe-2">
@@ -144,9 +136,10 @@
                                         value="1" />
                                 </div>
                             </th>
-                            <th>Course</th>
-                            <th>Title</th>
-                            <th>Order</th>
+                            <th>course</th>
+                            <th>channel</th>
+                            <th>url</th>
+                            <th>image</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -169,52 +162,34 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                    <form id="create-courseDocuments-form">
+                    <form id="create-courseRelatedChannel-form">
                         <div class="mb-3">
                             <label for="course_id" class="form-label">course</label>
                             <select class="form-control" name="course_id" id="course_id">
-                                <option value="">Select Course</option>
+                                <option value="">Select course</option>
                                 @foreach ($courses as $course)
                                     <option value="{{ $course->id }}">{{ $course->title }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="title_en" class="form-label">title English</label>
-                            <input type="text" class="form-control" name="title_en" id="title_en">
+                            <label for="channel_name" class="form-label">channel</label>
+                            <input type="text" class="form-control" name="channel_name" id="channel_name">
                         </div>
                         <div class="mb-3">
-                            <label for="title_ar" class="form-label">title Arabic</label>
-                            <input type="text" class="form-control" name="title_ar" id="title_ar">
+                            <label for="url" class="form-label">url</label>
+                            <input type="text" class="form-control" name="url" id="url">
                         </div>
                         <div class="mb-3">
-                            <label for="description_en" class="form-label">description English</label>
-                            <textarea type="text" class="form-control" name="description_en" id="description_en"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description_ar" class="form-label">description Arabic</label>
-                            <textarea type="text" class="form-control" name="description_ar" id="description_ar"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="content_en" class="form-label">Content English</label>
-                            <div id="editor_en" class="ace-editor"></div>
-                            <textarea name="content_en" id="content_en" style="display: none;"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="content_ar" class="form-label">Content Arabic</label>
-                            <div id="editor_ar" class="ace-editor"></div>
-                            <textarea name="content_ar" id="content_ar" style="display: none;"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="order" class="form-label">order</label>
-                            <input type="text" class="form-control" name="order" id="order">
+                            <label for="image" class="form-label">image</label>
+                            <input type="file" class="form-control" name="image" id="image">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn close-modal btn-light">Close</button>
                     <button type="button" with-spinner="true" class="btn btn-primary"
-                        id="create-courseDocuments-button">
+                        id="create-courseRelatedChannel-button">
                         <span class="ld-span">Create</span>
                     </button>
                 </div>
@@ -235,52 +210,35 @@
                     </div>
                 </div>
                 <div class="modal-body">
-                    <form id="edit-courseDocuments-form">
+                    <form id="edit-courseRelatedChannel-form">
                         <input type="hidden" name="id" id="id">
                         <div class="mb-3">
                             <label for="course_id" class="form-label">course</label>
                             <select class="form-control" name="course_id" id="course_id">
-                                <option value="">Select Course</option>
+                                <option value="">Select course</option>
                                 @foreach ($courses as $course)
                                     <option value="{{ $course->id }}">{{ $course->title }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="title_en" class="form-label">title English</label>
-                            <input type="text" class="form-control" name="title_en" id="title_en">
+                            <label for="channel_name" class="form-label">channel</label>
+                            <input type="text" class="form-control" name="channel_name" id="channel_name">
                         </div>
                         <div class="mb-3">
-                            <label for="title_ar" class="form-label">title Arabic</label>
-                            <input type="text" class="form-control" name="title_ar" id="title_ar">
+                            <label for="url" class="form-label">url</label>
+                            <input type="text" class="form-control" name="url" id="url">
                         </div>
                         <div class="mb-3">
-                            <label for="description_en" class="form-label">description English</label>
-                            <textarea type="text" class="form-control" name="description_en" id="description_en"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="description_ar" class="form-label">description Arabic</label>
-                            <textarea type="text" class="form-control" name="description_ar" id="description_ar"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="edit-content_en" class="form-label">Content English</label>
-                            <div id="edit-editor_en" class="ace-editor"></div>
-                            <textarea name="edit-content_en" id="edit-content_en" style="display: none;"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="content_ar" class="form-label">Content Arabic</label>
-                            <div id="edit-editor_ar" class="ace-editor"></div>
-                            <textarea name="edit-content_ar" id="edit-content_ar" style="display: none;"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="order" class="form-label">order</label>
-                            <input type="text" class="form-control" name="order" id="order">
+                            <label for="image" class="form-label">image</label>
+                            <input type="file" class="form-control" name="image" id="image">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn close-modal btn-light">Close</button>
-                    <button type="button" with-spinner="true" class="btn btn-primary" id="edit-courseDocuments-button">
+                    <button type="button" with-spinner="true" class="btn btn-primary"
+                        id="edit-courseRelatedChannel-button">
                         <span class="ld-span">Edit</span>
                     </button>
                 </div>
@@ -291,8 +249,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/web/dashboard/courses/courseDocuments.js', true) }}" type="module"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.9.6/ace.js"></script>
-    <script src="{{ asset('js/web/dashboard/courses/courseDocuments.js', true) }}" type="module"></script>
+    <script src="{{ asset('js/web/dashboard/courses/courseRelatedChannel.js', true) }}" type="module"></script>
 @endpush

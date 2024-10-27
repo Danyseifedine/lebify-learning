@@ -63,4 +63,9 @@ class Course extends Model implements HasMedia
     {
         return $withLimit ? (app()->getLocale() == 'ar' ? Str::limit($this->description_ar, 100) : Str::limit($this->description_en, 100)) : (app()->getLocale() == 'ar' ? $this->description_ar : $this->description_en);
     }
+
+    public function getRelatedChannels()
+    {
+        return $this->hasMany(CourseRelatedChannel::class);
+    }
 }

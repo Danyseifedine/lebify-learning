@@ -1,6 +1,6 @@
-@extends('layouts.dashboard')
+@extends('dashboard.layout.dashboard')
 
-@section('title', 'permission')
+@section('title', 'Permission')
 
 <!-- start header -->
 @section('toolbar')
@@ -257,5 +257,5 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('js/web/dashboard/privileges/permission.js') }}" type="module"></script>
+    <script src="{{ asset('js/web/dashboard/privileges/permission.js', true) }}" type="module"></script>
 @endpush

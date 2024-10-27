@@ -219,4 +219,9 @@ return [
     'previous_lesson' => 'درس سابق',
     'next_lesson' => 'درس لاحق',
     'change_language' => 'تغيير اللغة',
+    'language' => 'اللغة',
+    'previous_lesson' => 'درس سابق',
+    'next_lesson' => 'درس لاحق',
+    'courses_you_may_like' => 'دورات قد تعجبك',
+    'visit_channel' => 'زيارة القناة',
 ];

@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
+// language middleware
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath'],
@@ -21,6 +21,7 @@ Route::group([
     // Auth routes
     Auth::routes();
 
+    // Student routes
     Route::prefix('student')->name('students.')->group(function () {
         include __DIR__ . DIRECTORY_SEPARATOR . 'students.php';
     });
@@ -30,9 +31,9 @@ Route::group([
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     });
 
+    // Dashboard routes
     Route::middleware(['verified', 'role:admin'])->group(function () {
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
         include __DIR__ . DIRECTORY_SEPARATOR . 'dashboard.php';
     });
 });

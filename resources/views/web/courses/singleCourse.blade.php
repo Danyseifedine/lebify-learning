@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('web.layouts.user')
 
 @section('content')
     <div style="padding-top: 53px !important;">
@@ -106,6 +106,45 @@
                         <!-- end helpful links -->
                     </div>
                 </div>
+                <!-- start related channels -->
+                <div class="row mt-12">
+                    <h3 class="mb-12 display-5 fw-bold">{{ __('common.courses_you_may_like') }}</h3>
+                    @foreach ($relatedChannels as $relatedChannel)
+                        <div class="col-md-3 mb-4">
+                            <div class="card h-100 shadow-sm hover-elevate-up">
+                                <div class="position-relative">
+                                    <img src="{{ $relatedChannel->getUrl() }}" class="card-img-top"
+                                        alt="{{ $relatedChannel->channel_name }}"
+                                        style="height: 200px; object-fit: cover;">
+                                    <div class="position-absolute top-0 end-0 p-3">
+                                        <a href="{{ $relatedChannel->url }}" target="_blank"
+                                            class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="p-4 d-flex flex-column justify-content-between">
+                                    <div>
+                                        <h5 class="card-title fw-bold text-truncate">
+                                            {{ $relatedChannel->channel_name }}
+                                        </h5>
+                                        <p class="text-muted small mb-5 mb-0">
+                                            {{ $relatedChannel->created_at->diffForHumans() }}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <a href="{{ $relatedChannel->url }}" target="_blank"
+                                            class="btn btn-sm bg-logo flex-grow-1">
+                                            <i class="fas fa-external-link-alt text-white me-2"></i>
+                                            {{ __('common.visit_channel') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+                <!-- end related channels -->
             </div>
         </section>
     </section>

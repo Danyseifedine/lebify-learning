@@ -220,4 +220,6 @@ return [
     'previous_lesson' => 'Previous Lesson',
     'next_lesson' => 'Next Lesson',
     'change_language' => 'Change Language',
+    'courses_you_may_like' => 'Courses You May Like',
+    'visit_channel' => 'Visit Channel',
 ];

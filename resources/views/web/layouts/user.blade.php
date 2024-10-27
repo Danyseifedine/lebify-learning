@@ -108,7 +108,7 @@
             <main class="app-page flex-column flex-column-fluid" id="kt_app_page">
                 <div class="mx-5">
                     <!-- Navbar -->
-                    @include('components.navbar')
+                    @include('web.components.navbar')
                 </div>
                 <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
                     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">

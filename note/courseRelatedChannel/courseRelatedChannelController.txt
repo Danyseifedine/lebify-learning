@@ -1,0 +1,117 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\CourseRelatedChannel;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class CourseRelatedChannelController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        return view('dashboard.pages.courserelatedchannel', compact('user'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'course' => 'required|string',
+            'channel' => 'required|string',
+            'url' => 'required|string',
+        ]);
+
+        CourseRelatedChannel::create($request->all());
+        return response()->json(['message' => 'CourseRelatedChannel created successfully']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'course' => 'required|string',
+            'channel' => 'required|string',
+            'url' => 'required|string',
+        ]);
+
+        CourseRelatedChannel::update($request->all());
+        return response()->json(['message' => 'CourseRelatedChannel updated successfully']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $courserelatedchannel = CourseRelatedChannel::find($id);
+        $courserelatedchannel->delete();
+        return response()->json(['message' => 'CourseRelatedChannel deleted successfully']);
+    }
+
+    public function datatable(Request $request)
+    {
+        $search = request()->get('search');
+        $value = isset($search['value']) ? $search['value'] : null;
+
+        $courserelatedchannels = CourseRelatedChannel::select('id',
+'course', 'channel', 'url', 'created_at')
+            ->when($value, function ($query) use ($value) {
+                return $query->where(function ($query) use ($value) {
+                    $query->where('course', 'like', '%' . $value . '%')
+                        ->orWhere('channel', 'like', '%' . $value . '%')
+                        ->orWhere('url', 'like', '%' . $value . '%')
+                });
+            });
+
+        return DataTables::of($courserelatedchannels->get())
+            ->editColumn('created_at', function ($courserelatedchannel) {
+                return $courserelatedchannel->created_at->diffForHumans();
+            })->make(true);
+    }
+}
+
+        public function get CourseRelatedChannel(string $id)
+{
+    $CourseRelatedChannel = CourseRelatedChannel::find($id);
+    return response()->json($CourseRelatedChannel);
+}
+
+Route::controller(CourseRelatedChannelController::class)->group(function () {
+    Route::get('courserelatedchannel/datatable', 'datatable')->name('courserelatedchannel.datatable');
+    Route::get('courserelatedchannel/get/{id}', 'get{$modelName}')->name('courserelatedchannel.get');
+    Route::post('courserelatedchannel/edit', 'update')->name('courserelatedchannel.edit');
+    Route::resource('courserelatedchannel', CourseRelatedChannelController::class);
+});

@@ -172,7 +172,7 @@
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
                     <div data-kt-menu-trigger="click"
-                        class="menu-item {{ request()->routeIs('dashboard.courses.*') ? 'show' : '' }} menu-accordion">
+                        class="menu-item {{ request()->routeIs('dashboard.course.*') ? 'show' : '' }} menu-accordion">
                         <!--begin:Menu link-->
                         <span class="menu-link">
                             <span class="menu-icon">
@@ -187,8 +187,8 @@
                             <!--begin:Menu item-->
                             <div class="menu-item">
                                 <!--begin:Menu link-->
-                                <a class="menu-link {{ request()->routeIs('dashboard.courses.*') ? 'active' : '' }}"
-                                    href="{{ route('dashboard.courses.index') }}">
+                                <a class="menu-link {{ request()->routeIs('dashboard.course.index') ? 'active' : '' }}"
+                                    href="{{ route('dashboard.course.index') }}">
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -205,6 +205,16 @@
                                         <span class="bullet bullet-dot"></span>
                                     </span>
                                     <span class="menu-title">Course Documents</span>
+                                </a>
+                            </div>
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ request()->routeIs('dashboard.course.related.channels.*') ? 'active' : '' }}"
+                                    href="{{ route('dashboard.course.related.channels.index') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Course Related Channels</span>
                                 </a>
                             </div>
                         </div>

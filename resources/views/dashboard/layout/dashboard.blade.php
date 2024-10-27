@@ -55,8 +55,8 @@
     <!--    Stylesheets-->
     <!-- ===============================================-->
 
-    <link rel="stylesheet" href="{{ asset('css/loading/loading.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/loading/loading.css', true) }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css', true) }}">
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />

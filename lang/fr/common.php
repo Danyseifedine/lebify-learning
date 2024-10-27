@@ -219,4 +219,6 @@ return [
     'previous_lesson' => 'Leçon précédente',
     'next_lesson' => 'Leçon suivante',
     'change_language' => 'Changer la langue',
+    'courses_you_may_like' => 'Cours que vous pourriez aimer',
+    'visit_channel' => 'Visiter la chaîne',
 ];

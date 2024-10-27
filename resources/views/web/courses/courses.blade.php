@@ -1,9 +1,9 @@
-@extends('layouts.user')
+@extends('web.layouts.user')
 
 @section('content')
     <div style="padding-top: 53px !important;">
         <section class="p-20 text-center"
-            style="background-image: url('{{ asset('vendor/img/bg/banner-bg.svg') }}'); background-size: cover; background-position: center; background-repeat: no-repeat;background-size: cover;background-color:#F77E15">
+            style="background-image: url('{{ asset('vendor/img/bg/banner-bg.svg', true) }}'); background-size: cover; background-position: center; background-repeat: no-repeat;background-size: cover;background-color:#F77E15">
             <div class="container">
                 <h1 class="display-4 text-white fw-bold mb-4">{{ __('common.explore_our_courses') }}</h1>
                 <h2 class="lead fs-1 text-white mb-12 w-lg-50 mx-auto">{{ __('common.discover_learning_journey') }}</h2>

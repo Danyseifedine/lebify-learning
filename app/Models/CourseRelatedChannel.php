@@ -22,4 +22,9 @@ class CourseRelatedChannel extends Model implements HasMedia
     {
         $this->addMediaCollection('related_channels')->singleFile();
     }
+
+    public function getUrl()
+    {
+        return $this->getFirstMediaUrl('related_channels');
+    }
 }

@@ -11,8 +11,8 @@ class LandingController extends Controller
     {
         if (auth()->check()) {
             $role = auth()->user()->roles->first()->name;
-            return view('welcome', compact('role'));
+            return view('web.welcome', compact('role'));
         }
-        return view('welcome');
+        return view('web.welcome');
     }
 }

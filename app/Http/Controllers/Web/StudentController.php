@@ -117,20 +117,24 @@ class StudentController extends BaseController
         $user = auth()->user();
         $role = $user->roles->first()->name;
         $course = Course::with('media')->find($id);
+        $relatedChannels = $course->getRelatedChannels()->get();
+
         $course->views += 1;
         $course->save();
         $documents = $course->documents;
 
         // dd($documents);
-        return view('web.courses.singleCourse', compact('course', 'role', 'documents'));
+        return view('web.courses.singleCourse', compact('course', 'role', 'documents', 'relatedChannels'));
     }
 
     // document
     public function document($course, $lang, $id, $order)
     {
+        $user = auth()->user();
+        $role = $user->roles->first()->name;
         $id = decrypt($id);
         $order = decrypt($order);
-        
+
         $document = CourseDocument::where('id', $id)
             ->where('order', $order)
             ->firstOrFail();
@@ -145,6 +149,6 @@ class StudentController extends BaseController
 
         $content = $lang == 'ar' ? $document->content_ar : $document->content_en;
 
-        return view('web.courses.document', compact('document', 'content', 'lang', 'order', 'course', 'prevDocument', 'nextDocument'));
+        return view('web.courses.document', compact('document', 'content', 'lang', 'order', 'course', 'prevDocument', 'nextDocument', 'role'));
     }
 }
