@@ -115,7 +115,7 @@
                                 <div class="position-relative">
                                     <img src="{{ $relatedChannel->getUrl() }}" class="card-img-top"
                                         alt="{{ $relatedChannel->channel_name }}"
-                                        style="height: 200px; object-fit: cover;">
+                                        style="height: 200px; object-fit: cover;background-position: center;background-repeat: no-repeat;background-size: cover;filter: brightness(0.8);">
                                     <div class="position-absolute top-0 end-0 p-3">
                                         <a href="{{ $relatedChannel->url }}" target="_blank"
                                             class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm">
