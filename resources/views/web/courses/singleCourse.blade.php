@@ -110,7 +110,7 @@
                 <div class="row mt-12">
                     <h3 class="mb-12 display-5 fw-bold">{{ __('common.courses_you_may_like') }}</h3>
                     @foreach ($relatedChannels as $relatedChannel)
-                        <div class="col-md-3 mb-4">
+                        <div class="col-lg-3 col-md-4 mb-4">
                             <div class="card h-100 shadow-sm hover-elevate-up">
                                 <div class="position-relative">
                                     <img src="{{ $relatedChannel->getUrl() }}" class="card-img-top"
