@@ -221,4 +221,13 @@ return [
     'change_language' => 'Changer la langue',
     'courses_you_may_like' => 'Cours que vous pourriez aimer',
     'visit_channel' => 'Visiter la chaîne',
+    'update_email' => 'Mettre à jour l\'e-mail',
+    'update_email_placeholder' => 'Entrez votre nouvel adresse e-mail',
+    'update_email_required' => 'Veuillez entrer une adresse e-mail valide que vous pouvez accéder.',
+    'update_email_button' => 'Mettre à jour et vérifier l\'e-mail',
+    'email_verification_required' => 'Vérification de l\'e-mail requise',
+    'update_email_to_continue' => 'Veuillez mettre à jour votre adresse e-mail pour continuer à utiliser notre plateforme.',
+    'email_verification_sent' => 'Vérification de l\'e-mail envoyée',
+    'old_password' => 'Mot de passe actuel',
+    'new_password' => 'Nouveau mot de passe',
 ];

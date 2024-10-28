@@ -12,7 +12,7 @@ Route::post('/student/login', [StudentController::class, 'login'])->name('login'
 Route::post('/student/feedback', [StudentController::class, 'feedback'])->name('feedback');
 
 
-Route::middleware(['auth', 'role:student|admin'])->controller(StudentController::class)->group(function () {
+Route::middleware(['auth', 'verified', 'role:student|admin'])->controller(StudentController::class)->group(function () {
 
     // profile routes
     Route::get('/profile', 'profile')->name('profile');

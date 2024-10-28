@@ -6,7 +6,7 @@ import { Translator } from '../translation/translation.js';
  * It defines constants and default values used across different components.
  */
 
-const currEnv = 'production';
+const currEnv = 'development';
 
 // Initialize Translator
 export const l10n = new Translator();

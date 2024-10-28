@@ -222,4 +222,14 @@ return [
     'change_language' => 'Change Language',
     'courses_you_may_like' => 'Courses You May Like',
     'visit_channel' => 'Visit Channel',
+    'update_email' => 'Update Email',
+    'update_email_placeholder' => 'Enter your new email address',
+    'update_email_required' => 'Please enter a valid email address that you can access.',
+    'update_email_button' => 'Update & Verify Email',
+    'email_verification_required' => 'Email Verification Required',
+    'update_email_to_continue' => 'Please update your email address to continue using our platform.',
+    'email_verification_sent' => 'Email verification sent',
+    'old_password' => 'Old Password',
+    'new_password' => 'New Password',
 ];
+

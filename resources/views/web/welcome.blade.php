@@ -349,6 +349,57 @@
     </section>
 
 
+    @if (auth()->check() && (auth()->user()->email == 'student@lebify.online' || !auth()->user()->hasVerifiedEmail()))
+        <div class="modal fade" id="updateEmailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="updateEmailModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content border-0 shadow">
+                    <div class="modal-header mb-5 bg-logo text-white border-0">
+                        <h5 class="modal-title text-white d-flex align-items-center align-content-center"
+                            id="updateEmailModalLabel">
+                            <i class="bi text-white fs-3 bi-envelope-fill me-2"></i>
+                            {{ __('common.update_email') }}
+                        </h5>
+                    </div>
+                    <div class="modal-body p-4">
+                        <div class="text-center mb-12">
+                            <div class="avatar-icon mb-3">
+                                <i class="bi bi-shield-lock-fill"></i>
+                            </div>
+                            <h4 class="fw-bold">{{ __('common.email_verification_required') }}</h4>
+                            <p class="text-muted">{{ __('common.update_email_to_continue') }}</p>
+                        </div>
+
+                        <form form-id="verification-form" http-request route="{{ route('verification.resend') }}"
+                            identifier="single-form-post-handler" success-toast feedback method="POST">
+                            @csrf
+                            <div class="mb-4">
+                                <label for="email-update"
+                                    class="form-label fw-semibold">{{ __('common.email') }}</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light">
+                                        <i class="bi bi-envelope"></i>
+                                    </span>
+                                    <input type="email" feedback-id="email-update-feedback" name="email-update"
+                                        class="form-control form-control-lg" id="email-update"
+                                        placeholder="{{ __('common.update_email_placeholder') }}"
+                                        value="{{ auth()->user()->email }}">
+                                    <div class="invalid-feedback" id="email-update-feedback"></div>
+                                </div>
+                                <div class="form-text">
+                                    {{ __('common.update_email_required') }}
+                                </div>
+                            </div>
+                            <button submit-form-id="verification-form" type="submit" class="btn bg-logo btn-lg w-100">
+                                {{ __('common.update_email_button') }}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
     @push('scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/TextPlugin.min.js" defer></script>
@@ -359,66 +410,15 @@
         @else
             <script src="{{ asset('js/web/landing/landing.js') }}" type="module" defer></script>
         @endif
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var updateEmailModal = new bootstrap.Modal(document.getElementById('updateEmailModal'), {
+                    backdrop: 'static',
+                    keyboard: false
+                });
+                updateEmailModal.show();
+            });
+        </script>
     @endpush
 @endsection
-
-
-
-
-
-<!--Grid column-->
-{{-- <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                            <h5 class="text-uppercase mb-4">Courses</h5>
-
-                            <ul class="list-unstyled">
-                                <li class="mb-2">
-                                    <a href="#!" class="text-white"><i class="fas fa-graduation-cap pe-3"></i>Web Development</a>
-                                </li>
-                                <li class="mb-2">
-                                    <a href="#!" class="text-white"><i class="fas fa-graduation-cap pe-3"></i>Data Science</a>
-                                </li>
-                                <li class="mb-2">
-                                    <a href="#!" class="text-white"><i class="fas fa-graduation-cap pe-3"></i>Mobile App Development</a>
-                                </li>
-                                <li class="mb-2">
-                                    <a href="#!" class="text-white"><i class="fas fa-graduation-cap pe-3"></i>Machine Learning</a>
-                                </li>
-                                <li class="mb-2">
-                                    <a href="#!" class="text-white"><i class="fas fa-graduation-cap pe-3"></i>UI/UX Design</a>
-                                </li>
-                                <li class="mb-2">
-                                    <a href="#!" class="text-white"><i class="fas fa-graduation-cap pe-3"></i>Cloud Computing</a>
-                                </li>
-                                <li class="mb-2">
-                                    <a href="#!" class="text-white"><i class="fas fa-graduation-cap pe-3"></i>Cybersecurity</a>
-                                </li>
-                            </ul>
-                        </div> --}}
-<!--Grid column-->
-
-<!--Grid column-->
-{{-- <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                            <h5 class="text-uppercase mb-4">Resources</h5>
-
-                            <ul class="list-unstyled">
-                                <li class="mb-2">
-                                    <a href="#!" class="text-white"><i class="fas fa-book pe-3"></i>Learning Paths</a>
-                                </li>
-                                <li class="mb-2">
-                                    <a href="#!" class="text-white"><i class="fas fa-book pe-3"></i>Blog</a>
-                                </li>
-                                <li class="mb-2">
-                                    <a href="#!" class="text-white"><i class="fas fa-book pe-3"></i>Tutorials</a>
-                                </li>
-                                <li class="mb-2">
-                                    <a href="#!" class="text-white"><i class="fas fa-book pe-3"></i>FAQ</a>
-                                </li>
-                                <li class="mb-2">
-                                    <a href="#!" class="text-white"><i class="fas fa-book pe-3"></i>Community Forum</a>
-                                </li>
-                                <li class="mb-2">
-                                    <a href="#!" class="text-white"><i class="fas fa-book pe-3"></i>Career Services</a>
-                                </li>
-                            </ul>
-                        </div> --}}
-<!--Grid column-->

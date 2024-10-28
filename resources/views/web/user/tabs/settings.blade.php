@@ -21,46 +21,39 @@
                 <!--begin::Input group-->
                 <div class="row mb-6">
                     <!--begin::Label-->
-                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ __('common.email') }}</label>
-                    <!--end::Label-->
+                    <div class="col-lg-12">
+                        <label
+                            class="col-lg-12 col-form-label required fw-semibold fs-6">{{ __('common.old_password') }}</label>
+                        <!--end::Label-->
 
-                    <!--begin::Col-->
-                    <div class="col-lg-8">
-                        <!--begin::Row-->
-                        <div class="row">
-                            <!--begin::Col-->
-                            <div class="col-lg-12 fv-row fv-plugins-icon-container">
-                                <input type="text" name="email" feedback-id="email-feedback"
-                                    class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                                    placeholder="{{ __('common.email') }}..." value="{{ $user->email }}">
-                                <div id="email-feedback" class="invalid-feedback"></div>
-                            </div>
-                            <!--end::Col-->
+                        <!--begin::Col-->
+                        <div class="col-lg-12 fv-row fv-plugins-icon-container">
+                            <input type="password" name="password" feedback-id="password-feedback-x"
+                                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                placeholder="{{ __('common.old_password') }}...">
+                            <div id="password-feedback-x" class="invalid-feedback"></div>
                         </div>
-                        <!--end::Row-->
+                        <!--end::Col-->
                     </div>
-                    <!--end::Col-->
-                </div>
-                <!--end::Input group-->
+                    <div class="col-lg-12 mt-3">
+                        <label
+                            class="col-lg-12 col-form-label required fw-semibold fs-6">{{ __('common.new_password') }}</label>
+                        <!--end::Label-->
 
-                <!--begin::Input group-->
-                <div class="row mb-6">
-                    <!--begin::Label-->
-                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ __('common.password') }}</label>
-                    <!--end::Label-->
-
-                    <!--begin::Col-->
-                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                        <input type="text" name="password" feedback-id="password-feedback"
-                            class="form-control form-control-lg form-control-solid"
-                            placeholder="{{ __('common.password') }}...">
-                        <div id="password-feedback" class="invalid-feedback"></div>
+                        <!--begin::Col-->
+                        <div class="col-lg-12 fv-row fv-plugins-icon-container">
+                            <input type="password" name="new-password" feedback-id="new-password-feedback-x"
+                                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                placeholder="{{ __('common.new_password') }}...">
+                            <div id="new-password-feedback-x" class="invalid-feedback"></div>
+                        </div>
+                        <!--end::Col-->
                     </div>
-                    <!--end::Col-->
                 </div>
                 <!--end::Input group-->
             </div>
             <!--end::Input group-->
+        </form>
     </div>
     <!--end::Card body-->
 
@@ -69,7 +62,6 @@
         <button type="submit" class="btn bg-logo"
             submit-form-id="settings-form">{{ __('common.save_changes') }}</button>
     </div>
-    </form>
     <!--end::Form-->
 </div>
 <!--end::Content-->

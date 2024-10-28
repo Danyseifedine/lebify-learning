@@ -19,7 +19,7 @@ Route::group([
     Route::get('/', [LandingController::class, 'index'])->name('landing');
 
     // Auth routes
-    Auth::routes();
+    Auth::routes(['verify' => true]);
 
     // Student routes
     Route::prefix('student')->name('students.')->group(function () {

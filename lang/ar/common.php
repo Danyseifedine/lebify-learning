@@ -224,4 +224,13 @@ return [
     'next_lesson' => 'درس لاحق',
     'courses_you_may_like' => 'دورات قد تعجبك',
     'visit_channel' => 'زيارة القناة',
+    'update_email' => 'تحديث البريد الإلكتروني',
+    'update_email_placeholder' => 'أدخل عنوان بريدك الإلكتروني الجديد',
+    'update_email_required' => 'يرجى إدخال عنوان بريد إلكتروني صالح يمكنك الوصول إليه.',
+    'update_email_button' => 'تحديث وتحقق من البريد الإلكتروني',
+    'email_verification_required' => 'التحقق من البريد الإلكتروني مطلوب',
+    'update_email_to_continue' => 'يرجى تحديث عنوان بريدك الإلكتروني لاستمرار استخدام منصتنا.',
+    'email_verification_sent' => 'تم إرسال التحقق من البريد الإلكتروني بنجاح',
+    'old_password' => 'كلمة المرور القديمة',
+    'new_password' => 'كلمة المرور الجديدة',
 ];

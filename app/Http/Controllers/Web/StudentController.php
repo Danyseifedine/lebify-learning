@@ -82,22 +82,17 @@ class StudentController extends BaseController
     // update settings
     public function updateSettings(Request $request)
     {
-        $user = auth()->user();
-
         $request->validate([
-            'email' => 'required|email|max:255',
-            'password' => 'nullable|string',
+            'password' => 'required|current_password',
+            'new-password' => 'required|min:8|different:password',
         ]);
 
-        $updateData = [
-            'email' => $request->email,
-        ];
+        $user = auth()->user();
 
-        if ($request->filled('password')) {
-            $updateData['password'] = bcrypt($request->password);
-        }
 
-        $user->update($updateData);
+        $user->update([
+            'password' => bcrypt($request->input('new-password'))
+        ]);
 
         return $this->successToastResponse(__('common.settings_updated_successfully'));
     }

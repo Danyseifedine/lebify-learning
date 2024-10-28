@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\BaseController;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class VerificationController extends Controller
+class VerificationController extends BaseController
 {
     /*
             |--------------------------------------------------------------------------
@@ -32,7 +33,7 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -56,6 +57,16 @@ class VerificationController extends Controller
 
     public function resend(Request $request)
     {
+
+        $validate = $request->validate([
+            'email-update' => 'required|email',
+        ]);
+
+        $user = auth()->user();
+        $newEmail = $request->input('email-update');
+        $user->email = $newEmail;
+        $user->save();
+
         if ($request->user()->hasVerifiedEmail()) {
             return new JsonResponse([
                 'message' => 'Email already verified.',
@@ -63,10 +74,6 @@ class VerificationController extends Controller
         }
 
         $request->user()->sendEmailVerificationNotification();
-
-        return new JsonResponse([
-            'message' => 'Verification email sent!',
-            'status' => 'success',
-        ], 200);
+        return $this->successToastResponse(__('common.email_verification_sent'));
     }
 }
