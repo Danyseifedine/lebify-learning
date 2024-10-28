@@ -79,7 +79,7 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
 
         // note: show:
         _SHOW_: async function (id, endpoint, onSuccess, onError) {
-            console.log("Show courses", id);
+            console.log("Show course", id);
         },
 
         changeStatus: async function (endpoint, onSuccess, onError) {
@@ -127,7 +127,7 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
             event: 'change',
             selector: '.status-toggle',
             handler: function (id, event) {
-                this.callCustomFunction('changeStatus', `${__API_CFG__.LOCAL_URL}/dashboard/courses/status/${id}`, (res) => {
+                this.callCustomFunction('changeStatus', `${__API_CFG__.LOCAL_URL}/dashboard/course/status/${id}`, (res) => {
                 }, (err) => { console.error('Error changing status', err); });
             }
         },

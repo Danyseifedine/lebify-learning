@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Instructor;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 
 class UsersController extends BaseController
@@ -83,7 +84,12 @@ class UsersController extends BaseController
             'uuid' => 'required|string',
         ]);
 
-        User::find($request->id)->update($request->all());
+        $userData = $request->all();
+        if ($request->password) {
+            $userData['password'] = Hash::make($request->password);
+        }
+
+        User::find($request->id)->update($userData);
         return response()->json(['message' => 'Users updated successfully']);
     }
 
