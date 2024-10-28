@@ -22,6 +22,7 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
     // Dashboard routes
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::post('send/email', 'sendEmail')->name('send.email');
     });
 
     // Users routes
