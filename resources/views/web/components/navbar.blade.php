@@ -72,8 +72,8 @@
                         </div>
 
                         <div class="menu-item px-3">
-                            <a href="{{ route('students.courses') }}"
-                                class="text-hover {{ request()->routeIs('students.courses') ? 'active-nav' : '' }} menu-link fs-5 text-logo-hover-color fw-bold px-3 py-2">
+                            <a href="{{ route('courses.index') }}"
+                                class="text-hover {{ request()->routeIs('courses.index') ? 'active-nav' : '' }} menu-link fs-5 text-logo-hover-color fw-bold px-3 py-2">
                                 {{ __('common.courses') }}
                             </a>
                         </div>

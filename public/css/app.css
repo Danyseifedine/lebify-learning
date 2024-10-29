@@ -587,3 +587,66 @@ background-color: rgb(26, 26, 26);
 .button:not(.collapsed)::after {
     color: #F77E15 !important;
 }
+
+
+.lessons .lesson-thumbnail {
+    min-height: 300px;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .lessons .lesson-thumbnail {
+        min-height: 200px;
+    }
+}
+
+.lessons .hover-elevate-up {
+    transition: all 0.3s ease;
+}
+
+.lessons .hover-elevate-up:hover {
+    transform: translateY(-5px);
+}
+
+.lessons .card {
+    border: none;
+}
+
+
+.lessons .lesson-thumbnail {
+    min-height: 300px;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .lessions .lesson-thumbnail {
+        min-height: 200px;
+    }
+}
+
+.lessions .modal-content {
+    border: none;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.lessions .modal-header {
+    padding: 1rem 1.5rem;
+}
+
+.lessions .modal-header .btn-close {
+    padding: 0.75rem;
+    margin: -0.375rem -0.375rem -0.375rem auto;
+}
+
+
+
+@media (min-width: 992px) {
+    .lessions .modal-lg {
+        max-width: 800px;
+    }
+}

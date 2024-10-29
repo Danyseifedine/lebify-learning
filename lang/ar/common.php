@@ -233,4 +233,10 @@ return [
     'email_verification_sent' => 'تم إرسال التحقق من البريد الإلكتروني بنجاح',
     'old_password' => 'كلمة المرور القديمة',
     'new_password' => 'كلمة المرور الجديدة',
+    'lesson' => 'درس',
+    'lessons_explain_document' => 'تقدم دروس تفصيلية متكاملة للملفات',
+    'watch_lesson' => 'عرض الدرس',
+    'download_video' => 'تحميل الفيديو',
+    'watch_on_youtube' => 'عرض على يوتيوب',
+    'no_lessons_available' => 'لا يوجد دروس متاحة',
 ];

@@ -19,7 +19,7 @@
                         <!--begin::Col-->
                         <div class="col-md-6 col-xl-4">
                             <!--begin::Card-->
-                            <a href="{{ route('students.singleCourse', $course->id) }}" class="card shadow-course-card">
+                            <a href="{{ route('courses.singleCourse', $course->id) }}" class="card shadow-course-card">
                                 <!--begin::Card header-->
                                 <div class="card-header border-0 pt-9">
                                     <!--begin::Card Title-->

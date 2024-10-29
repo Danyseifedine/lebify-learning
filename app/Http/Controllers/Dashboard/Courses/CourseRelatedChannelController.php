@@ -116,7 +116,7 @@ class CourseRelatedChannelController extends Controller
 
         return DataTables::of($courseRelatedChannels)
             ->addColumn('course_title', function ($courseRelatedChannel) {
-                return $courseRelatedChannel->course->title;
+                return $courseRelatedChannel->course->title ?? 'N/A';
             })
             ->addColumn('image', function ($courseRelatedChannel) {
                 $imageUrl = $courseRelatedChannel->getFirstMediaUrl('related_channels');

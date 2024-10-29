@@ -230,4 +230,10 @@ return [
     'email_verification_sent' => 'Vérification de l\'e-mail envoyée',
     'old_password' => 'Mot de passe actuel',
     'new_password' => 'Nouveau mot de passe',
+    'lesson' => 'Leçon',
+    'lessons_explain_document' => 'Les leçons offrent une explication complète et approfondie des documents',
+    'watch_lesson' => 'Voir la leçon',
+    'download_video' => 'Télécharger la vidéo',
+    'watch_on_youtube' => 'Voir sur YouTube',
+    'no_lessons_available' => 'Aucune leçon disponible',
 ];

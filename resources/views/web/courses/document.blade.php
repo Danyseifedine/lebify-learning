@@ -97,7 +97,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link language-button"
-                        href="{{ route('students.document', ['name' => $course, 'lang' => $lang == 'ar' ? 'en' : 'ar', 'id' => encrypt($document->id), 'order' => encrypt($document->order)]) }}">
+                        href="{{ route('courses.document', ['name' => $course, 'lang' => $lang == 'ar' ? 'en' : 'ar', 'id' => encrypt($document->id), 'order' => encrypt($document->order)]) }}">
                         {{ $lang == 'ar' ? 'اللغة' : 'Language' }}
                     </a>
                 </li>
@@ -115,7 +115,7 @@
                 @if ($prevDocument)
                     <div class="navigation-item">
                         <a class="navigation-link navigation-link-outline"
-                            href="{{ route('students.document', ['name' => $course, 'lang' => $lang, 'id' => encrypt($prevDocument->id), 'order' => encrypt($prevDocument->order)]) }}">
+                            href="{{ route('courses.document', ['name' => $course, 'lang' => $lang, 'id' => encrypt($prevDocument->id), 'order' => encrypt($prevDocument->order)]) }}">
                             <i class="fas fa-chevron-left"></i> {{ $lang == 'ar' ? 'الدرس السابق' : 'Previous Lesson' }}
                         </a>
                     </div>
@@ -123,7 +123,7 @@
                 @if ($nextDocument)
                     <div class="navigation-item">
                         <a class="navigation-link navigation-link-primary"
-                            href="{{ route('students.document', ['name' => $course, 'lang' => $lang, 'id' => encrypt($nextDocument->id), 'order' => encrypt($nextDocument->order)]) }}">
+                            href="{{ route('courses.document', ['name' => $course, 'lang' => $lang, 'id' => encrypt($nextDocument->id), 'order' => encrypt($nextDocument->order)]) }}">
                             {{ $lang == 'ar' ? 'الدرس اللاحق' : 'Next Lesson' }} <i class="fas fa-chevron-right"></i>
                         </a>
                     </div>

@@ -26,6 +26,11 @@ Route::group([
         include __DIR__ . DIRECTORY_SEPARATOR . 'students.php';
     });
 
+    // Courses routes
+    Route::prefix('courses')->name('courses.')->group(function () {
+        include __DIR__ . DIRECTORY_SEPARATOR . 'courses.php';
+    });
+
     // Logout route
     Route::middleware(['auth'])->group(function () {
         Route::get('/logout', [LoginController::class, 'logout'])->name('logout');

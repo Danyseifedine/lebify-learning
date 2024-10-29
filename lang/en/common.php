@@ -231,5 +231,11 @@ return [
     'email_verification_sent' => 'Email verification sent',
     'old_password' => 'Old Password',
     'new_password' => 'New Password',
+    'lesson' => 'Lesson',
+    'lessons_explain_document' => 'Lessons offer a comprehensive and in-depth analysis of the documents',
+    'watch_lesson' => 'Watch Lesson',
+    'download_video' => 'Download Video',
+    'watch_on_youtube' => 'Watch on YouTube',
+    'no_lessons_available' => 'No lessons available',
 ];
 

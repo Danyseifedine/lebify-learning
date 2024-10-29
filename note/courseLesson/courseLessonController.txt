@@ -1,0 +1,117 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\CourseLesson;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class CourseLessonController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        return view('dashboard.pages.courselesson', compact('user'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'course_id' => 'required|string',
+            'title' => 'required|string',
+            'video_url' => 'required|string',
+        ]);
+
+        CourseLesson::create($request->all());
+        return response()->json(['message' => 'CourseLesson created successfully']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'course_id' => 'required|string',
+            'title' => 'required|string',
+            'video_url' => 'required|string',
+        ]);
+
+        CourseLesson::update($request->all());
+        return response()->json(['message' => 'CourseLesson updated successfully']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $courselesson = CourseLesson::find($id);
+        $courselesson->delete();
+        return response()->json(['message' => 'CourseLesson deleted successfully']);
+    }
+
+    public function datatable(Request $request)
+    {
+        $search = request()->get('search');
+        $value = isset($search['value']) ? $search['value'] : null;
+
+        $courselessons = CourseLesson::select('id',
+'course_id', 'title', 'video_url', 'created_at')
+            ->when($value, function ($query) use ($value) {
+                return $query->where(function ($query) use ($value) {
+                    $query->where('course_id', 'like', '%' . $value . '%')
+                        ->orWhere('title', 'like', '%' . $value . '%')
+                        ->orWhere('video_url', 'like', '%' . $value . '%')
+                });
+            });
+
+        return DataTables::of($courselessons->get())
+            ->editColumn('created_at', function ($courselesson) {
+                return $courselesson->created_at->diffForHumans();
+            })->make(true);
+    }
+}
+
+        public function get CourseLesson(string $id)
+{
+    $CourseLesson = CourseLesson::find($id);
+    return response()->json($CourseLesson);
+}
+
+Route::controller(CourseLessonController::class)->group(function () {
+    Route::get('courselesson/datatable', 'datatable')->name('courselesson.datatable');
+    Route::get('courselesson/get/{id}', 'get{$modelName}')->name('courselesson.get');
+    Route::post('courselesson/edit', 'update')->name('courselesson.edit');
+    Route::resource('courselesson', CourseLessonController::class);
+});

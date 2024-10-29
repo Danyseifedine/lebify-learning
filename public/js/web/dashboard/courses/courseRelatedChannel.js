@@ -33,7 +33,7 @@ const courseRelatedChannelDataTable = new $DatatableController('courseRelatedCha
 
     columns: [
         { data: 'id' },
-        { data: 'course_id' },
+        { data: 'course_title' },
         { data: 'channel_name' },
         { data: 'url' },
         { data: 'image' },

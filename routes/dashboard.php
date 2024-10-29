@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Dashboard\Courses\CourseDocumentsController;
+use App\Http\Controllers\Dashboard\Courses\CourseLessonsController;
 use App\Http\Controllers\Dashboard\Courses\CourseRelatedChannelController;
 use App\Http\Controllers\Dashboard\Courses\CoursesController;
 use App\Http\Controllers\Dashboard\DashboardController;
@@ -90,6 +91,18 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('get/{id}', 'getCourseRelatedChannel')->name('get');
             Route::post('edit', 'update')->name('edit');
             Route::delete('delete/{id}', 'destroy')->name('delete');
+        });
+    });
+
+    Route::controller(CourseLessonsController::class)->group(function () {
+        Route::prefix('course/lessons')->name('course.lessons.')->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::post('store', 'store')->name('store');
+            Route::put('status/{id}', 'changeStatus')->name('status');
+            Route::delete('delete/{id}', 'destroy')->name('delete');
+            Route::get('datatable', 'datatable')->name('datatable');
+            Route::get('get/{id}', 'getCourseLesson')->name('get');
+            Route::post('edit', 'update')->name('edit');
         });
     });
 });

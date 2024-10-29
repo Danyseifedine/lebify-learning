@@ -97,6 +97,8 @@
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
+
+                    {{-- USERS --}}
                     <div data-kt-menu-trigger="click"
                         class="menu-item {{ request()->routeIs('dashboard.users.*') ? 'show' : '' }} menu-accordion">
                         <!--begin:Menu link-->
@@ -140,6 +142,8 @@
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
+
+                    {{-- INSTRUCTORS --}}
                     <div data-kt-menu-trigger="click"
                         class="menu-item {{ request()->routeIs('dashboard.instructors.*') ? 'show' : '' }} menu-accordion">
                         <!--begin:Menu link-->
@@ -171,6 +175,8 @@
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
+
+                    {{-- COURSES --}}
                     <div data-kt-menu-trigger="click"
                         class="menu-item {{ request()->routeIs('dashboard.course.*') ? 'show' : '' }} menu-accordion">
                         <!--begin:Menu link-->
@@ -185,6 +191,8 @@
                         <!--begin:Menu sub-->
                         <div class="menu-sub menu-sub-accordion">
                             <!--begin:Menu item-->
+
+                            {{-- COURSES OVERVIEW --}}
                             <div class="menu-item">
                                 <!--begin:Menu link-->
                                 <a class="menu-link {{ request()->routeIs('dashboard.course.index') ? 'active' : '' }}"
@@ -197,6 +205,8 @@
                                 <!--end:Menu link-->
                             </div>
                             <!--end:Menu item-->
+
+                            {{-- COURSES DOCUMENTS --}}
                             <div class="menu-item">
                                 <!--begin:Menu link-->
                                 <a class="menu-link {{ request()->routeIs('dashboard.course.documents.*') ? 'active' : '' }}"
@@ -207,6 +217,9 @@
                                     <span class="menu-title">Course Documents</span>
                                 </a>
                             </div>
+                            <!--end:Menu item-->
+
+                            {{-- COURSES RELATED CHANNELS --}}
                             <div class="menu-item">
                                 <!--begin:Menu link-->
                                 <a class="menu-link {{ request()->routeIs('dashboard.course.related.channels.*') ? 'active' : '' }}"
@@ -217,11 +230,27 @@
                                     <span class="menu-title">Course Related Channels</span>
                                 </a>
                             </div>
+                            <!--end:Menu item-->
+
+                            {{-- COURSES LESSONS --}}
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ request()->routeIs('dashboard.course.lessons.*') ? 'active' : '' }}"
+                                    href="{{ route('dashboard.course.lessons.index') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Course Lessons</span>
+                                </a>
+                            </div>
+                            <!--end:Menu item-->
                         </div>
                         <!--end:Menu sub-->
                     </div>
                     <!--end:Menu item-->
                     <!--begin:Menu item-->
+
+                    {{-- PRIVILEGES --}}
                     <div data-kt-menu-trigger="click"
                         class="menu-item {{ request()->routeIs('dashboard.privileges.*') ? 'show' : '' }} menu-accordion">
                         <!--begin:Menu link-->
