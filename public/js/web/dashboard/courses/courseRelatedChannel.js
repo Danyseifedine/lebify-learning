@@ -144,7 +144,7 @@ const courseRelatedChannelDataTable = new $DatatableController('courseRelatedCha
                     id,
                     `${__API_CFG__.LOCAL_URL}/dashboard/course/related/channels/get`,
                     (res) => {
-                        console.log('res: ', res);
+                        // console.log('res: ', res);
                     },
                     (err) => { console.error('Error editing courseRelatedChannel', err); },
                 );

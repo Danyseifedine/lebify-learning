@@ -1,13 +1,25 @@
-// JS for datatable
-import { HttpRequest } from '../../../common/base/api/request.js';
-import { __API_CFG__ } from '../../../common/base/config/config.js'
-import { SweetAlert } from '../../../common/base/messages/sweetAlert.js';
-import { Toast } from '../../../common/base/messages/toast.js';
-import { FunctionUtility } from '../../../common/base/utils/utils.js';
-import { $SingleFormPostController, $DatatableController, $ModalFormFetchController } from '../../../common/core/controllers.js'
+import {
+    HttpRequest
+} from '../../../common/base/api/request.js';
+import {
+    __API_CFG__
+} from '../../../common/base/config/config.js'
+import {
+    SweetAlert
+} from '../../../common/base/messages/sweetAlert.js';
+import {
+    Toast
+} from '../../../common/base/messages/toast.js';
+import {
+    FunctionUtility
+} from '../../../common/base/utils/utils.js';
+import {
+    $SingleFormPostController,
+    $DatatableController,
+    $ModalFormFetchController
+} from '../../../common/core/controllers.js'
 
-
-const coursesDataTable = new $DatatableController('courses-datatable', {
+const courseExtentionDataTable = new $DatatableController('courseExtention-datatable', {
 
     lengthMenu: [[5, 10, 20, 50, -1], [5, 10, 20, 50, 'All']],
 
@@ -23,7 +35,7 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
     },
 
     ajax: {
-        url: `${__API_CFG__.LOCAL_URL}/dashboard/course/datatable`,
+        url: `${__API_CFG__.LOCAL_URL}/dashboard/course/extentions/datatable`,
         data: (d) => ({
             ...d,
             // note: add your data here such as fiter option
@@ -34,25 +46,25 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
 
     columns: [
         { data: 'id' },
-        { data: 'image', name: 'image' },
-        { data: 'title' },
-        { data: 'instructor_name' },
+        { data: 'course_title' },
+        { data: 'name' },
+        { data: 'marketplace_url' },
         { data: 'is_published' },
-        { data: 'duration' },
         { data: null },
     ],
 
     columnDefs: $DatatableController.generateColumnDefs([
         { targets: [0], htmlType: 'selectCheckbox' },
-        // note: add your columnDef here
-        // example: { targets: [1], htmlType: 'badge', badgeClass: 'badge-light-danger' },
         {
             targets: [4],
-            htmlType: 'toggle', dataClassName: 'status-toggle',
+            htmlType: 'toggle',
+            dataClassName: 'status-toggle',
             checkWhen: (data, type, row) => {
+                // console.log(data);
                 return data == true;
             },
             uncheckWhen: (data, type, row) => {
+                // console.log(data);
                 return data == false;
             }
         },
@@ -77,11 +89,6 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
             }
         },
 
-        // note: show:
-        _SHOW_: async function (id, endpoint, onSuccess, onError) {
-            console.log("Show course", id);
-        },
-
         changeStatus: async function (endpoint, onSuccess, onError) {
             try {
                 const response = await
@@ -92,12 +99,17 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
             }
         },
 
+        // note: show:
+        _SHOW_: async function (id, endpoint, onSuccess, onError) {
+            console.log("Show courseExtention", id);
+        },
+
         // note: edit:
         _EDIT_WITH_MODAL_: async function (id, endpoint, onSuccess, onError) {
             const modalHandler = new $ModalFormFetchController({
                 modalId: 'edit-modal',
                 endpoint: `${endpoint}`,
-                formId: '#edit-courses-form',
+                formId: '#edit-courseExtention-form',
                 // quillSelector: '#edit_content',
                 onSuccess: (data) => {
                     onSuccess(data);
@@ -127,18 +139,21 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
             event: 'change',
             selector: '.status-toggle',
             handler: function (id, event) {
-                this.callCustomFunction('changeStatus', `${__API_CFG__.LOCAL_URL}/dashboard/course/status/${id}`, (res) => {
-                }, (err) => { console.error('Error changing status', err); });
+                // console.log(id)
+                this.callCustomFunction('changeStatus', `${__API_CFG__.LOCAL_URL}/dashboard/course/extentions/status/${id}`, (res) => {
+                    // console.log(res);
+                }, (err) => {
+                    console.error('Error changing status', err);
+                });
             }
         },
-
         {
             event: 'click',
             selector: '.delete-btn',
             handler: function (id, event) {
                 this.callCustomFunction(
                     '_DELETE_WITH_ALERT_',
-                    `${__API_CFG__.LOCAL_URL}/dashboard/course/${id}`,
+                    `${__API_CFG__.LOCAL_URL}/dashboard/course/extentions/delete/${id}`,
                     (res) => {
                         if (res.risk) {
                             SweetAlert.error();
@@ -147,7 +162,7 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
                             this.reload();
                         }
                     },
-                    (err) => { console.error('Error deleting courses', err); }
+                    (err) => { console.error('Error deleting courseExtention', err); }
                 );
             }
         },
@@ -164,11 +179,11 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
             handler: function (id, event) {
                 this.callCustomFunction('_EDIT_WITH_MODAL_',
                     id,
-                    `${__API_CFG__.LOCAL_URL}/dashboard/course/get`,
+                    `${__API_CFG__.LOCAL_URL}/dashboard/course/extentions/get`,
                     (res) => {
                         // console.log('res: ', res);
                     },
-                    (err) => { console.error('Error editing courses', err); },
+                    (err) => { console.error('Error editing courseExtention', err); },
                 );
             }
         }
@@ -176,50 +191,50 @@ const coursesDataTable = new $DatatableController('courses-datatable', {
 
 });
 
-function createCourses() {
+function createCourseExtention() {
     FunctionUtility.closeModalWithButton('create-modal', '.close-modal', () => {
-        FunctionUtility.clearForm('#create-courses-form');
+        FunctionUtility.clearForm('#create-courseExtention-form');
     });
 
-    const createCoursesConfig = {
-        formSelector: '#create-courses-form',
-        externalButtonSelector: '#create-courses-button',
-        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/course/store`,
+    const createCourseExtentionConfig = {
+        formSelector: '#create-courseExtention-form',
+        externalButtonSelector: '#create-courseExtention-button',
+        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/course/extentions/store`,
         feedback: true,
         onSuccess: (res) => {
             Toast.showNotificationToast('', res.message)
             FunctionUtility.closeModal('create-modal', () => {
-                FunctionUtility.clearForm('#create-courses-form');
+                FunctionUtility.clearForm('#create-courseExtention-form');
             });
-            coursesDataTable.reload();
+            courseExtentionDataTable.reload();
         },
-        onError: (err) => { console.error('Error adding courses', err); },
+        onError: (err) => { console.error('Error adding courseExtention', err); },
     };
 
-    const form = new $SingleFormPostController(createCoursesConfig);
+    const form = new $SingleFormPostController(createCourseExtentionConfig);
     form.init();
 }
-createCourses();
+createCourseExtention();
 
-const editCourses = () => {
+const editCourseExtention = () => {
     FunctionUtility.closeModalWithButton('edit-modal', '.close-modal');
 
-    const editCoursesConfig = {
-        formSelector: '#edit-courses-form',
-        externalButtonSelector: '#edit-courses-button',
-        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/course/edit`,
+    const editCourseExtentionConfig = {
+        formSelector: '#edit-courseExtention-form',
+        externalButtonSelector: '#edit-courseExtention-button',
+        endpoint: `${__API_CFG__.LOCAL_URL}/dashboard/course/extentions/edit`,
         feedback: true,
         onSuccess: (res) => {
             Toast.showNotificationToast('', res.message)
             FunctionUtility.closeModal('edit-modal', () => {
-                FunctionUtility.clearForm('#edit-courses-form');
+                FunctionUtility.clearForm('#edit-courseExtention-form');
             });
-            coursesDataTable.reload();
+            courseExtentionDataTable.reload();
         },
-        onError: (err) => { console.error('Error editing courses', err); },
+        onError: (err) => { console.error('Error editing courseExtention', err); },
     };
 
-    const form = new $SingleFormPostController(editCoursesConfig);
+    const form = new $SingleFormPostController(editCourseExtentionConfig);
     form.init();
 }
-editCourses();
+editCourseExtention();

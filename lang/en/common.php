@@ -237,5 +237,16 @@ return [
     'download_video' => 'Download Video',
     'watch_on_youtube' => 'Watch on YouTube',
     'no_lessons_available' => 'No lessons available',
+    'no_extensions_available' => 'No extensions available',
+    'extension' => 'VSCode Extensions',
+    'extension_description' => 'Enhance your coding experience with these recommended VSCode extensions. These tools will help you write better code, catch errors early, and improve your productivity.',
+    'install_extension' => 'Install Extension',
+    'no_extensions_available' => 'No extensions available for this course yet.',
+    'more_info' => 'More Info',
+    'install_extension' => 'Install Extension',
+    'extension_modal_title' => 'Extension Information',
+    'extension_modal_close' => 'Close',
+    'description' => 'Description',
+    'no_related_channels_available' => 'No related channels available',
+    'visit_marketplace' => 'Visit Marketplace',
 ];
-

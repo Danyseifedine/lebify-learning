@@ -244,6 +244,30 @@
                                 </a>
                             </div>
                             <!--end:Menu item-->
+
+                            {{-- COURSES RESOURCES --}}
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ request()->routeIs('dashboard.course.resources.*') ? 'active' : '' }}"
+                                    href="{{ route('dashboard.course.resources.index') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Course Resources</span>
+                                </a>
+                            </div>
+
+                            {{-- COURSES EXTENTIONS --}}
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                <a class="menu-link {{ request()->routeIs('dashboard.course.extentions.*') ? 'active' : '' }}"
+                                    href="{{ route('dashboard.course.extentions.index') }}">
+                                    <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                    <span class="menu-title">Course Extentions</span>
+                                </a>
+                            </div>
                         </div>
                         <!--end:Menu sub-->
                     </div>

@@ -205,6 +205,10 @@
     color: white !important;
 }
 
+.color-logo{
+    color: #F77E15 !important;
+}
+
 .bg-logo:hover {
     background-color: #cc6d00 !important;
     color: white !important;
@@ -641,6 +645,18 @@ background-color: rgb(26, 26, 26);
 .lessions .modal-header .btn-close {
     padding: 0.75rem;
     margin: -0.375rem -0.375rem -0.375rem auto;
+}
+
+.tooltip {
+    --bs-tooltip-max-width: 300px;
+}
+
+.tooltip .tooltip-inner {
+    max-width: 300px;
+    text-align: left;
+    padding: 20px;
+    font-size: 1rem;
+    line-height: 2;
 }
 
 

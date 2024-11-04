@@ -71,4 +71,14 @@ class Course extends Model implements HasMedia
     {
         return $this->hasMany(CourseLesson::class);
     }
+
+    public function resources()
+    {
+        return $this->hasMany(CourseResource::class);
+    }
+
+    public function extensions()
+    {
+        return $this->hasMany(CourseExtention::class);
+    }
 }

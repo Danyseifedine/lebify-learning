@@ -1,0 +1,20 @@
+Datatable: courseResource
+Created at: 2024-11-03 18:23:00
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- course
+- title_en
+- url
+
+JS File: public/js/web/dashboard/courses/courseResource.js
+View File: resources/views/dashboard/pages/courses/courseResource.blade.php

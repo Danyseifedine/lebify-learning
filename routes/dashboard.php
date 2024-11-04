@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Dashboard\Courses\CourseDocumentsController;
+use App\Http\Controllers\Dashboard\Courses\CourseExtentionController;
 use App\Http\Controllers\Dashboard\Courses\CourseLessonsController;
 use App\Http\Controllers\Dashboard\Courses\CourseRelatedChannelController;
+use App\Http\Controllers\Dashboard\Courses\CourseResourceController;
 use App\Http\Controllers\Dashboard\Courses\CoursesController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\InstructorsController;
@@ -103,6 +105,30 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('datatable', 'datatable')->name('datatable');
             Route::get('get/{id}', 'getCourseLesson')->name('get');
             Route::post('edit', 'update')->name('edit');
+        });
+    });
+
+    Route::controller(CourseResourceController::class)->group(function () {
+        Route::prefix('course/resources')->name('course.resources.')->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::post('store', 'store')->name('store');
+            Route::get('datatable', 'datatable')->name('datatable');
+            Route::get('get/{id}', 'getCourseResource')->name('get');
+            Route::post('edit', 'update')->name('edit');
+            Route::delete('delete/{id}', 'destroy')->name('delete');
+            Route::put('status/{id}', 'changeStatus')->name('status');
+        });
+    });
+
+    Route::controller(CourseExtentionController::class)->group(function () {
+        Route::prefix('course/extentions')->name('course.extentions.')->group(function () {
+            Route::get('', 'index')->name('index');
+            Route::post('store', 'store')->name('store');
+            Route::get('datatable', 'datatable')->name('datatable');
+            Route::get('get/{id}', 'getCourseExtention')->name('get');
+            Route::put('status/{id}', 'changeStatus')->name('status');
+            Route::post('edit', 'update')->name('edit');
+            Route::delete('delete/{id}', 'destroy')->name('delete');
         });
     });
 });

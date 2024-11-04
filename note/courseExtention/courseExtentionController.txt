@@ -1,0 +1,120 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\CourseExtention;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class CourseExtentionController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        return view('dashboard.pages.courseextention', compact('user'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'course_id' => 'required|string',
+            'name' => 'required|string',
+            'marketplace_url' => 'required|string',
+            'is_published' => 'required|string',
+        ]);
+
+        CourseExtention::create($request->all());
+        return response()->json(['message' => 'CourseExtention created successfully']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'course_id' => 'required|string',
+            'name' => 'required|string',
+            'marketplace_url' => 'required|string',
+            'is_published' => 'required|string',
+        ]);
+
+        CourseExtention::update($request->all());
+        return response()->json(['message' => 'CourseExtention updated successfully']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $courseextention = CourseExtention::find($id);
+        $courseextention->delete();
+        return response()->json(['message' => 'CourseExtention deleted successfully']);
+    }
+
+    public function datatable(Request $request)
+    {
+        $search = request()->get('search');
+        $value = isset($search['value']) ? $search['value'] : null;
+
+        $courseextentions = CourseExtention::select('id',
+'course_id', 'name', 'marketplace_url', 'is_published', 'created_at')
+            ->when($value, function ($query) use ($value) {
+                return $query->where(function ($query) use ($value) {
+                    $query->where('course_id', 'like', '%' . $value . '%')
+                        ->orWhere('name', 'like', '%' . $value . '%')
+                        ->orWhere('marketplace_url', 'like', '%' . $value . '%')
+                        ->orWhere('is_published', 'like', '%' . $value . '%')
+                });
+            });
+
+        return DataTables::of($courseextentions->get())
+            ->editColumn('created_at', function ($courseextention) {
+                return $courseextention->created_at->diffForHumans();
+            })->make(true);
+    }
+}
+
+        public function get CourseExtention(string $id)
+{
+    $CourseExtention = CourseExtention::find($id);
+    return response()->json($CourseExtention);
+}
+
+Route::controller(CourseExtentionController::class)->group(function () {
+    Route::get('courseextention/datatable', 'datatable')->name('courseextention.datatable');
+    Route::get('courseextention/get/{id}', 'get{$modelName}')->name('courseextention.get');
+    Route::post('courseextention/edit', 'update')->name('courseextention.edit');
+    Route::resource('courseextention', CourseExtentionController::class);
+});

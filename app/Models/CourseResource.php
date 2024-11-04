@@ -8,4 +8,30 @@ use Illuminate\Database\Eloquent\Model;
 class CourseResource extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'course_id',
+        'title_en',
+        'title_ar',
+        'description_en',
+        'description_ar',
+        'url',
+        'is_published',
+    ];
+
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
+
+    public function getTitle()
+    {
+        return app()->getLocale() == 'ar' ? $this->title_ar : $this->title_en;
+    }
+
+    public function getDescription()
+    {
+        return app()->getLocale() == 'ar' ? $this->description_ar : $this->description_en;
+    }
 }

@@ -15,7 +15,7 @@
         <div class="container app-bg py-5">
             <div class="row g-6 g-xl-9">
                 @foreach ($courses as $course)
-                    @if ($course->is_published || Auth::user()->hasRole('admin'))
+                    @if ($course->is_published || $role == 'admin')
                         <!--begin::Col-->
                         <div class="col-md-6 col-xl-4">
                             <!--begin::Card-->

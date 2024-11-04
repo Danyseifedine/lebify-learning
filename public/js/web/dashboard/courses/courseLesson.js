@@ -85,11 +85,11 @@ const courseLessonDataTable = new $DatatableController('courseLesson-datatable',
         htmlType: 'toggle',
         dataClassName: 'status-toggle',
         checkWhen: (data, type, row) => {
-            console.log(data);
+            // console.log(data);
             return data == true;
         },
         uncheckWhen: (data, type, row) => {
-            console.log(data);
+            // console.log(data);
             return data == false;
         }
     },
@@ -172,9 +172,9 @@ const courseLessonDataTable = new $DatatableController('courseLesson-datatable',
         event: 'change',
         selector: '.status-toggle',
         handler: function (id, event) {
-            console.log(id)
+            // console.log(id)
             this.callCustomFunction('changeStatus', `${__API_CFG__.LOCAL_URL}/dashboard/course/lessons/status/${id}`, (res) => {
-                console.log(res);
+                // console.log(res);
             }, (err) => {
                 console.error('Error changing status', err);
             });
@@ -217,7 +217,7 @@ const courseLessonDataTable = new $DatatableController('courseLesson-datatable',
                 id,
                 `${__API_CFG__.LOCAL_URL}/dashboard/course/lessons/get`,
                 (res) => {
-                    console.log('res: ', res);
+                    // console.log('res: ', res);
                 },
                 (err) => {
                     console.error('Error editing courseLesson', err);

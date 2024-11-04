@@ -239,4 +239,12 @@ return [
     'download_video' => 'تحميل الفيديو',
     'watch_on_youtube' => 'عرض على يوتيوب',
     'no_lessons_available' => 'لا يوجد دروس متاحة',
+    'no_extensions_available' => 'لا يوجد توسيعات متاحة',
+    'more_info' => 'المزيد من المعلومات',
+    'extension' => 'توسيعات VSCode',
+    'extension_description' => 'قم بتحسين تجربتك التطويرية مع هذه التوسيعات الموصى بها لـ VSCode. ستساعدك هذه الأدوات على كتابة رمز أفضل، التعرف على الأخطاء في وقت مبكر، وتحسين إنتاجيتك.',
+    'install_extension' => 'تثبيت التوسيع',
+    'description' => 'الوصف',
+    'no_related_channels_available' => 'لا يوجد قنوات مرتبطة',
+    'visit_marketplace' => 'زيارة المتجر',
 ];

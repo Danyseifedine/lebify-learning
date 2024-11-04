@@ -15,24 +15,35 @@ class CoursesController extends Controller
         $user = auth()->user();
         $role = $user->roles->first()->name;
         $courses = Course::with('media')->get();
-        return view('web.courses.courses', compact('courses', 'role'));
+        return view('web.courses.courses', compact('courses', 'user', 'role'));
     }
 
     // single course
     public function singleCourse($id)
     {
-        $user = auth()->user();
-        $role = $user->roles->first()->name;
-        $course = Course::with('media')->find($id);
-        $lessons = $course->lessons;
+        $course = Course::with(['media', 'lessons', 'resources', 'documents'])
+            ->findOrFail($id);
+
+        $role = auth()->user()->roles->first()->name;
+
         $relatedChannels = $course->getRelatedChannels()->get();
+        $course->increment('views');
 
-        $course->views += 1;
-        $course->save();
+        $lessons = $course->lessons;
+        $resources = $course->resources;
         $documents = $course->documents;
+        $extensions = $course->extensions;
 
-        // dd($documents);
-        return view('web.courses.singleCourse', compact('course', 'role', 'documents', 'relatedChannels', 'lessons'));
+
+        return view('web.courses.singleCourse', compact(
+            'course',
+            'role',
+            'documents',
+            'relatedChannels',
+            'lessons',
+            'resources',
+            'extensions'
+        ));
     }
 
     // document
