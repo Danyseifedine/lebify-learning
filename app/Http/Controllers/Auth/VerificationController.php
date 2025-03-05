@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\BaseController;
-use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -22,6 +21,14 @@ class VerificationController extends BaseController
             */
 
     use VerifiesEmails;
+
+    public function show(Request $request)
+    {
+        $role = auth()->user()->roles->first()->name;
+        return $request->user()->hasVerifiedEmail()
+            ? redirect($this->redirectPath())
+            : view('auth.verify', compact('role'));
+    }
 
     public function showVerificationForm()
     {

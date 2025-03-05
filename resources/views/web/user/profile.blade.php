@@ -3,7 +3,7 @@
 @section('title', 'Profile')
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/profile.css', true) }}">
+    <link rel="stylesheet" href="{{ asset('css/web/profile.css', true) }}">
 @endpush
 
 @section('content')
@@ -282,22 +282,25 @@
                 <!--end::Details-->
                 <!--begin::Navs-->
                 <ul identifier="tab-handler" tab-group-id="tab-group-id" tab-route="{{ route('students.profile.tabs') }}"
-                    tab-list tab-url="true" on-loading="handleTabLoading"
-                    class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent pt-12 fs-5 fw-bold">
+                    tab-list tab-url="true" on-loading="handleTabLoading" on-success="handleTabSuccess"
+                    class="nav nav-stretch mt-5 nav-line-tabs nav-line-tabs-2x border-transparent pt-12 fs-5 fw-bold">
                     <!--begin::Nav item-->
-                    <li tab-id="overview" cache-tab="false" tab-initial="true" class="nav-item tab-item mt-2">
+                    <li tab-id="overview" cache-tab="false" tab-initial="true" class="nav-item tab-item mx-5 mt-2">
                         {{ __('common.overview') }}
                     </li>
                     <!--end::Nav item-->
                     <!--begin::Nav item-->
-                    <li tab-id="settings" cache-tab="false" class="nav-item tab-item mx-5 mt-2">
+                    <li tab-id="settings" cache-tab="true" class="nav-item tab-item mx-5 mt-2">
                         {{ __('common.settings') }}
                     </li>
                     <!--end::Nav item-->
+                    <li tab-id="quizzes" cache-tab="true" class="nav-item tab-item mx-5 mt-2">
+                        {{ __('common.quizzes') }}
+                    </li>
                     <!--begin::Nav item-->
-                    {{-- <li tab-id="deactivate" class="nav-item tab-item mx-5 mt-2">
-                        {{ __('common.deactivate') }}
-                    </li> --}}
+                    <li tab-id="preferences" class="nav-item tab-item mx-5 mt-2">
+                        {{ __('common.preferences') }}
+                    </li>
                     <!--end::Nav item-->
                 </ul>
                 <!--begin::Navs-->
@@ -312,17 +315,21 @@
     <script>
         window.handleTabLoading = function(isLoading, tabId, tabContent) {
             if (isLoading) {
-                tabContent.innerHTML = `
+                if (tabId === 'quizzes') {
+                    tabContent.innerHTML = `
+
+                    `;
+                } else {
+                    tabContent.innerHTML = `
                     <div class="container card d-flex justify-content-center align-items-center" style="height: 300px;">
                         <div class="spinner-border" role="status" style="width: 3rem; height: 3rem;">
                             <span class="visually-hidden">Loading...</span>
                         </div>
                     </div>
                 `;
+                }
             }
         }
     </script>
+    <script src="{{ asset('js/web/profile/profile.js') }}" type="module"></script>
 @endpush
-
-
-

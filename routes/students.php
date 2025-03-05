@@ -1,6 +1,5 @@
 
 
-
 <?php
 
 use App\Http\Controllers\Web\StudentController;
@@ -11,7 +10,6 @@ Route::post('/student/login', [StudentController::class, 'login'])->name('login'
 // feedback routes
 Route::post('/student/feedback', [StudentController::class, 'feedback'])->name('feedback');
 
-
 Route::middleware(['auth', 'verified', 'role:student|admin'])->controller(StudentController::class)->group(function () {
 
     // profile routes
@@ -20,6 +18,8 @@ Route::middleware(['auth', 'verified', 'role:student|admin'])->controller(Studen
     Route::get('/profile/tabs', 'profileTabs')->name('profile.tabs');
     // profile settings routes
     Route::post('/profile/settings/update', 'updateSettings')->name('profile.settings.update');
+    // profile quizzes routes
+    Route::get('/profile/quizzes', 'getProfileQuizzes')->name('profile.quizzes');
 
     // all courses routes
     Route::get('/courses', 'courses')->name('courses');
@@ -27,4 +27,7 @@ Route::middleware(['auth', 'verified', 'role:student|admin'])->controller(Studen
     Route::get('/courses/{id}', 'singleCourse')->name('singleCourse');
     // documents routes
     Route::get('/courses/document/{name}/{lang}/{id}/{order}', 'document')->name('document');
+
+    // coin wallet routes
+    Route::get('/create-wallet', 'createWallet')->name('createWallet');
 });

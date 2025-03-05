@@ -51,14 +51,13 @@ class LoginController extends BaseController
 
     protected function authenticated()
     {
-        $redirectToWithQuery = $this->redirectTo . '?success=1';
-        return response()->json(['redirect' => $redirectToWithQuery]);
+        return $this->successRedirectResponse("/dashboard");
     }
 
     public function logout()
     {
         Auth::logout();
 
-        return $this->successToastResponse(__('common.logout_successful'));
+        return $this->successRedirectResponse("/login");
     }
 }

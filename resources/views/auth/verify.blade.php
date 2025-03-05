@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('web.layouts.main')
 
 @section('title', 'Verification')
 
@@ -25,14 +25,14 @@
                             </div>
                             <!--end::Sign Up link=-->
                         </div>
-                        <!--end::Header-->
                         <!--begin::Body-->
                         <div class="text-center fs-2 fw-bold py-20">
-                            <img src="{{ asset('vendor/img/logo/logo-icon.png') }}" width="70" alt=""
+                            <img src="{{ asset('core/vendor/img/logo/logo-icon.png') }}" width="70" alt=""
                                 style="animation: spin 2s linear infinite;">
                         </div>
                         <!--begin::Form-->
-                        <form class="py-20" id="verify-form" method="POST" action="{{ route('verification.resend') }}">
+                        <form form-id="verify" feedback route="{{ route('verification.resend') }}"
+                            identifier="single-form-post-handler" class="py-20" http-request success-toast>
                             @csrf
 
                             <!--begin::Heading-->
@@ -53,8 +53,8 @@
                             <div class="d-flex flex-stack">
                                 <!--begin::Link-->
                                 <button class="btn bg-logo d-flex align-items-center justify-content-center gap-2"
-                                    loading="{{ __('common.sending') }}" with-spinner="true" type="submit">
-                                    <span class="ld-span">{{ __('auth.send_verification_email') }}</span>
+                                    loading-text="{{ __('common.sending') }}" submit-form-id="verify" type="submit">
+                                    {{ __('auth.send_verification_email') }}
                                 </button>
                                 <!--end::Link-->
                             </div>
@@ -63,9 +63,6 @@
                         <!--end::Form-->
                     </div>
                     <!--end::Body-->
-                    <!--begin::Footer-->
-                    @include('auth.components.footer')
-                    <!--end::Footer-->
                 </div>
                 <!--end::Wrapper-->
             </div>
@@ -74,7 +71,4 @@
         </div>
         <!--end::Authentication - Sign-in-->
     </div>
-    @push('scripts')
-        <script src="{{ asset('js/auth/verify.js') }}" type="module"></script>
-    @endpush
 @endsection

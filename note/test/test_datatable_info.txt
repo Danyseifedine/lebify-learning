@@ -1,0 +1,19 @@
+Datatable: test
+Created at: 2024-11-13 14:25:13
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- name
+- age
+
+JS File: public/js/web/dashboard/quizzes/test.js
+View File: resources/views/dashboard/pages/quizzes/test.blade.php

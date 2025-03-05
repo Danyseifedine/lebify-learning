@@ -1,17 +1,353 @@
-
-footer{
-    padding-right: 0 !important;
-    padding-left: 0 !important;
-
+/* Update the scroll behavior */
+html {
+    scroll-behavior: smooth;
 }
 
-[data-bs-theme="dark"] .footer-bg{
-        background-color: #121212;
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+.footer-container {
+    margin-top: 100px !important;
+    background-image: url('/vendor/img/landing/footer.svg');
+    background-size: cover;
+    background-position: center;
 }
 
-[data-bs-theme="light"] .footer-bg {
-    background-color: rgba(229, 229, 229, 0.759);
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+/* Modern Footer Styles */
+.modern-footer {
+    position: relative;
+    padding: 60px 0;
+    margin-top: 120px !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.footer-content {
+    position: relative;
+}
+
+/* Footer Sections */
+.footer-section {
+    margin-bottom: 2rem;
+}
+
+.footer-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--bs-heading-color);
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+}
+
+.contact-person {
+    margin-top: 1rem;
+}
+
+.contact-person h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--bs-heading-color);
+    margin-bottom: 0.5rem;
+}
+
+.contact-person p {
+    font-size: 0.9rem;
+    color: var(--bs-body-color);
+    margin-bottom: 0.25rem;
+}
+
+.contact-id {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+/* Footer Links Section */
+.footer-subtitle {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-links a {
+    color: var(--bs-body-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #F77E15;
+}
+
+/* Dark Mode Adjustments */
+[data-bs-theme="dark"] .modern-footer {
+    border-color: rgba(255, 111, 0, 0.1);
+}
+
+[data-bs-theme="dark"] .footer-title,
+[data-bs-theme="dark"] .footer-subtitle {
+    color: #999;
+}
+
+[data-bs-theme="dark"] .contact-id {
+    color: #888;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .footer-section {
+        text-align: left;
+    }
+
+    .footer-links {
+        text-align: left;
+        margin-bottom: 2rem;
+    }
+
+    .footer-logo-section {
+        text-align: center;
+    }
+
+    .footer-logo-section .d-flex {
+        justify-content: center !important;
+    }
+
+    .brand-section {
+        justify-content: center;
+    }
+
+    .newsletter-title {
+        text-align: center;
+    }
+
+    .newsletter-wrapper {
+        text-align: center;
+    }
+
+    .newsletter-form .input-group {
+        margin: 0 auto;
+        max-width: 400px;
+    }
+
+    .footer-extra-links {
+        justify-content: center;
+        text-align: center;
+        margin-top: 1rem;
+    }
+
+    .footer-extra-links a {
+        justify-content: center;
+    }
+
+    .copyright-text {
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .modern-footer {
+        padding: 40px 0;
+        margin-top: 80px !important;
+    }
+
+    .footer-extra-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+}
+
+/* Row Spacing */
+.row.g-5 {
+    --bs-gutter-y: 3rem !important;
+}
+
+/* Add these styles for the logo section */
+.footer-logo-section {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.footer-logo {
+    height: 45px;
+    width: auto;
+}
+
+.brand-title {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--bs-heading-color);
+}
+
+/* Update dark mode for logo section */
+[data-bs-theme="dark"] .footer-logo-section {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Update responsive styles */
+@media (max-width: 992px) {
+    .footer-logo {
+        height: 40px;
+    }
+
+    .brand-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Newsletter styles */
+.newsletter-wrapper {
+    text-align: right;
+}
+
+.newsletter-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--bs-heading-color);
+}
+
+.newsletter-form .input-group {
+    max-width: 400px;
+    margin-left: auto;
+}
+
+.newsletter-form .form-control {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 0.6rem 1rem;
+    border-radius: 4px 0 0 4px;
+}
+
+/* .newsletter-form .btn {
+    background: #F77E15;
+    border: none;
+    color: white;
+    padding: 0.6rem 1.5rem;
+    border-radius: 0 4px 4px 0;
+} */
+
+/* .newsletter-form .btn:hover {
+    background: #ff4d4d;
+} */
+
+/* Updated copyright section */
+.footer-divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.footer-bottom-content {
+    padding: 1.5rem 0;
+}
+
+.copyright-text {
+    color: var(--bs-body-color);
+    opacity: 0.8;
+}
+
+.copyright-text a {
+    color: #F77E15;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer-extra-links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2rem;
+}
+
+.footer-extra-links a {
+    color: var(--bs-body-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.footer-extra-links a:hover {
+    color: #F77E15;
+    opacity: 1;
+}
+
+/* Dark mode adjustments */
+[data-bs-theme="dark"] .footer-divider {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+[data-bs-theme="dark"] .newsletter-form .form-control {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .footer-extra-links {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}
+
+/* Add these new styles and update existing ones */
+
+/* Increase spacing */
+.mb-12 {
+    margin-bottom: 5rem !important;
+}
+
+/* Footer Navigation */
+.footer-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-nav li {
+    margin-bottom: 1rem;
+}
+
+.footer-nav a {
+    color: var(--bs-body-color);
+    text-decoration: none;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.footer-nav a:hover {
+    color: #F77E15;
+    opacity: 1;
+    transform: translateX(5px);
+}
+
+/* Contact Info */
+.contact-info p {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    color: var(--bs-body-color);
+    opacity: 0.8;
+    font-size: 0.95rem;
+}
+
+.contact-info i {
+    color: #F77E15;
+    font-size: 1.1rem;
+}
+
+/* Update spacing for mobile */
+@media (max-width: 768px) {
+    .mb-12 {
+        margin-bottom: 3rem !important;
+    }
+}

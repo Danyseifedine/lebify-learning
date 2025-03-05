@@ -79,6 +79,29 @@ class StudentController extends BaseController
         return $this->tabContentResponse($view);
     }
 
+    public function getProfileQuizzes()
+    {
+        $user = auth()->user();
+
+        $data = [
+            'attempts' => $user->quizAttemptsWithQuiz()
+                ->take(10)
+                ->get(),
+            'scoreStatistics' => $user->getQuizStatusStatistics(7)
+        ];
+
+        $recentView = view('web.user.tabs.quizzesComponents.recentAttempt', [
+            'attempts' => $data['attempts']
+        ]);
+
+        $analysisView = view('web.user.tabs.quizzesComponents.analysis', [
+            'attempts' => $data['attempts'],
+            'scoreStatistics' => $data['scoreStatistics']
+        ])->render();
+
+        return $this->componentResponse($recentView, ['analysis' => $analysisView]);
+    }
+
     // update settings
     public function updateSettings(Request $request)
     {
@@ -95,5 +118,16 @@ class StudentController extends BaseController
         ]);
 
         return $this->successToastResponse(__('common.settings_updated_successfully'));
+    }
+
+    public function createWallet()
+    {
+        $user = auth()->user();
+        $role = $user->roles->first()->name;
+        if ($user->hasCoinWallet()) {
+            return redirect()->route('profile');
+        }
+
+        return view('web.coinWallet.createWallet', compact('role'));
     }
 }

@@ -1,0 +1,19 @@
+Datatable: difficulties
+Created at: 2024-11-07 18:27:57
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- level
+- name
+
+JS File: public/js/web/dashboard/quizzes/difficulties.js
+View File: resources/views/dashboard/pages/quizzes/difficulties.blade.php

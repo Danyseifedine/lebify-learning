@@ -1,0 +1,114 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Ww;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class WwController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        return view('dashboard.pages.ww', compact('user'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'age' => 'required|string',
+        ]);
+
+        Ww::create($request->all());
+        return response()->json(['message' => 'Ww created successfully']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'age' => 'required|string',
+        ]);
+
+        Ww::update($request->all());
+        return response()->json(['message' => 'Ww updated successfully']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $ww = Ww::find($id);
+        $ww->delete();
+        return response()->json(['message' => 'Ww deleted successfully']);
+    }
+
+    public function datatable(Request $request)
+    {
+        $search = request()->get('search');
+        $value = isset($search['value']) ? $search['value'] : null;
+
+        $wws = Ww::select('id',
+'name', 'age', 'created_at')
+            ->when($value, function ($query) use ($value) {
+                return $query->where(function ($query) use ($value) {
+                    $query->where('name', 'like', '%' . $value . '%')
+                        ->orWhere('age', 'like', '%' . $value . '%')
+                });
+            });
+
+        return DataTables::of($wws->get())
+            ->editColumn('created_at', function ($ww) {
+                return $ww->created_at->diffForHumans();
+            })->make(true);
+    }
+}
+
+        public function get Ww(string $id)
+{
+    $Ww = Ww::find($id);
+    return response()->json($Ww);
+}
+
+Route::controller(WwController::class)->group(function () {
+    Route::get('ww/datatable', 'datatable')->name('ww.datatable');
+    Route::get('ww/get/{id}', 'get{$modelName}')->name('ww.get');
+    Route::post('ww/edit', 'update')->name('ww.edit');
+    Route::resource('ww', WwController::class);
+});

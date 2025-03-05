@@ -2,20 +2,21 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Models\Course;
 use App\Models\CourseDocument;
 use Illuminate\Http\Request;
 
-class CoursesController extends Controller
+class CoursesController extends BaseController
 {
     // courses
     public function courses()
     {
         $user = auth()->user();
         $role = $user->roles->first()->name;
+        $coursesViewCount = Course::sum('views');
         $courses = Course::with('media')->get();
-        return view('web.courses.courses', compact('courses', 'user', 'role'));
+        return view('web.courses.index', compact('courses', 'user', 'role', 'coursesViewCount'));
     }
 
     // single course
@@ -35,7 +36,7 @@ class CoursesController extends Controller
         $extensions = $course->extensions;
 
 
-        return view('web.courses.singleCourse', compact(
+        return view('web.courses.course', compact(
             'course',
             'role',
             'documents',
@@ -69,5 +70,16 @@ class CoursesController extends Controller
         $content = $lang == 'ar' ? $document->content_ar : $document->content_en;
 
         return view('web.courses.document', compact('document', 'content', 'lang', 'order', 'course', 'prevDocument', 'nextDocument', 'role'));
+    }
+
+    public function filter(Request $request)
+    {
+        $courses = Course::filter($request->all())
+            ->paginate(6);
+
+
+        return $this->componentResponse(
+            view('web.courses.partials.course-list', compact('courses'))
+        );
     }
 }

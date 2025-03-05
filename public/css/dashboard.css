@@ -1,0 +1,152 @@
+:root {
+    --bs-btn-hover-bg: #e67210 !important;
+}
+
+.menu-item.active {
+    background-color: #fa7e12 !important;
+    transition: all 0.3s ease;
+}
+
+[data-bs-theme="dark"] .menu-item.active .menu-title,
+[data-bs-theme="dark"] .menu-item.active .icon {
+    color: #fff !important;
+}
+
+
+
+[data-bs-theme="light"] .menu-item.active .icon,
+[data-bs-theme="light"] .menu-item.active .menu-title {
+    color: #fff !important;
+}
+
+.form-check-input:checked {
+    background-color: #fa7e12 !important;
+    border-color: #fa7e12 !important;
+}
+
+.datatable-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.datatable-btn {
+    transition: all 0.3s ease;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.datatable-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.data-table-action-edit {
+    background-color: #0d6dfd1d !important;
+    box-shadow: 0 2px 4px rgba(13, 109, 253, 0.2), 0 1px 2px rgba(13, 109, 253, 0.1) !important;
+    transition: all 0.3s ease;
+}
+
+.data-table-action-edit:hover {
+    background-color: #0d6dfd61 !important;
+    color: #fff !important;
+    box-shadow: 0 4px 8px rgba(13, 109, 253, 0.3), 0 2px 4px rgba(13, 109, 253, 0.2) !important;
+    transform: translateY(-1px);
+}
+
+.data-table-action-show {
+    background-color: #1987541d !important;
+    box-shadow: 0 2px 4px rgba(25, 135, 84, 0.2), 0 1px 2px rgba(25, 135, 84, 0.1) !important;
+    transition: all 0.3s ease;
+}
+
+.data-table-action-show:hover {
+    background-color: #19875461 !important;
+    box-shadow: 0 4px 8px rgba(25, 135, 84, 0.3), 0 2px 4px rgba(25, 135, 84, 0.2) !important;
+    transform: translateY(-1px);
+}
+
+.data-table-action-delete {
+    background-color: #dc35451d !important;
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.2), 0 1px 2px rgba(220, 53, 69, 0.1) !important;
+    transition: all 0.3s ease;
+}
+
+.data-table-action-delete:hover {
+    background-color: #dc354561 !important;
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.3), 0 2px 4px rgba(220, 53, 69, 0.2) !important;
+    transform: translateY(-1px);
+}
+
+/* btn custom */
+
+.btn-custom {
+    background-color: #fa7e12 !important;
+    border-color: #fa7e12 !important;
+    color: #fff !important;
+}
+
+.btn-custom:hover {
+    background-color: #e67210 !important;
+    border-color: #e67210 !important;
+    transition: all 0.3s ease;
+}
+
+
+
+/* validation */
+.show-feedback {
+    display: block !important;
+}
+
+/* .fade-in {
+    opacity: 1;
+    transition: opacity 0.3s ease-in;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+} */
+
+
+/* [controlled-by][disabled] {
+    pointer-events: none;
+    opacity: 0.6;
+} */
+
+/* [controlled-by] {
+    transition: all 0.3s ease-in-out;
+} */
+
+.modal {
+    transition: all 0.3s ease-in-out;
+}
+
+#date-fields {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+    opacity: 0;
+}
+
+#date-fields.show {
+    max-height: 200px;
+    opacity: 1;
+}
+
+.transition-element {
+    transition: max-height 0.3s ease-in-out;
+    opacity: 0;
+    max-height: 0;
+}
+
+.transition-element.show {
+    max-height: 200px;
+    opacity: 1;
+}

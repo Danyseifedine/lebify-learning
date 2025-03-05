@@ -221,4 +221,18 @@ class BaseController extends Controller
         }
         return response()->json($response, $status);
     }
+
+    protected function componentResponse($component, $data = [], $status = 200): JsonResponse
+    {
+        $response = [
+            'success' => true,
+            'html' => $component->render()
+        ];
+
+        if (!empty($data)) {
+            $response = array_merge($response, $data);
+        }
+
+        return response()->json($response, $status);
+    }
 }

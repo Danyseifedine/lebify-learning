@@ -1,0 +1,20 @@
+Datatable: QuizAnswers
+Created at: 2024-11-08 13:47:01
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- question_id
+- answer_en
+- is_correct
+
+JS File: public/js/web/dashboard/quizzes/QuizAnswers.js
+View File: resources/views/dashboard/pages/quizzes/QuizAnswers.blade.php

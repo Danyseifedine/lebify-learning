@@ -1,0 +1,1087 @@
+/* Filter System Styles */
+.filter-overlay-quiz {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.1s ease;
+}
+
+.filter-overlay-quiz.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.filter-drawer {
+    z-index: 1041;
+}
+
+/* Quiz Banner Styles */
+.quiz-banner {
+    background: linear-gradient(to right, rgba(247, 126, 21, 0.03), rgba(255, 77, 77, 0.03));
+    position: relative;
+    overflow: hidden;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+}
+
+/* Light Effects */
+.gradient-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(247, 126, 21, 0.03), rgba(255, 77, 77, 0.03));
+    pointer-events: none;
+}
+
+/* Remove the old background styles */
+.quiz-banner-bg {
+    display: none;
+}
+
+/* Update text colors for light/dark themes */
+[data-bs-theme="light"] .quiz-banner {
+    color: var(--bs-heading-color);
+}
+
+[data-bs-theme="dark"] .quiz-banner {
+    color: white;
+}
+
+/* Update gradient text style to match courses */
+.gradient-text {
+    background: linear-gradient(45deg, #F77E15, #ff4d4d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Floating Icons */
+.floating-elements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.quiz-icon {
+    position: absolute;
+    font-size: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+    backdrop-filter: blur(5px);
+    animation: float 6s ease-in-out infinite;
+}
+
+.quiz-icon-1 {
+    top: 15%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.quiz-icon-2 {
+    top: 25%;
+    right: 15%;
+    animation-delay: 1.5s;
+}
+
+.quiz-icon-3 {
+    bottom: 20%;
+    left: 15%;
+    animation-delay: 1s;
+}
+
+.quiz-icon-4 {
+    bottom: 30%;
+    right: 10%;
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(10deg);
+    }
+}
+
+/* Quiz Badge */
+.quiz-badge {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: rgba(247, 126, 21, 0.1);
+    border-radius: 50px;
+    color: #F77E15;
+    font-weight: 600;
+    font-size: 1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(247, 126, 21, 0.2);
+}
+
+/* Quiz Stats */
+.quiz-stats {
+    display: flex;
+    gap: 2rem;
+}
+
+.quiz-stat-item {
+    text-align: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.quiz-stat-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    color: #F77E15;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    /* color: white; */
+    margin-bottom: 0.25rem;
+}
+
+.stat-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991.98px) {
+    .quiz-banner {
+        min-height: auto;
+        padding: 60px 0;
+    }
+
+    .quiz-stats {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .quiz-stat-item {
+        flex: 1 1 calc(50% - 1rem);
+        padding: 1rem;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+}
+
+/* Animation Classes */
+.banner-element {
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.banner-illustration {
+    opacity: 0;
+    transform: translateX(50px);
+}
+
+/* Update the stats styling while keeping everything else the same */
+.banner-stats {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 2rem 0;
+}
+
+.stat-item {
+    flex: 1;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 16px;
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+[data-bs-theme="light"] .banner-stats {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Quiz Guide Modal Styles */
+#quizGuideModal .modal-content {
+    background: var(--bs-body-bg);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-step-badge {
+    background: rgba(247, 126, 21, 0.1);
+    color: #F77E15;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.step-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.step-description {
+    font-size: 1rem;
+}
+
+/* Progress Bar */
+.progress-wrapper {
+    padding: 0 1rem;
+}
+
+.progress {
+    background: rgba(247, 126, 21, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    background: linear-gradient(45deg, #F77E15, #ff4d4d);
+    transition: width 0.3s ease;
+}
+
+/* Difficulty Cards */
+.difficulty-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.difficulty-card {
+    background: var(--bs-body-bg);
+    border: 1px solid rgba(247, 126, 21, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.difficulty-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(247, 126, 21, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.difficulty-content {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+}
+
+.difficulty-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 1.5rem;
+}
+
+.beginner .difficulty-icon {
+    background: rgba(25, 135, 84, 0.1);
+    color: #198754;
+}
+
+.intermediate .difficulty-icon {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+}
+
+.advanced .difficulty-icon {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.difficulty-indicator {
+    display: flex;
+    gap: 0.25rem;
+    margin-top: 1rem;
+    padding-left: 64px;
+}
+
+.indicator-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(247, 126, 21, 0.1);
+}
+
+.indicator-dot.active {
+    background: #F77E15;
+}
+
+/* Duration Cards */
+.duration-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.duration-card {
+    background: var(--bs-body-bg);
+    border: 1px solid rgba(247, 126, 21, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.duration-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(247, 126, 21, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.duration-card h6 {
+    margin: 1rem 0 0.5rem;
+    font-weight: 600;
+}
+
+.duration-card p {
+    margin-bottom: 0;
+}
+
+.duration-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    background: rgba(247, 126, 21, 0.1);
+    color: #F77E15;
+}
+
+.time-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(247, 126, 21, 0.1);
+    color: #F77E15;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Rules List */
+.rules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.rule-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: var(--bs-body-bg);
+    border: 1px solid rgba(247, 126, 21, 0.1);
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+}
+
+.rule-item:hover {
+    transform: translateX(5px);
+    border-color: rgba(247, 126, 21, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.rule-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    background: rgba(247, 126, 21, 0.1);
+    color: #F77E15;
+    flex-shrink: 0;
+}
+
+.rule-content h6 {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.rule-content p {
+    margin-bottom: 0;
+}
+
+/* Modal Footer Buttons */
+.modal-footer .btn {
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.modal-footer .btn:hover {
+    transform: translateY(-2px);
+}
+
+@keyframes shimmer {
+    0% {
+        transform: rotate(45deg) translateX(-100%);
+    }
+
+    100% {
+        transform: rotate(45deg) translateX(100%);
+    }
+}
+
+/* Dark Mode Enhancements */
+[data-bs-theme="dark"] .step-header {
+    background: rgba(247, 126, 21, 0.05);
+}
+
+[data-bs-theme="dark"] .rules-agreement {
+    background: rgba(247, 126, 21, 0.05);
+}
+
+/* Step Dots */
+.step-dots {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+}
+
+.step-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(247, 126, 21, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.step-dot.active {
+    background: #F77E15;
+    transform: scale(1.2);
+}
+
+/* Step Header */
+.step-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0 2rem;
+    padding: 1rem;
+    background: rgba(247, 126, 21, 0.03);
+    border-radius: 16px;
+}
+
+.step-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    font-size: 1.75rem;
+    background: rgba(247, 126, 21, 0.1);
+    color: #F77E15;
+}
+
+/* Enhanced Cards */
+.difficulty-card.selectable,
+.duration-card.selectable {
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.difficulty-card.selectable::before,
+.duration-card.selectable::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(247, 126, 21, 0.05), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.difficulty-card.selectable:hover::before,
+.duration-card.selectable:hover::before {
+    transform: translateX(100%);
+}
+
+.difficulty-card.selected,
+.duration-card.selected {
+    border-color: #F77E15;
+    box-shadow: 0 5px 20px rgba(247, 126, 21, 0.2);
+}
+
+.difficulty-card.selected::after,
+.duration-card.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 24px;
+    height: 24px;
+    background: #F77E15;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    animation: scaleIn 0.3s ease;
+}
+
+/* Rules Agreement */
+.rules-agreement {
+    padding: 1rem;
+    background: rgba(247, 126, 21, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(247, 126, 21, 0.1);
+}
+
+.form-check-input:checked {
+    background-color: #F77E15;
+    border-color: #F77E15;
+}
+
+/* Animations */
+@keyframes scaleIn {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+/* Update step styles */
+.step {
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.step.active {
+    display: block !important;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Remove any conflicting styles */
+.steps-container {
+    position: relative;
+    min-height: 400px;
+}
+
+/* Ensure modal content is visible */
+.modal-content {
+    position: relative;
+    z-index: 1050;
+    background: var(--bs-body-bg);
+}
+
+/* Remove this conflicting style if it exists */
+.step[data-step="1"] {
+    display: none;
+}
+
+/* Update modal body padding */
+.modal-body {
+    padding: 1.5rem;
+}
+
+/* Update duration cards */
+.duration-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.duration-card {
+    background: var(--bs-body-bg);
+    border: 1px solid rgba(247, 126, 21, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .duration-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .difficulty-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .difficulty-icon {
+        margin: 0 auto 1rem;
+    }
+
+    .difficulty-indicator {
+        justify-content: center;
+        padding-left: 0;
+    }
+
+    .modal-body {
+        padding: 1.5rem;
+    }
+
+    .step-dots {
+        margin: 1rem 0 0;
+    }
+
+    .modal-title-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+/* Add hover effects for selectable items */
+.selectable {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.selectable:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.selectable.selected {
+    border-color: #F77E15;
+    background: rgba(247, 126, 21, 0.05);
+}
+
+.modal-header {
+    align-items: start !important;
+}
+
+.modal-header .btn-close {
+    padding: 20px !important;
+}
+
+.ico {
+    color: #F77E15 !important;
+}
+
+/* Security step specific styles */
+.rule-item .bi-shield-lock,
+.rule-item .bi-display,
+.rule-item .bi-mouse,
+.rule-item .bi-clipboard-x {
+    font-size: 1.2rem;
+}
+
+/* Warning animation */
+@keyframes warningPulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.rule-item:hover .bi-exclamation-triangle {
+    animation: warningPulse 1s infinite;
+}
+
+/* Enhanced security icons */
+.security-icon {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+.security-warning-header {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(45deg, #dc3545, #fd7e14);
+    border-radius: 16px;
+    color: white;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(220, 53, 69, 0.2);
+}
+
+.security-icon-large {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: inline-block;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: white !important;
+}
+
+.security-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.security-subtitle {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+.security-rules-container {
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.security-rules-container .rule-item {
+    background: white;
+    border: 1px solid rgba(220, 53, 69, 0.1);
+    transition: all 0.3s ease;
+}
+
+.security-rules-container .rule-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(220, 53, 69, 0.1);
+    border-color: rgba(220, 53, 69, 0.2);
+}
+
+.security-rule-icon {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    flex-shrink: 0;
+}
+
+.security-rule-icon.warning {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+}
+
+.security-rule-content h6 {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.security-notice {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: rgba(255, 193, 7, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.security-notice i {
+    font-size: 1.5rem;
+    color: #ffc107;
+}
+
+.security-notice p {
+    margin-bottom: 0;
+    font-size: 0.9rem;
+    color: #664d03;
+}
+
+/* Dark theme adjustments */
+[data-bs-theme="dark"] .security-rules-container .rule-item {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+[data-bs-theme="dark"] .security-notice {
+    background: rgba(255, 193, 7, 0.15);
+}
+
+[data-bs-theme="dark"] .security-notice p {
+    color: rgba(255, 193, 7, 0.9);
+}
+
+/* Update quiz banner for better mobile responsiveness */
+@media (max-width: 767.98px) {
+    .quiz-banner {
+        min-height: 450px;
+        padding: 40px 0;
+    }
+
+    .banner-title {
+        font-size: 2rem;
+    }
+
+    .banner-subtitle {
+        font-size: 1.2rem !important;
+    }
+
+    .banner-stats {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .stat-item {
+        width: 100%;
+    }
+
+    .stat-value {
+        font-size: 1.75rem !important;
+    }
+}
+
+/* Improve tablet responsiveness */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .quiz-banner {
+        min-height: 500px;
+    }
+
+    .banner-stats {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .stat-item {
+        flex: 0 0 calc(50% - 1rem);
+    }
+}
+
+/* Improve modal responsiveness */
+@media (max-width: 767.98px) {
+    #quizGuideModal .modal-content {
+        border-radius: 16px;
+    }
+
+    .modal-step-badge {
+        font-size: 0.8rem;
+        padding: 0.3rem 0.8rem;
+    }
+
+    .step-title {
+        font-size: 1.2rem;
+    }
+
+    .step-description {
+        font-size: 0.9rem;
+    }
+
+    .step-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+
+    .step-icon {
+        margin: 0 auto;
+    }
+
+    .rule-item {
+        flex-direction: column;
+        text-align: center;
+        padding: 1rem;
+    }
+
+    .rule-icon, .security-rule-icon {
+        margin: 0 auto 1rem;
+    }
+
+    .duration-cards {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .security-warning-header {
+        padding: 1.5rem;
+    }
+
+    .security-title {
+        font-size: 1.3rem;
+    }
+
+    .security-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .security-notice {
+        flex-direction: column;
+        text-align: center;
+        padding: 0.75rem;
+    }
+
+    .security-notice i {
+        margin-bottom: 0.5rem;
+    }
+
+    .modal-footer .btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* Improve filter section responsiveness */
+@media (max-width: 767.98px) {
+    .active-filter-wrapper-header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .filter-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .filter-trigger-btn {
+        flex: 1;
+        font-size: 0.9rem;
+    }
+
+    .filter-drawer {
+        padding: 1rem;
+    }
+
+    .filter-header h5 {
+        font-size: 1.1rem;
+    }
+
+    .filter-footer {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .filter-footer .btn {
+        width: 100%;
+    }
+}
+
+/* General responsive improvements */
+@media (max-width: 767.98px) {
+    .page-content {
+        padding-top: 0;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    .py-8 {
+        padding-top: 2rem !important;
+        padding-bottom: 2rem !important;
+    }
+
+    .container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Fix filter button styling */
+.filter-trigger-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--bs-body-bg);
+    border: 1px solid rgba(247, 126, 21, 0.2);
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.filter-trigger-btn:hover {
+    background: rgba(247, 126, 21, 0.05);
+    border-color: rgba(247, 126, 21, 0.3);
+}
+
+/* Dark theme adjustments */
+[data-bs-theme="dark"] .filter-trigger-btn {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+[data-bs-theme="dark"] .filter-trigger-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Adjust animations for mobile */
+@media (max-width: 767.98px) {
+    .floating-elements {
+        display: none;
+    }
+
+    .quiz-icon {
+        font-size: 1.5rem;
+        padding: 0.75rem;
+    }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0) rotate(0deg);
+        }
+
+        50% {
+            transform: translateY(-10px) rotate(5deg);
+        }
+    }
+}

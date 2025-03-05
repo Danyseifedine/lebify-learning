@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-okaidia.min.css">
-    <link rel="stylesheet" href="{{ asset('css/document.css', true) }}">
+    <link rel="stylesheet" href="{{ asset('css/web/course/document.css', true) }}">
     <link rel="stylesheet" href="{{ asset('css/components/navbar.css', true) }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $document->getTitle() }}</title>

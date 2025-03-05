@@ -1,10 +1,10 @@
-@extends('layouts.main')
+@extends('web.layouts.main')
 
 @section('title', 'Register')
 
 
 @section('content')
-    <div class="d-flex flex-column flex-root" id="kt_app_root">
+    {{-- <div class="d-flex flex-column flex-root" id="kt_app_root">
         <div class="auth d-flex flex-column flex-center flex-column-fluid p-10">
             <!--begin::Authentication - Sign-in -->
             <div class="d-flex flex-column flex-lg-row flex-column-fluid">
@@ -28,21 +28,20 @@
                         <!--end::Header-->
                         <!--begin::Body-->
                         <div class="text-center fs-2 fw-bold py-20">
-                            <img src="{{ asset('vendor/img/logo/logo-icon.png') }}" width="70" alt=""
+                            <img src="{{ asset('core/vendor/img/logo/logo-icon.png') }}" width="70" alt=""
                                 style="animation: spin 2s linear infinite;">
                         </div>
                         <!--begin::Form-->
-                        <form method="POST" id="register-form" action="{{ route('register') }}">
+                        <form form-id="register" route="{{ route('register') }}" identifier="single-form-post-handler"
+                            http-request feedback redirect>
                             @csrf
-
                             <!--begin::Heading-->
                             <div class="text-start mb-10">
                                 <!--begin::Title-->
-                                <h1 class="text-gray-900 mb-3 fs-3x">{{ __('auth.join_now') }}
-                                </h1>
+                                <h1 class="text-gray-900 mb-3 fs-3x">{{ __('auth.join_now') }}</h1>
                                 <!--end::Title-->
                                 <!--begin::Text-->
-                                <div class="text-gray-500 fw-semibold fs-6">{{ __('auth.dive_into_our_community') }}.</div>
+                                <div class="text-gray-500 fw-semibold fs-6">{{ __('auth.explore_a_sanctuary') }}</div>
                                 <!--end::Link-->
                             </div>
                             <!--end::Heading-->
@@ -50,18 +49,22 @@
                             <div class="row fv-row mb-7">
                                 <!--begin::Col-->
                                 <div class="col-xl-12">
-                                    <input class="form-control form-control-lg form-control-solid" type="text"
-                                        placeholder="{{ __('common.full_name') }}" name="name" id="name"
-                                        autocomplete="off" />
+                                    <input
+                                        class="form-control form-control-solid form-control form-control-solid-lg form-control form-control-solid-solid"
+                                        type="text" placeholder="{{ __('common.full_name') }}"
+                                        feedback-id="name-feedback" name="name" id="name" autocomplete="off" />
+                                    <div id="name-feedback" class="invalid-feedback fw-bold"></div>
                                 </div>
                                 <!--end::Col-->
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
                             <div class="fv-row mb-7">
-                                <input class="form-control form-control-lg form-control-solid" type="text"
-                                    placeholder="{{ __('common.email') }}" name="email" id="email"
-                                    autocomplete="off" />
+                                <input
+                                    class="form-control form-control-solid form-control form-control-solid-lg form-control form-control-solid-solid"
+                                    type="text" placeholder="{{ __('common.email') }}" feedback-id="email-feedback"
+                                    name="email" id="email" autocomplete="off" />
+                                <div id="email-feedback" class="invalid-feedback fw-bold"></div>
                             </div>
                             <!--end::Input group-->
                             <!--begin::Input group-->
@@ -70,9 +73,12 @@
                                 <div class="mb-1">
                                     <!--begin::Input wrapper-->
                                     <div class="position-relative mb-3">
-                                        <input class="form-control form-control-lg form-control-solid" type="password"
-                                            placeholder="{{ __('common.password') }}" name="password" autocomplete="off"
+                                        <input
+                                            class="form-control form-control-solid form-control form-control-solid-lg form-control form-control-solid-solid"
+                                            type="password" placeholder="{{ __('common.password') }}"
+                                            feedback-id="password-feedback" name="password" autocomplete="off"
                                             id="password" />
+                                        <div id="password-feedback" class="invalid-feedback fw-bold"></div>
                                         <span
                                             class="btn btn-sm btn-icon position-absolute translate-middle top-50 end-0 me-n2"
                                             data-kt-password-meter-control="visibility">
@@ -99,17 +105,20 @@
                             <!--end::Input group=-->
                             <!--begin::Input group-->
                             <div class="fv-row mb-10">
-                                <input class="form-control form-control-lg form-control-solid" type="password"
-                                    placeholder="{{ __('common.confirm_password') }}" id="password_confirmation"
+                                <input
+                                    class="form-control form-control-solid form-control form-control-solid-lg form-control form-control-solid-solid"
+                                    type="password" placeholder="{{ __('common.confirm_password') }}"
+                                    feedback-id="password_confirmation-feedback" id="password_confirmation"
                                     name="password_confirmation" autocomplete="off" />
+                                <div id="password_confirmation-feedback" class="invalid-feedback fw-bold"></div>
                             </div>
                             <!--end::Input group-->
                             <!--begin::Actions-->
                             <div class="d-flex flex-stack">
                                 <!--begin::Submit-->
                                 <button class="btn bg-logo d-flex align-items-center justify-content-center gap-2"
-                                    loading="{{ __('common.registering') }}" with-spinner="true" type="submit">
-                                    <span class="ld-span">{{ __('auth.register') }}</span>
+                                    loading-text="{{ __('common.registering') }}" submit-form-id="register" type="submit">
+                                    {{ __('auth.register') }}
                                 </button>
                                 <!--end::Submit-->
                                 <!--begin::Social-->
@@ -117,13 +126,13 @@
                                     <div class="text-gray-500 fw-semibold fs-6 me-3 me-md-6">{{ __('auth.or') }}</div>
                                     <!--begin::Symbol-->
                                     <a href="#" class="symbol symbol-circle symbol-45px w-45px bg-light me-3">
-                                        <img alt="Logo" src="{{ asset('vendor/img/icon/google-icon.svg') }}"
+                                        <img alt="Logo" src="{{ asset('core/vendor/img/icon/google-icon.svg') }}"
                                             class="p-4" />
                                     </a>
                                     <!--end::Symbol-->
                                     <!--begin::Symbol-->
                                     <a href="#" class="symbol symbol-circle symbol-45px w-45px bg-light me-3">
-                                        <img alt="Logo" src="{{ asset('vendor/img/icon/facebook-3.svg') }}"
+                                        <img alt="Logo" src="{{ asset('core/vendor/img/icon/facebook-3.svg') }}"
                                             class="p-4" />
                                     </a>
                                     <!--end::Symbol-->
@@ -136,6 +145,7 @@
                     </div>
                     <!--end::Body-->
                     <!--begin::Footer-->
+                    {{-- multi lang --}}
                     @include('auth.components.footer')
                     <!--end::Footer-->
                 </div>
@@ -145,8 +155,5 @@
             <!--begin::Body-->
         </div>
         <!--end::Authentication - Sign-in-->
-    </div>
-    @push('scripts')
-        <script src="{{ asset('js/auth/register.js') }}" type="module"></script>
-    @endpush
+    </div> --}}
 @endsection

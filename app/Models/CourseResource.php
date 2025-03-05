@@ -12,9 +12,7 @@ class CourseResource extends Model
     protected $fillable = [
         'course_id',
         'title_en',
-        'title_ar',
         'description_en',
-        'description_ar',
         'url',
         'is_published',
     ];

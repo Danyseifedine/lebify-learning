@@ -1,0 +1,114 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Difficulties;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class DifficultiesController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        return view('dashboard.pages.difficulties', compact('user'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'level' => 'required|string',
+            'name' => 'required|string',
+        ]);
+
+        Difficulties::create($request->all());
+        return response()->json(['message' => 'Difficulties created successfully']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'level' => 'required|string',
+            'name' => 'required|string',
+        ]);
+
+        Difficulties::update($request->all());
+        return response()->json(['message' => 'Difficulties updated successfully']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $difficulties = Difficulties::find($id);
+        $difficulties->delete();
+        return response()->json(['message' => 'Difficulties deleted successfully']);
+    }
+
+    public function datatable(Request $request)
+    {
+        $search = request()->get('search');
+        $value = isset($search['value']) ? $search['value'] : null;
+
+        $difficultiess = Difficulties::select('id',
+'level', 'name', 'created_at')
+            ->when($value, function ($query) use ($value) {
+                return $query->where(function ($query) use ($value) {
+                    $query->where('level', 'like', '%' . $value . '%')
+                        ->orWhere('name', 'like', '%' . $value . '%')
+                });
+            });
+
+        return DataTables::of($difficultiess->get())
+            ->editColumn('created_at', function ($difficulties) {
+                return $difficulties->created_at->diffForHumans();
+            })->make(true);
+    }
+}
+
+        public function get Difficulties(string $id)
+{
+    $Difficulties = Difficulties::find($id);
+    return response()->json($Difficulties);
+}
+
+Route::controller(DifficultiesController::class)->group(function () {
+    Route::get('difficulties/datatable', 'datatable')->name('difficulties.datatable');
+    Route::get('difficulties/get/{id}', 'get{$modelName}')->name('difficulties.get');
+    Route::post('difficulties/edit', 'update')->name('difficulties.edit');
+    Route::resource('difficulties', DifficultiesController::class);
+});

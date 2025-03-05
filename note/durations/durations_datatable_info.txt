@@ -1,0 +1,19 @@
+Datatable: durations
+Created at: 2024-11-07 17:01:58
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- minutes
+- name
+
+JS File: public/js/web/dashboard/quizzes/durations.js
+View File: resources/views/dashboard/pages/quizzes/durations.blade.php

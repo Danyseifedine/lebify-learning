@@ -1,0 +1,18 @@
+Datatable: questionCategory
+Created at: 2024-11-08 12:31:58
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- name
+
+JS File: public/js/web/dashboard/quizzes/questionCategory.js
+View File: resources/views/dashboard/pages/quizzes/questionCategory.blade.php

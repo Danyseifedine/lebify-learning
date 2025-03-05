@@ -1,0 +1,119 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\QuizAttempts;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class QuizAttemptsController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        return view('dashboard.pages.quizattempts', compact('user'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'quiz_id' => 'required|string',
+            'user_id' => 'required|string',
+            'started_at' => 'required|string',
+            'completed_at' => 'required|string',
+            'score' => 'required|string',
+            'passed' => 'required|string',
+        ]);
+
+        QuizAttempts::create($request->all());
+        return response()->json(['message' => 'QuizAttempts created successfully']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'quiz_id' => 'required|string',
+            'user_id' => 'required|string',
+            'started_at' => 'required|string',
+            'completed_at' => 'required|string',
+            'score' => 'required|string',
+            'passed' => 'required|string',
+        ]);
+
+        QuizAttempts::update($request->all());
+        return response()->json(['message' => 'QuizAttempts updated successfully']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $quizattempts = QuizAttempts::find($id);
+        $quizattempts->delete();
+        return response()->json(['message' => 'QuizAttempts deleted successfully']);
+    }
+
+    public function datatable(Request $request)
+    {
+        $search = request()->get('search');
+        $value = isset($search['value']) ? $search['value'] : null;
+
+        $quizattemptss = QuizAttempts::select('id',
+'quiz_id', 'user_id', 'started_at', 'completed_at', 'score', 'passed', 'created_at')
+            ->when($value, function ($query) use ($value) {
+                return $query->where(function ($query) use ($value) {
+                    $query->where('quiz_id', 'like', '%' . $value . '%')
+                        ->orWhere('user_id', 'like', '%' . $value . '%')
+                        ->orWhere('started_at', 'like', '%' . $value . '%')
+                        ->orWhere('completed_at', 'like', '%' . $value . '%')
+                        ->orWhere('score', 'like', '%' . $value . '%')
+                        ->orWhere('passed', 'like', '%' . $value . '%')
+                });
+            });
+
+        return DataTables::of($quizattemptss->get())
+            ->editColumn('created_at', function ($quizattempts) {
+                return $quizattempts->created_at->diffForHumans();
+            })->make(true);
+    }
+}
+
+        public function get QuizAttempts(string $id)
+{
+    $QuizAttempts = QuizAttempts::find($id);
+    return response()->json($QuizAttempts);
+}

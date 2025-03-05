@@ -1,0 +1,22 @@
+Datatable: quizResponses
+Created at: 2024-11-10 21:31:28
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- attempt_id
+- question_id
+- answer_id
+- text_answer
+- is_correct
+
+JS File: public/js/web/dashboard/quizzes/quizResponses.js
+View File: resources/views/dashboard/pages/quizzes/quizResponses.blade.php

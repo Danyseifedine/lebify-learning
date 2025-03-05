@@ -1,0 +1,39 @@
+
+
+.tab-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-item:hover {
+    color: #F77E15;
+}
+
+.tab-item.active {
+    color: #ff7700;
+    border-bottom: 2px solid #ff7700;
+}
+
+
+.loading {
+    color: #999;
+}
+
+
+
+.analysis {
+    padding-left: 10px !important;
+}
+
+:lang(ar) {
+    .analysis {
+        padding-right: 10px !important;
+    }
+}
+
+@media (max-width: 992px) {
+    .analysis {
+        padding-top: 10px !important;
+        padding-left: 0px !important;
+    }
+}

@@ -14,7 +14,6 @@ class CourseLesson extends Model implements HasMedia
     protected $fillable = [
         'course_id',
         'title',
-        'description_ar',
         'description_en',
         'video_url',
         'duration',
@@ -55,7 +54,7 @@ class CourseLesson extends Model implements HasMedia
 
     public function getDescriptionAttribute()
     {
-        return app()->getLocale() == 'ar' ? $this->description_ar : $this->description_en;
+        return $this->description_en;
     }
 
     public function getThumbnailAttribute()
@@ -68,31 +67,4 @@ class CourseLesson extends Model implements HasMedia
         return $this->getFirstMediaUrl('thumbnails');
     }
 
-    public function getEmbedVideoUrlAttribute()
-    {
-        // If URL is empty, return null
-        if (empty($this->video_url)) {
-            return null;
-        }
-
-        // Handle YouTube URLs
-        if (strpos($this->video_url, 'youtube.com') !== false || strpos($this->video_url, 'youtu.be') !== false) {
-            // Extract video ID using regex pattern
-            $pattern = '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/';
-
-            if (preg_match($pattern, $this->video_url, $matches)) {
-                $videoId = $matches[1];
-
-                // Most privacy-focused embed URL
-                return "https://www.youtube-nocookie.com/embed/{$videoId}/?" . http_build_query([
-                    'cc_load_policy' => 1,
-                    'modestbranding' => 1,
-                    'rel' => 0,
-                    'controls' => 1,
-                ]);
-            }
-        }
-
-        return $this->video_url;
-    }
 }

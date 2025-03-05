@@ -1,0 +1,19 @@
+Datatable: ww
+Created at: 2024-11-12 09:35:26
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- name
+- age
+
+JS File: public/js/web/dashboard/quizzes/ww.js
+View File: resources/views/dashboard/pages/quizzes/ww.blade.php

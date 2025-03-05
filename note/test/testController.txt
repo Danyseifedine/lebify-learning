@@ -1,0 +1,114 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Test;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class TestController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        return view('dashboard.pages.test', compact('user'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'age' => 'required|string',
+        ]);
+
+        Test::create($request->all());
+        return response()->json(['message' => 'Test created successfully']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'age' => 'required|string',
+        ]);
+
+        Test::update($request->all());
+        return response()->json(['message' => 'Test updated successfully']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $test = Test::find($id);
+        $test->delete();
+        return response()->json(['message' => 'Test deleted successfully']);
+    }
+
+    public function datatable(Request $request)
+    {
+        $search = request()->get('search');
+        $value = isset($search['value']) ? $search['value'] : null;
+
+        $tests = Test::select('id',
+'name', 'age', 'created_at')
+            ->when($value, function ($query) use ($value) {
+                return $query->where(function ($query) use ($value) {
+                    $query->where('name', 'like', '%' . $value . '%')
+                        ->orWhere('age', 'like', '%' . $value . '%')
+                });
+            });
+
+        return DataTables::of($tests->get())
+            ->editColumn('created_at', function ($test) {
+                return $test->created_at->diffForHumans();
+            })->make(true);
+    }
+}
+
+        public function get Test(string $id)
+{
+    $Test = Test::find($id);
+    return response()->json($Test);
+}
+
+Route::controller(TestController::class)->group(function () {
+    Route::get('test/datatable', 'datatable')->name('test.datatable');
+    Route::get('test/get/{id}', 'get{$modelName}')->name('test.get');
+    Route::post('test/edit', 'update')->name('test.edit');
+    Route::resource('test', TestController::class);
+});

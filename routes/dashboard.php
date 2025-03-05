@@ -1,134 +1,252 @@
 <?php
 
-use App\Http\Controllers\Dashboard\Courses\CourseDocumentsController;
-use App\Http\Controllers\Dashboard\Courses\CourseExtentionController;
-use App\Http\Controllers\Dashboard\Courses\CourseLessonsController;
-use App\Http\Controllers\Dashboard\Courses\CourseRelatedChannelController;
-use App\Http\Controllers\Dashboard\Courses\CourseResourceController;
-use App\Http\Controllers\Dashboard\Courses\CoursesController;
 use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\InstructorsController;
-use App\Http\Controllers\Dashboard\User\UserRolesController;
-use App\Http\Controllers\Dashboard\User\UsersController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Dashboard\Pages\Course\CourseController;
+use App\Http\Controllers\Dashboard\Pages\Course\CourseExtentionController;
+use App\Http\Controllers\Dashboard\Pages\User\InstructorController;
+use App\Http\Controllers\Dashboard\Pages\User\UserController;
 use Illuminate\Support\Facades\Route;
-
-
-
+use App\Http\Controllers\Dashboard\Pages\Course\CourseLessonController;
+use App\Http\Controllers\Dashboard\Pages\Course\CourseRelatedChannelController;
+use App\Http\Controllers\Dashboard\Pages\Course\CourseResourceController;
+use App\Http\Controllers\Dashboard\Pages\Course\CourseDocumentController;
+use App\Http\Controllers\Dashboard\Pages\Quiz\DurationController;
+use App\Http\Controllers\Dashboard\Pages\Quiz\DifficultyLevelController;
+use App\Http\Controllers\Dashboard\Pages\Quiz\QuestionCategoryController;
+use App\Http\Controllers\Dashboard\Pages\Quiz\QuizController;
+use App\Http\Controllers\Dashboard\Pages\Quiz\QuizAnswerController;
+use App\Http\Controllers\Dashboard\Pages\Quiz\QuizQuestionController;
 
 
 
 Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
-    include __DIR__ . '/RolePermission.php';
-
     // Dashboard routes
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::post('send/email', 'sendEmail')->name('send.email');
     });
 
-    // Users routes
-    Route::controller(UsersController::class)->group(function () {
-        Route::get('users/datatable', 'datatable')->name('users.datatable');
-        Route::get('users/get/{id}', 'getUser')->name('users.get');
-        Route::post('users/edit', 'update')->name('users.edit');
-        Route::put('users/status/{id}', 'changeStatus')->name('users.status');
-        Route::post('users/convert', 'convertToInstructor')->name('users.convert');
-        Route::resource('users', UsersController::class);
-    });
 
-    // User roles routes
-    Route::controller(UserRolesController::class)->group(function () {
-        Route::prefix('user/role')->name('user.role.')->group(function () {
-            Route::get('', 'index')->name('index');
-            Route::get('datatable', 'datatable')->name('datatable');
-            Route::get('get/{id}', 'getUserRole')->name('get');
-            Route::post('delete', 'deleteRole')->name('delete');
-            Route::post('add', 'addRole')->name('add');
+    // ======================================================================= //
+    // ====================== START USER DATATABLE =========================== //
+    // ======================================================================= //
+
+    Route::controller(UserController::class)->prefix("users")->name("users.")->group(function () {
+        Route::post('/update', 'update')->name('update');
+        Route::get('/{id}/show', 'show')->name('show');
+        Route::get('/datatable', 'datatable')->name('datatable');
+        Route::patch('/{id}/status', 'status')->name('status');
+
+        Route::controller(InstructorController::class)
+            ->prefix('instructors')
+            ->name('instructors.')
+            ->group(function () {
+                Route::post('/update', 'update')->name('update');
+                Route::get('/{id}/show', 'show')->name('show');
+                Route::get('/datatable', 'datatable')->name('datatable');
+            });
+
+        Route::resource('instructors', InstructorController::class)
+            ->except(['show', 'update']);
+    });
+    Route::resource('users', UserController::class)->except(['show', 'update']);
+
+    // ======================================================================= //
+    // ====================== END USER DATATABLE ============================= //
+    // ======================================================================= //
+
+    // ======================================================================= //
+    // ==================== START COURSE DATATABLE =========================== //
+    // ======================================================================= //
+
+    Route::controller(CourseController::class)
+        ->prefix('courses')
+        ->name('courses.')
+        ->group(function () {
+            Route::post('/update', 'update')->name('update');
+            Route::get('/{id}/show', 'show')->name('show');
+            Route::get('/datatable', 'datatable')->name('datatable');
+            Route::patch('/{id}/status', 'changeStatus')->name('status');
+            Route::get('/{id}/preview', 'preview')->name('preview');
+
+            // start Course Extensions
+            Route::controller(CourseExtentionController::class)
+                ->prefix('extensions')
+                ->name('extensions.')
+                ->group(function () {
+                    Route::post('/update', 'update')->name('update');
+                    Route::get('/{id}/show', 'show')->name('show');
+                    Route::get('/datatable', 'datatable')->name('datatable');
+                });
+
+            Route::resource('extensions', CourseExtentionController::class)
+                ->except(['show', 'update']);
+            // end Course Extensions
+
+            // start Course Resources
+            Route::controller(CourseResourceController::class)
+                ->prefix('resources')
+                ->name('resources.')
+                ->group(function () {
+                    Route::post('/update', 'update')->name('update');
+                    Route::get('/{id}/show', 'show')->name('show');
+                    Route::get('/datatable', 'datatable')->name('datatable');
+                    Route::patch('/{id}/status', 'status')->name('status');
+                });
+
+            Route::resource('resources', CourseResourceController::class)
+                ->except(['show', 'update']);
+            // end Course Resources
+
+            // start Course Related Channels
+            Route::controller(CourseRelatedChannelController::class)
+                ->prefix('relatedChannels')
+                ->name('relatedChannels.')
+                ->group(function () {
+                    Route::post('/update', 'update')->name('update');
+                    Route::get('/{id}/show', 'show')->name('show');
+                    Route::get('/datatable', 'datatable')->name('datatable');
+                    Route::patch('/{id}/status', 'status')->name('status');
+                });
+
+            Route::resource('relatedChannels', CourseRelatedChannelController::class)
+                ->except(['show', 'update']);
+            // end Course Related Channels
+
+            // start Course Lessons
+            Route::controller(CourseLessonController::class)
+                ->prefix('lessons')
+                ->name('lessons.')
+                ->group(function () {
+                    Route::post('/update', 'update')->name('update');
+                    Route::get('/{id}/show', 'show')->name('show');
+                    Route::get('/datatable', 'datatable')->name('datatable');
+                    Route::patch('/{id}/status', 'status')->name('status');
+                });
+
+            Route::resource('lessons', CourseLessonController::class)
+                ->except(['show', 'update']);
+            // end Course Lessons
+
+            // start Course Documents
+            Route::controller(CourseDocumentController::class)
+                ->prefix('documents')
+                ->name('documents.')
+                ->group(function () {
+                    Route::post('/update', 'update')->name('update');
+                    Route::get('/{id}/show', 'show')->name('show');
+                    Route::get('/datatable', 'datatable')->name('datatable');
+                });
+
+            Route::resource('documents', CourseDocumentController::class)
+                ->except(['show', 'update']);
+            // end Course Documents
         });
+
+    Route::resource('courses', CourseController::class)
+        ->except(['show', 'update']);
+
+    // ======================================================================= //
+    // ====================== END COURSE DATATABLE =========================== //
+    // ======================================================================= //
+
+    // ======================================================================= //
+    // ====================== START QUIZ DATATABLE =========================== //
+    // ======================================================================= //
+
+    Route::prefix('quiz')->name('quiz.')->group(function () {
+        // Quiz Overview routes
+        Route::controller(QuizController::class)
+            ->prefix('overview')
+            ->name('overview.')
+            ->group(function () {
+                Route::post('/update', 'update')->name('update');
+                Route::get('/{id}/show', 'show')->name('show');
+                Route::get('/datatable', 'datatable')->name('datatable');
+                Route::patch('/{id}/status', 'status')->name('status');
+            });
+
+        Route::resource('overview', QuizController::class)
+            ->except(['show', 'update']);
+
+        // Questions and Categories (new nested structure)
+        Route::prefix('questions')->name('questions.')->group(function () {
+
+            Route::controller(QuizQuestionController::class)
+                ->prefix('overview')
+                ->name('overview.')
+                ->group(function () {
+                    Route::post('/update', 'update')->name('update');
+                    Route::get('/{id}/show', 'show')->name('show');
+                    Route::get('/datatable', 'datatable')->name('datatable');
+                });
+
+            Route::resource('overview', QuizQuestionController::class)
+                ->except(['show', 'update']);
+
+            // start Quiz Answers
+            Route::controller(QuizAnswerController::class)
+                ->prefix('answers')
+                ->name('answers.')
+                ->group(function () {
+                    Route::post('/update', 'update')->name('update');
+                    Route::get('/{id}/show', 'show')->name('show');
+                    Route::get('/datatable', 'datatable')->name('datatable');
+                    Route::patch('/{id}/is-correct', 'isCorrect')->name('isCorrect');
+                });
+
+            Route::resource('answers', QuizAnswerController::class)
+                ->except(['show', 'update']);
+            // end Quiz Answers
+
+            //start Question Categories
+            Route::controller(QuestionCategoryController::class)
+                ->prefix('categories')
+                ->name('categories.')
+                ->group(function () {
+                    Route::post('/update', 'update')->name('update');
+                    Route::get('/{id}/show', 'show')->name('show');
+                    Route::get('/datatable', 'datatable')->name('datatable');
+                });
+
+            Route::resource('categories', QuestionCategoryController::class)
+                ->except(['show', 'update']);
+            //end Question Categories
+        });
+
+        // start Duration
+        Route::controller(DurationController::class)
+            ->prefix('durations')
+            ->name('durations.')
+            ->group(function () {
+                Route::post('/update', 'update')->name('update');
+                Route::get('/{id}/show', 'show')->name('show');
+                Route::get('/datatable', 'datatable')->name('datatable');
+            });
+
+        Route::resource('durations', DurationController::class)
+            ->except(['show', 'update']);
+        // end Duration
+
+        // start Difficulty Level
+        Route::controller(DifficultyLevelController::class)
+            ->prefix('difficultylevels')
+            ->name('difficultylevels.')
+            ->group(function () {
+                Route::post('/update', 'update')->name('update');
+                Route::get('/{id}/show', 'show')->name('show');
+                Route::get('/datatable', 'datatable')->name('datatable');
+            });
+
+        Route::resource('difficultylevels', DifficultyLevelController::class)
+            ->except(['show', 'update']);
+        // end Difficulty Level
     });
 
-    // Instructors routes
-    Route::controller(InstructorsController::class)->group(function () {
-        Route::prefix('instructors')->name('instructors.')->group(function () {
-            Route::get('', 'index')->name('index');
-            Route::delete('delete/{id}', 'destroy')->name('delete');
-            Route::get('datatable', 'datatable')->name('datatable');
-            Route::get('get/{id}', 'getInstructor')->name('get');
-            Route::post('edit', 'update')->name('edit');
-        });
-    });
 
-    // Courses routes
-    Route::controller(CoursesController::class)->group(function () {
-        Route::prefix('course')->name('course.')->group(function () {
-            Route::get('', 'index')->name('index');
-            Route::get('datatable', 'datatable')->name('datatable');
-            Route::get('get/{id}', 'getCourses')->name('get');
-            Route::post('edit', 'update')->name('edit');
-            Route::put('status/{id}', 'changeStatus')->name('status');
-            Route::post('store', 'store')->name('store');
-        });
-    });
 
-    // Course documents routes
-    Route::controller(CourseDocumentsController::class)->group(function () {
-        Route::prefix('course/documents')->name('course.documents.')->group(function () {
-            Route::get('', 'index')->name('index');
-            Route::post('store', 'store')->name('store');
-            Route::get('datatable', 'datatable')->name('datatable');
-            Route::get('get/{id}', 'getCourseDocuments')->name('get');
-            Route::post('edit', 'update')->name('edit');
-            Route::delete('delete/{id}', 'destroy')->name('delete');
-        });
-    });
+    // ======================================================================= //
+    // ====================== END QUIZ DATATABLE =========================== //
+    // ======================================================================= //
 
-    // Course related channels routes
-    Route::controller(CourseRelatedChannelController::class)->group(function () {
-        Route::prefix('course/related/channels')->name('course.related.channels.')->group(function () {
-            Route::get('', 'index')->name('index');
-            Route::post('store', 'store')->name('store');
-            Route::get('datatable', 'datatable')->name('datatable');
-            Route::get('get/{id}', 'getCourseRelatedChannel')->name('get');
-            Route::post('edit', 'update')->name('edit');
-            Route::delete('delete/{id}', 'destroy')->name('delete');
-        });
-    });
-
-    Route::controller(CourseLessonsController::class)->group(function () {
-        Route::prefix('course/lessons')->name('course.lessons.')->group(function () {
-            Route::get('', 'index')->name('index');
-            Route::post('store', 'store')->name('store');
-            Route::put('status/{id}', 'changeStatus')->name('status');
-            Route::delete('delete/{id}', 'destroy')->name('delete');
-            Route::get('datatable', 'datatable')->name('datatable');
-            Route::get('get/{id}', 'getCourseLesson')->name('get');
-            Route::post('edit', 'update')->name('edit');
-        });
-    });
-
-    Route::controller(CourseResourceController::class)->group(function () {
-        Route::prefix('course/resources')->name('course.resources.')->group(function () {
-            Route::get('', 'index')->name('index');
-            Route::post('store', 'store')->name('store');
-            Route::get('datatable', 'datatable')->name('datatable');
-            Route::get('get/{id}', 'getCourseResource')->name('get');
-            Route::post('edit', 'update')->name('edit');
-            Route::delete('delete/{id}', 'destroy')->name('delete');
-            Route::put('status/{id}', 'changeStatus')->name('status');
-        });
-    });
-
-    Route::controller(CourseExtentionController::class)->group(function () {
-        Route::prefix('course/extentions')->name('course.extentions.')->group(function () {
-            Route::get('', 'index')->name('index');
-            Route::post('store', 'store')->name('store');
-            Route::get('datatable', 'datatable')->name('datatable');
-            Route::get('get/{id}', 'getCourseExtention')->name('get');
-            Route::put('status/{id}', 'changeStatus')->name('status');
-            Route::post('edit', 'update')->name('edit');
-            Route::delete('delete/{id}', 'destroy')->name('delete');
-        });
-    });
 });

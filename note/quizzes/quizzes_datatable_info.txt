@@ -1,0 +1,22 @@
+Datatable: quizzes
+Created at: 2024-11-07 22:33:48
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- title
+- passing_score
+- is_published
+- attempts_allowed
+- translated
+
+JS File: public/js/web/dashboard/quizzes/quizzes.js
+View File: resources/views/dashboard/pages/quizzes/quizzes.blade.php

@@ -1,0 +1,23 @@
+Datatable: quizAttempts
+Created at: 2024-11-10 21:01:42
+
+Selected Features:
+- Header
+- Create
+- Create-modal
+- Edit-modal
+- Search
+- Filter
+- ColumnVisibility
+- Checkbox
+
+Columns:
+- quiz_id
+- user_id
+- started_at
+- completed_at
+- score
+- passed
+
+JS File: public/js/web/dashboard/quizzes/quizAttempts.js
+View File: resources/views/dashboard/pages/quizzes/quizAttempts.blade.php

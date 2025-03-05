@@ -1,0 +1,114 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Durations;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class DurationsController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        return view('dashboard.pages.durations', compact('user'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'minutes' => 'required|string',
+            'name' => 'required|string',
+        ]);
+
+        Durations::create($request->all());
+        return response()->json(['message' => 'Durations created successfully']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'minutes' => 'required|string',
+            'name' => 'required|string',
+        ]);
+
+        Durations::update($request->all());
+        return response()->json(['message' => 'Durations updated successfully']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $durations = Durations::find($id);
+        $durations->delete();
+        return response()->json(['message' => 'Durations deleted successfully']);
+    }
+
+    public function datatable(Request $request)
+    {
+        $search = request()->get('search');
+        $value = isset($search['value']) ? $search['value'] : null;
+
+        $durationss = Durations::select('id',
+'minutes', 'name', 'created_at')
+            ->when($value, function ($query) use ($value) {
+                return $query->where(function ($query) use ($value) {
+                    $query->where('minutes', 'like', '%' . $value . '%')
+                        ->orWhere('name', 'like', '%' . $value . '%')
+                });
+            });
+
+        return DataTables::of($durationss->get())
+            ->editColumn('created_at', function ($durations) {
+                return $durations->created_at->diffForHumans();
+            })->make(true);
+    }
+}
+
+        public function get Durations(string $id)
+{
+    $Durations = Durations::find($id);
+    return response()->json($Durations);
+}
+
+Route::controller(DurationsController::class)->group(function () {
+    Route::get('durations/datatable', 'datatable')->name('durations.datatable');
+    Route::get('durations/get/{id}', 'get{$modelName}')->name('durations.get');
+    Route::post('durations/edit', 'update')->name('durations.edit');
+    Route::resource('durations', DurationsController::class);
+});

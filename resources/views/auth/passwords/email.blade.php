@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('web.layouts.main')
 
 @section('title', 'email')
 
@@ -28,11 +28,12 @@
                         <!--end::Header-->
                         <!--begin::Body-->
                         <div class="text-center fs-2 fw-bold py-20">
-                            <img src="{{ asset('vendor/img/logo/logo-icon.png') }}" width="70" alt=""
+                            <img src="{{ asset('core/vendor/img/logo/logo-icon.png') }}" width="70" alt=""
                                 style="animation: spin 2s linear infinite;">
                         </div>
                         <!--begin::Form-->
-                        <form class="py-10" method="POST" action="{{ route('password.email') }}" id="send-email-form">
+                        <form form-id="send-email" feedback route="{{ route('password.email') }}"
+                            identifier="single-form-post-handler" class="py-10" http-request success-toast>
                             @csrf
                             <!--begin::Heading-->
                             <div class="text-start mb-10">
@@ -48,8 +49,10 @@
                             <!--begin::Heading-->
                             <!--begin::Input group-->
                             <div class="fv-row mb-10 fv-plugins-icon-container">
-                                <input type="text" placeholder="{{ __('common.email') }}" id="email" name="email"
-                                    autocomplete="off" class="form-control form-control-solid" />
+                                <input type="text" feedback-id="email-feedback" placeholder="{{ __('common.email') }}"
+                                    id="email" name="email" autocomplete="off"
+                                    class="form-control form-control-solid form-control form-control-solid-solid" />
+                                <div id="email-feedback" class="invalid-feedback fw-bold"></div>
                             </div>
 
                             <!--end::Input group-->
@@ -58,8 +61,9 @@
                                 <!--begin::Link-->
                                 <div class="m-0 d-flex align-items-center gap-2">
                                     <button class="btn bg-logo d-flex align-items-center justify-content-center gap-2"
-                                        loading="{{ __('common.sending') }}" with-spinner="true" type="submit">
-                                        <span class="ld-span">{{ __('auth.send_pass') }}</span>
+                                        loading-text="{{ __('common.sending') }}" submit-form-id="send-email"
+                                        type="submit">
+                                        {{ __('auth.send_pass') }}
                                     </button>
                                     <a href="{{ route('login') }}"
                                         class="btn text-logo fw-bold btn-hover">{{ __('common.cancel') }}</a>
@@ -71,9 +75,6 @@
                         <!--end::Form-->
                     </div>
                     <!--end::Body-->
-                    <!--begin::Footer-->
-                    @include('auth.components.footer')
-                    <!--end::Footer-->
                 </div>
                 <!--end::Wrapper-->
             </div>
@@ -82,7 +83,4 @@
         </div>
         <!--end::Authentication - Sign-in-->
     </div>
-    @push('scripts')
-        <script src="{{ asset('js/auth/email.js') }}" type="module"></script>
-    @endpush
 @endsection

@@ -1,0 +1,111 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\QuizAnswers;
+use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
+
+class QuizAnswersController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $user = auth()->user();
+        return view('dashboard.pages.quizanswers', compact('user'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'question_id' => 'required|string',
+            'answer_en' => 'required|string',
+            'is_correct' => 'required|string',
+        ]);
+
+        QuizAnswers::create($request->all());
+        return response()->json(['message' => 'QuizAnswers created successfully']);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request)
+    {
+        $request->validate([
+            'question_id' => 'required|string',
+            'answer_en' => 'required|string',
+            'is_correct' => 'required|string',
+        ]);
+
+        QuizAnswers::update($request->all());
+        return response()->json(['message' => 'QuizAnswers updated successfully']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $quizanswers = QuizAnswers::find($id);
+        $quizanswers->delete();
+        return response()->json(['message' => 'QuizAnswers deleted successfully']);
+    }
+
+    public function datatable(Request $request)
+    {
+        $search = request()->get('search');
+        $value = isset($search['value']) ? $search['value'] : null;
+
+        $quizanswerss = QuizAnswers::select('id',
+'question_id', 'answer_en', 'is_correct', 'created_at')
+            ->when($value, function ($query) use ($value) {
+                return $query->where(function ($query) use ($value) {
+                    $query->where('question_id', 'like', '%' . $value . '%')
+                        ->orWhere('answer_en', 'like', '%' . $value . '%')
+                        ->orWhere('is_correct', 'like', '%' . $value . '%')
+                });
+            });
+
+        return DataTables::of($quizanswerss->get())
+            ->editColumn('created_at', function ($quizanswers) {
+                return $quizanswers->created_at->diffForHumans();
+            })->make(true);
+    }
+}
+
+        public function get QuizAnswers(string $id)
+{
+    $QuizAnswers = QuizAnswers::find($id);
+    return response()->json($QuizAnswers);
+}
+

@@ -5,232 +5,478 @@
 @section('content')
 
     @push('styles')
-        <link rel="stylesheet" href="{{ asset('css/landing.css', true) }}">
+        <link rel="stylesheet" href="{{ asset('css/web/landing.css', true) }}">
     @endpush
 
     {{-- hero --}}
-    <header
-        class="container-fluid hero-section overflow-hidden d-flex align-items-center justify-content-center position-relative">
-        <div class="icon-container position-absolute w-100 h-100" aria-hidden="true">
-            <img id="icon-pencil" src="{{ asset('vendor/img/default/pencil.png') }}" width="50" height="50"
-                alt="Pencil icon" class="floating-icon">
-            <img id="icon-rocket" src="{{ asset('vendor/img/default/rocket.png') }}" width="50" height="50"
-                alt="Rocket icon" class="floating-icon">
-            <img id="icon-tool-box" src="{{ asset('vendor/img/default/tool-box.png') }}" width="50" height="50"
-                alt="Tool box icon" class="floating-icon">
-            <img id="icon-video-lesson" src="{{ asset('vendor/img/default/video-lesson.png') }}" width="50"
-                height="50" alt="Video lesson icon" class="floating-icon">
-            <img id="wrench" src="{{ asset('vendor/img/default/wrench.png') }}" width="50" height="50"
-                alt="Wrench icon" class="floating-icon">
-            <img id="browser" src="{{ asset('vendor/img/default/browser.png') }}" width="50" height="50"
-                alt="Browser icon" class="floating-icon">
-        </div>
-        <div class="text-center">
-            <h1 class="display-2 fw-bold mt-5 mb-4"><span class="gsap-typewriter"></span></h1>
-            <p class="lead fs-2 mb-5 mt-5"><span class="gsap-typewriter underline-oblique"></span></p>
-            <h2 class="h2 mb-4 mt-5"><span class="gsap-typewriter"></span></h2>
-            <p class="fs-4 mb-5 mt-5">
-                <span class="gsap-typewriter"></span><br>
-                <span class="gsap-typewriter"></span>
-            </p>
-            <nav class="d-flex justify-content-center gsap-fade-up" style="margin-top: 50px;">
+    <header id="hero-section"
+        class="hero-section overflow-hidden d-flex align-items-center flex-wrap justify-content-center position-relative position-relative-hero">
+        <!-- Background shapes -->
+        <img src="{{ asset('core/vendor/img/landing/dotted-shape.svg') }}" alt="" class="dotted-shape dotted-1"
+            aria-hidden="true">
+        <img src="{{ asset('core/vendor/img/landing/dotted-shape.svg') }}" alt="" class="dotted-shape dotted-2"
+            aria-hidden="true">
+        <img src="{{ asset('core/vendor/img/landing/second-shape.svg') }}" alt="" class="floating-shape shape-1"
+            aria-hidden="true">
+        <img src="{{ asset('core/vendor/img/landing/second-shape.svg') }}" alt="" class="floating-shape shape-2"
+            aria-hidden="true">
+        <img src="{{ asset('core/vendor/img/landing/random-shape-1.svg') }}" class="random-shape random-shape-1"
+            alt="React" aria-hidden="true">
+        <img src="{{ asset('core/vendor/img/landing/random-shape-2.svg') }}" class="random-shape random-shape-2"
+            alt="React" aria-hidden="true">
+
+        <div class="text-start">
+            <h1 class="lebify-huge-text mt-5 mb-4">Code Your Future, Build Your Dreams</h1>
+            <p class="lebify-medium-text mb-12 mt-5">Join a vibrant community of developers and turn your coding passion
+                into professional expertise. Learn through immersive projects, master in-demand technologies, and build
+                real-world applications that make an impact.</p>
+            <nav class="d-flex nav-hero justify-content-start flex-wrap">
                 @guest
-                    <button data-bs-toggle="modal" data-bs-target="#join-now-modal"
-                        class="btn bg-logo btn-lg me-3 gsap-button">{{ __('common.join_now') }}</button>
+                    <button data-bs-toggle="modal" data-bs-target="#join-now-modal" class="btn bg-logo btn-lg me-4">
+                        Start Creating Today
+                    </button>
                 @endguest
-                <a href="#courses-features"
-                    class="btn logo-border btn-outline-secondary btn-lg gsap-button">{{ __('common.learn_more') }}</a>
+
+                @auth
+                    <a href="#courses-features" class="btn logo-border btn-outline-secondary btn-lg">
+                        Explore Courses
+                    </a>
+                @endauth
+                <div class="d-flex align-items-center gap-2">
+                    <button class="play-video-btn">
+                        <i class="fa-solid fa-play text-white p-0"></i>
+                    </button>
+                    <span class="watch-demo-text">Watch Demo</span>
+                </div>
             </nav>
+        </div>
+        <div class="position-relative">
+            <img src="{{ asset('core/vendor/img/landing/landing.svg') }}" alt="Programming Education" width="600"
+                class="main-illustration">
+            <div class="floating-elements">
+                <div class="tech-badge react">
+                    <img src="{{ asset('core/vendor/img/landing/react.svg') }}" alt="React" aria-hidden="true">
+                </div>
+                <div class="tech-badge angular">
+                    <img src="{{ asset('core/vendor/img/landing/angular.svg') }}" alt="Angular" aria-hidden="true">
+                </div>
+                <div class="tech-badge php">
+                    <img src="{{ asset('core/vendor/img/landing/php.svg') }}" alt="PHP" aria-hidden="true">
+                </div>
+            </div>
+        </div>
+
+        <!-- Add scroll indicator -->
+        <div class="scroll-indicator">
+            <div class="mouse"></div>
+            <small>Scroll to explore</small>
         </div>
     </header>
 
-    {{-- video --}}
-    <section class="d-flex video-section pb-20 align-items-center justify-content-center app-bg">
-        <div id="video-container" class="screen-container shadow-lg" aria-label="{{ __('common.promotional_video') }}"
-            style="position: relative; z-index: 0; overflow: hidden; height: 50vh; max-width: 70%; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); margin: 40px auto;">
-            <div class="screen-frame"
-                style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; border: 20px solid #333; border-radius: 20px; pointer-events: none;">
-            </div>
-            <div class="screen-content" style="position: relative; height: 100%; overflow: hidden; border-radius: 10px;">
-                <div class="video-overlay"
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.3); z-index: 1;">
+    {{-- Statistics Cards Section --}}
+    <section class="container statistics-section py-5" id="statistics-section">
+        <div class="row g-4 justify-content-center">
+            {{-- Online Courses Card --}}
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card courses-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-display icon-stat" style="color: #F5B401 !important;"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-number">10K</h3>
+                        <p class="stat-label fw-bold">Online Courses</p>
+                    </div>
                 </div>
-                <video autoplay loop muted playsinline preload="metadata" loading="lazy"
-                    style="width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 0;">
-                    <source src="{{ asset('vendor/vid/vid.mp4') }}" type="video/mp4">
-                    <track kind="captions" src="{{ asset('path/to/captions.vtt') }}" srclang="en"
-                        label="{{ __('common.english') }}">
-                    {{ __('common.video_not_supported') }} <a
-                        href="{{ asset('vendor/vid/vid.mp4') }}">{{ __('common.download_video') }}</a>.
-                </video>
             </div>
-            <div class="screen-reflection"
-                style="position: absolute; top: 0; left: 0; right: 0; height: 40%; background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent); pointer-events: none;">
-            </div>
-        </div>
-    </section>
 
-    {{-- features --}}
-    <section id="courses-features" class="container-fluid app-bg relative py-5 why-choose-our-courses"
-        style="padding-top: 100px !important;">
-        <div class="container">
-            <h2 class="text-center display-4 fw-bold mb-6">{{ __('common.why_choose_our_courses') }}</h2>
-            <p class="text-center lead mb-5">{{ __('common.transformative_journey') }}</p>
-            <div class="separator separator-h mb-5" aria-hidden="true"></div>
+            {{-- Expert Tutors Card --}}
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card tutors-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-person-circle icon-stat" style="color: #2C3E50 !important;"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-number">200+</h3>
+                        <p class="stat-label fw-bold">Expert Tutors</p>
+                    </div>
+                </div>
+            </div>
 
-            <div class="row g-5 justify-content-center pt-12">
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <article class="feature-card">
-                        <div class="feature-number">
-                            <img src="{{ asset('vendor/img/card-icon/one.png') }}" width="40" height="40"
-                                alt="{{ __('common.number_one_icon') }}">
-                        </div>
-                        <div class="feature-icon">
-                            <div class="feature-icon d-flex align-items-center justify-content-center">
-                                <img src="{{ asset('vendor/img/card-icon/rocket.png') }}" width="100" height="100"
-                                    alt="{{ __('common.rocket_icon') }}">
-                            </div>
-                        </div>
-                        <h3 class="text-center">{{ __('common.cutting_edge_curriculum') }}</h3>
-                        <p class="text-center">{{ __('common.cutting_edge_curriculum_desc') }}</p>
-                    </article>
+            {{-- Online Students Card --}}
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card students-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-mortarboard icon-stat" style="color: #8E44AD !important;"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-number">60K+</h3>
+                        <p class="stat-label fw-bold">Online Students</p>
+                    </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <article class="feature-card">
-                        <div class="feature-number">
-                            <img src="{{ asset('vendor/img/card-icon/two.png') }}" width="40" height="40"
-                                alt="{{ __('common.number_two_icon') }}">
-                        </div>
-                        <div class="feature-icon">
-                            <div class="feature-icon d-flex align-items-center justify-content-center">
-                                <img src="{{ asset('vendor/img/card-icon/laptop-screen.png') }}" width="100"
-                                    height="100" alt="{{ __('common.laptop_screen_icon') }}">
-                            </div>
-                        </div>
-                        <h3 class="text-center">{{ __('common.hands_on_projects') }}</h3>
-                        <p class="text-center">{{ __('common.hands_on_projects_desc') }}</p>
-                    </article>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <article class="feature-card">
-                        <div class="feature-number">
-                            <img src="{{ asset('vendor/img/card-icon/three.png') }}" width="40" height="40"
-                                alt="{{ __('common.number_three_icon') }}">
-                        </div>
-                        <div class="feature-icon">
-                            <div class="feature-icon d-flex align-items-center justify-content-center">
-                                <img src="{{ asset('vendor/img/card-icon/rating.png') }}" width="100" height="100"
-                                    alt="{{ __('common.rating_icon') }}">
-                            </div>
-                        </div>
-                        <h3 class="text-center">{{ __('common.expert_mentorship') }}</h3>
-                        <p class="text-center">{{ __('common.expert_mentorship_desc') }}</p>
-                    </article>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <article class="feature-card">
-                        <div class="feature-number">
-                            <img src="{{ asset('vendor/img/card-icon/four.png') }}" width="40" height="40"
-                                alt="{{ __('common.number_four_icon') }}">
-                        </div>
-                        <div class="feature-icon">
-                            <div class="feature-icon d-flex align-items-center justify-content-center">
-                                <img src="{{ asset('vendor/img/card-icon/yoga.png') }}" width="100" height="100"
-                                    alt="{{ __('common.yoga_icon') }}">
-                            </div>
-                        </div>
-                        <h3 class="text-center">{{ __('common.flexible_learning') }}</h3>
-                        <p class="text-center">{{ __('common.flexible_learning_desc') }}</p>
-                    </article>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <article class="feature-card">
-                        <div class="feature-number">
-                            <img src="{{ asset('vendor/img/card-icon/five.png') }}" width="40" height="40"
-                                alt="{{ __('common.number_five_icon') }}">
-                        </div>
-                        <div class="feature-icon d-flex align-items-center justify-content-center">
-                            <img src="{{ asset('vendor/img/card-icon/quiz.png') }}" width="100" height="100"
-                                alt="{{ __('common.quiz_icon') }}">
-                        </div>
-                        <h3 class="text-center">{{ __('common.comprehensive_quizzes') }}</h3>
-                        <p class="text-center">{{ __('common.comprehensive_quizzes_desc') }}</p>
-                    </article>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-5">
-                    <article class="feature-card">
-                        <div class="feature-number">
-                            <img src="{{ asset('vendor/img/card-icon/six.png') }}" width="40" height="40"
-                                alt="{{ __('common.number_six_icon') }}">
-                        </div>
-                        <div class="feature-icon">
-                            <div class="feature-icon d-flex align-items-center justify-content-center">
-                                <img src="{{ asset('vendor/img/card-icon/help-desk.png') }}" width="100"
-                                    height="100" alt="{{ __('common.help_desk_icon') }}">
-                            </div>
-                        </div>
-                        <h3 class="text-center">{{ __('common.community_support') }}</h3>
-                        <p class="text-center">{{ __('common.community_support_desc') }}</p>
-                    </article>
+            </div>
+
+            {{-- Certified Courses Card --}}
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card certified-card">
+                    <div class="stat-icon">
+                        <i class="bi bi-check-circle icon-stat" style="color: #16A085 !important;"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 class="stat-number">6K+</h3>
+                        <p class="stat-label fw-bold">Certified Courses</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- Comprehensive Learning Path --}}
-    <section class="container-fluid app-bg comprehensive-learning-path relative py-12"
-        style="padding-top: 100px !important;">
+    {{-- Why Choose Us Section --}}
+    <section class="why-choose-us-section py-5" id="why-choose-us-section"
+        style="margin-top: 100px !important; padding-top: 50px !important;padding-bottom: 50px !important;">
         <div class="container">
-            <h2 class="text-center display-4 fw-bold mb-6">{{ __('common.comprehensive_learning_path') }}</h2>
-            <p class="text-center lead mb-5">{{ __('common.beginner_to_expert') }}</p>
-            <div class="separator separator-h mb-5" aria-hidden="true"></div>
-
             <div class="row align-items-center">
-                <div class="col-lg-6 mb-4 mb-lg-0" style="padding-top: 40px;">
-                    <h3 class="h2 fw-bold mb-4 mt-12">{{ __('common.unlock_potential') }}</h3>
-                    <p class="lead mb-4">{{ __('common.join_lebify') }}</p>
-                    <ul class="list-unstyled mt-12">
-                        <li class="mb-7 mt-7">
-                            <img class="mx-5" src="{{ asset('vendor/img/card-icon/internet.png') }}" width="50"
-                                height="50" alt="{{ __('common.web_icon') }}" aria-hidden="true">
-                            {{ __('common.full_stack_web_dev') }}
-                        </li>
-                        <li class="mb-7 mt-7">
-                            <img class="mx-5" src="{{ asset('vendor/img/card-icon/development.png') }}" width="50"
-                                height="50" alt="{{ __('common.mobile_app_icon') }}" aria-hidden="true">
-                            {{ __('common.mobile_app_dev') }}
-                        </li>
-                        <li class="mb-7 mt-7">
-                            <img class="mx-5" src="{{ asset('vendor/img/card-icon/database-file.png') }}"
-                                width="50" height="50" alt="{{ __('common.database_icon') }}"
-                                aria-hidden="true">
-                            {{ __('common.database_management') }}
-                        </li>
-                        <li class="mb-7 mt-7">
-                            <img class="mx-5" src="{{ asset('vendor/img/card-icon/server.png') }}" width="50"
-                                height="50" alt="{{ __('common.cloud_icon') }}" aria-hidden="true">
-                            {{ __('common.cloud_computing') }}
-                        </li>
-                        <li class="mb-7 mt-7">
-                            <img class="mx-5" src="{{ asset('vendor/img/card-icon/analytics.png') }}" width="50"
-                                height="50" alt="{{ __('common.ai_icon') }}" aria-hidden="true">
-                            {{ __('common.ai_ml') }}
-                        </li>
-                        <li class="mb-12">
-                            <img class="mx-5" src="{{ asset('vendor/img/card-icon/cyber-security.png') }}"
-                                width="50" height="50" alt="{{ __('common.security_icon') }}"
-                                aria-hidden="true">
-                            {{ __('common.cybersecurity') }}
-                        </li>
-                    </ul>
-                    <a href="#" class="btn bg-logo btn-lg mt-4"
-                        role="button">{{ __('common.explore_all_courses') }}</a>
-                </div>
                 <div class="col-lg-6">
-                    <div class="position-relative comprehensive-learning-path-image">
-                        <img src="{{ asset('vendor/img/card-icon/ll.svg') }}"
-                            alt="{{ __('common.learning_path_illustration') }}" class="img-fluid rounded">
-                        <div class="position-absolute top-0 start-0 w-100 h-100 rounded" aria-hidden="true"></div>
+                    <div class="choose-us-image">
+                        <div class="image-backdrop"></div>
+                        <div class="floating-bubble bubble-1"></div>
+                        <div class="floating-bubble bubble-2"></div>
+                        <div class="floating-bubble bubble-3"></div>
+                        <img src="{{ asset('core/vendor/img/landing/why-us.svg') }}" alt="Why Choose Us"
+                            class="img-fluid main-image">
+                        <div class="experience-badge">
+                            <span class="number">5+</span>
+                            <span class="text">Years of Excellence</span>
+                        </div>
+                        <div class="stats-badge">
+                            <div class="stat-item">
+                                <span class="number">98%</span>
+                                <span class="label">Success Rate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="choose-us-content">
+                        <x-web.section-badge title="WHY CHOOSE US" />
+                        <h2 class="display-4 fw-bold mb-4">Transform Your Career With Expert-Led Learning</h2>
+                        <p class="lead mb-5">Join thousands of students who have already taken the first step towards their
+                            dream career in tech.</p>
+
+                        <div class="features-list">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="bi bi-code-slash"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h4>Interactive Learning</h4>
+                                    <p>Get hands-on experience with real projects and practical assignments</p>
+                                </div>
+                            </div>
+
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="bi bi-graph-up-arrow"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h4>Career Growth</h4>
+                                    <p>Clear path to advance your career with industry-recognized certifications</p>
+                                </div>
+                            </div>
+
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h4>Expert Instructors</h4>
+                                    <p>Learn from professionals with real-world experience in top tech companies</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Quiz Features Section --}}
+    <section class="quiz-features-section" id="quiz-features-section"
+        style="margin-top: 100px;background-image: url('{{ asset('core/vendor/img/landing/quiz.svg') }}');background-size: cover;background-position: center;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <x-web.section-badge title="QUIZ SYSTEM" />
+                <h2 class="display-4 fw-bold mb-4">Advanced Quiz Features</h2>
+                <p class="lead mb-5 mx-auto" style="max-width: 600px">Experience a comprehensive quiz system designed to
+                    challenge and track your progress</p>
+            </div>
+
+            <div class="quiz-features-grid">
+                <div class="quiz-feature-card">
+                    <div class="card-icon">
+                        <i class="bi bi-shield-lock"></i>
+                    </div>
+                    <h4>Secure Testing</h4>
+                    <p>Anti-cheat system with time tracking and attempt monitoring</p>
+                    <div class="card-overlay"></div>
+                </div>
+
+                <div class="quiz-feature-card">
+                    <div class="card-icon">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+                    <h4>Real-time Progress</h4>
+                    <p>Instant feedback and detailed performance analytics</p>
+                    <div class="card-overlay"></div>
+                </div>
+
+                <div class="quiz-feature-card">
+                    <div class="card-icon">
+                        <i class="bi bi-bar-chart-steps"></i>
+                    </div>
+                    <h4>Difficulty Levels</h4>
+                    <p>Progressive difficulty from beginner to advanced</p>
+                    <div class="card-overlay"></div>
+                </div>
+
+                <div class="quiz-feature-card">
+                    <div class="card-icon">
+                        <i class="bi bi-graph-up-arrow"></i>
+                    </div>
+                    <h4>Performance Stats</h4>
+                    <p>Detailed statistics for every attempt and topic</p>
+                    <div class="card-overlay"></div>
+                </div>
+
+                <div class="quiz-feature-card">
+                    <div class="card-icon">
+                        <i class="bi bi-stopwatch"></i>
+                    </div>
+                    <h4>Timed Challenges</h4>
+                    <p>Time-based quizzes to test your speed and accuracy</p>
+                    <div class="card-overlay"></div>
+                </div>
+
+                <div class="quiz-feature-card">
+                    <div class="card-icon">
+                        <i class="bi bi-trophy"></i>
+                    </div>
+                    <h4>Achievement System</h4>
+                    <p>Earn badges and track your milestones</p>
+                    <div class="card-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Coin Wallet Section --}}
+    <div
+        style="background-image: url('{{ asset('core/vendor/img/landing/credit-card-bg.svg') }}');background-size: cover;background-position: center;">
+        <section class="coin-wallet-section" style="margin-top: 100px !important;" id="coin-wallet-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="wallet-content">
+                            <x-web.section-badge title="REWARDS SYSTEM" />
+                            <h2 class="display-4 fw-bold mb-4">Earn While You Learn</h2>
+                            <p class="lead mb-5">Transform your learning experience with our innovative LFT token system.
+                                Earn
+                                tokens as you progress and unlock exclusive features.</p>
+
+                            <div class="info-grid">
+                                <div class="info-item">
+                                    <div class="icon-wrapper">
+                                        <i class="bi bi-star-fill"></i>
+                                    </div>
+                                    <p>Earn tokens for completing courses and achieving high scores</p>
+                                </div>
+                                <div class="info-item">
+                                    <div class="icon-wrapper">
+                                        <i class="bi bi-unlock-fill"></i>
+                                    </div>
+                                    <p>Access premium content and exclusive learning materials</p>
+                                </div>
+                                <div class="info-item">
+                                    <div class="icon-wrapper">
+                                        <i class="bi bi-award-fill"></i>
+                                    </div>
+                                    <p>Get certified and showcase your achievements</p>
+                                </div>
+                                <div class="info-item">
+                                    <div class="icon-wrapper">
+                                        <i class="bi bi-lightning-fill"></i>
+                                    </div>
+                                    <p>Fast-track your learning with premium features</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 d-flex align-items-center justify-content-center">
+                        <div class="wallet-3d-container">
+                            <div class="wallet-card">
+                                <div class="wallet-front">
+                                    <div class="wallet-balance">
+                                        <span class="balance-label">Your Balance</span>
+                                        <span class="balance-amount">1,234</span>
+                                        <span class="coin-symbol">LFT</span>
+                                    </div>
+                                    <div class="card-details">
+                                        <div class="card-number">**** **** **** 1234</div>
+                                        <div class="card-holder">DANY SEIFEDDINE</div>
+                                    </div>
+                                    <div class="card-chip"></div>
+                                    <div class="card-wave"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    {{-- YouTube Section --}}
+    <section class="youtube-promo-section" id="youtube-promo-section">
+        <div class="container">
+            <div class="youtube-promo-card">
+                <div class="row g-0 align-items-center">
+                    <div class="col-lg-6">
+                        <div class="youtube-content">
+                            <x-web.section-badge title="YOUTUBE CHANNEL" />
+                            <h2 class="display-4 fw-bold mb-4">Master Web Development</h2>
+                            <p class="lead mb-4">Access a growing library of tutorials and live coding sessions. Learn
+                                modern web development through practical, project-based videos.</p>
+
+                            <div class="channel-stats mb-4">
+                                <div class="stat-box">
+                                    <span class="stat-number">100+</span>
+                                    <span class="stat-label-video">Videos</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-number">5K+</span>
+                                    <span class="stat-label-video">Subscribers</span>
+                                </div>
+                                <div class="stat-box">
+                                    <span class="stat-number">500+</span>
+                                    <span class="stat-label-video">Hours</span>
+                                </div>
+                            </div>
+
+                            <a href="https://www.youtube.com/@lebify" target="_blank" class="btn bg-logo mt-5">
+                                <span class="btn-content">
+                                    <span>Subscribe Now</span>
+                                </span>
+                                <span class="btn-shine"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 position-relative">
+                        <div class="youtube-icon-wrapper">
+                            <div class="youtube-icon-morph">
+                                <svg viewBox="0 0 68 48" class="youtube-icon">
+                                    <path class="youtube-icon-bg"
+                                        d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z"
+                                        fill="#F77E15" />
+                                    <path class="youtube-icon-play" d="M 45,24 27,14 27,34" fill="#FFFFFF" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Testimonials & Contact Section --}}
+    <section class="testimonials-section" id="testimonials-section">
+        <div class="container">
+            {{-- Testimonials Part --}}
+            <div class="testimonials-wrapper mb-5">
+                <div class="testimonials-header text-center">
+                    <x-web.section-badge title="TESTIMONIALS" />
+                    <h2 class="display-4 fw-bold">Some valuable feedback from our students</h2>
+                    <div class="rating-overview justify-content-center">
+                        <div class="rating-circle">
+                            <svg viewBox="0 0 36 36" class="rating-circle-svg">
+                                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none" stroke="rgba(247, 126, 21, 0.1)" stroke-width="3" />
+                                <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                    fill="none" stroke="#F77E15" stroke-width="3" stroke-dasharray="75, 100" />
+                            </svg>
+                            <div class="rating-content">
+                                <span class="rating-value">4.5</span>
+                                <span class="rating-label">out of 5.0</span>
+                            </div>
+                        </div>
+                        <div class="rating-info">
+                            <div class="stars">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </div>
+                            <p>Based on 3265 ratings</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- First row - moving right to left -->
+                <div class="testimonials-scroll">
+                    <div class="testimonials-track">
+                        <x-web.testimonial-card image="{{ asset('core/vendor/img/default/girl-default.jpg') }}"
+                            name="Dr Alaa Abou Darwish" rating="5.0"
+                            text="I think this project shows the ambition the creator has, and it has potential for the upcoming generation." />
+
+                        <x-web.testimonial-card image="core/vendor/img/default/boy-default.jpg" name="Tobi Femi"
+                            rating="4.5" role="Full Stack Developer"
+                            text="Very detailed and helpful, I've learnt so much already, and feeling much more confident as a full stack developer." />
+
+                        <x-web.testimonial-card image="core/vendor/img/default/boy-default.jpg" name="Dennis Barrett"
+                            rating="4.5"
+                            text="At weddings believed laughing although the Moonlight newspaper up its enjoyment agreeable depending." />
+
+                        <x-web.testimonial-card image="core/vendor/img/default/boy-default.jpg" name="Sarah Johnson"
+                            role="Frontend Developer" rating="5.0"
+                            text="The interactive learning approach and real-world projects have significantly improved my coding skills." />
+
+                        <!-- Duplicate first two cards for infinite scroll -->
+                        <x-web.testimonial-card image="core/vendor/img/default/boy-default.jpg" name="Tobi Femi"
+                            rating="4.5" role="Full Stack Developer"
+                            text="Very detailed and helpful, I've learnt so much already, and feeling much more confident as a full stack developer." />
+
+                        <x-web.testimonial-card image="core/vendor/img/default/boy-default.jpg" name="Carolyn Ortiz"
+                            rating="4.5"
+                            text="Moonlight newspaper up its enjoyment agreeable depending. Timed voice share led him to widen noisy young." />
+                    </div>
+                </div>
+                <div class="testimonials-scroll reverse">
+                    <div class="testimonials-track">
+                        <x-web.testimonial-card image="{{ asset('core/vendor/img/testimonials/aya.jpeg') }}"
+                            name="Aya Yasser" role="UI/UX Designer" rating="5.0"
+                            text="The platform is really helpful and well organized. The explanations are clear and easy to follow. A great learning experience , I highly recommend it! ♥️" />
+
+                        <x-web.testimonial-card image="{{ asset('core/vendor/img/default/girl-default.jpg') }}"
+                            name="Omaima Hatiti" rating="4.5" role="Frontend Developer"
+                            text="Thanks Dany! I learned so much from your courses. Your support, especially with the project meeting, was invaluable." />
+
+                        <x-web.testimonial-card image="{{ asset('core/vendor/img/testimonials/mohamad-mansour.png') }}"
+                            name="Mohamad Mansour" rating="4.5" role="Full Stack Developer"
+                            text="This platform offers top-notch web and app development lessons. Perfect for beginners and pros alike! 🖤" />
+
+                        <x-web.testimonial-card image="core/vendor/img/landing/mentors/student-4.jpg" name="Sarah Johnson"
+                            role="Frontend Developer" rating="5.0"
+                            text="The interactive learning approach and real-world projects have significantly improved my coding skills." />
+
+                        <!-- Duplicate first two cards for infinite scroll -->
+                        <x-web.testimonial-card image="{{ asset('core/vendor/img/testimonials/aya.jpeg') }}"
+                            name="Aya Yasser" role="UI/UX Designer" rating="5.0"
+                            text="The platform is really helpful and well organized. The explanations are clear and easy to follow. A great learning experience , I highly recommend it! ♥️" />
+
+                        <x-web.testimonial-card image="{{ asset('core/vendor/img/default/girl-default.jpg') }}"
+                            name="Omaima Hatiti" rating="4.5" role="Frontend Developer"
+                            text="Thanks Dany! I learned so much from your courses. Your support, especially with the project meeting, was invaluable." />
                     </div>
                 </div>
             </div>
@@ -238,187 +484,228 @@
     </section>
 
     {{-- Contact Us Section --}}
-    <section class="container-lg-fluid app-bg py-5" style="padding-top: 100px !important;">
-        <div class="container contact-us-section">
-            <h2 class="text-center display-4 fw-bold mb-6">{{ __('common.get_in_touch') }}</h2>
-            <p class="text-center lead mb-5">{{ __('common.wed_love_to_hear') }}</p>
-            <div class="separator separator-h mb-5" aria-hidden="true"></div>
+    <section class="contact-us-section py-5" id="contact-us-section">
+        <div class="container">
+            <div class="text-center mb-4">
+                <x-web.section-badge title="GET IN TOUCH" />
+                <h2 class="display-4 fw-bold mb-3">Need Help? Let's Talk</h2>
+                <p class="lead col-md-8 mx-auto">Ready to take your development skills to the next level? Drop us a message
+                    and we'll get back to you.</p>
+            </div>
 
-            <div
-                class="d-flex align-items-center flex-lg-nowrap flex-wrap gap-12 justify-content-center mt-12 rounded-3 overflow-hidden">
-                <div class="w-100 h-100">
-                    <div class="d-flex flex-column gap-12 p-5">
-                        <h3 class="h4 mb-4">{{ __('common.contact_information') }}</h3>
-                        <p class="mb-4">{{ __('common.were_here_to_help') }}</p>
-                        <ul class="list-unstyled">
-                            <li class="mb-3"><img src="{{ asset('vendor/img/card-icon/map.png') }}" width="40"
-                                    height="40" alt="{{ __('common.location_icon') }}" aria-hidden="true"><span
-                                    class="mx-5 fw-bold">{{ __('common.barja_lebanon') }}</span></li>
-                            <li class="mb-3"><img src="{{ asset('vendor/img/card-icon/phone.png') }}" width="40"
-                                    height="40" alt="{{ __('common.phone_icon') }}" aria-hidden="true"><span
-                                    class="mx-5 fw-bold">{{ __('common.phone_number') }}</span></li>
-                            <li class="mb-3"><img src="{{ asset('vendor/img/card-icon/mail.png') }}" width="40"
-                                    height="40" alt="{{ __('common.email_icon') }}" aria-hidden="true"><span
-                                    class="mx-5 fw-bold">{{ __('common.email_address') }}</span></li>
-                        </ul>
-                        <div class="mt-4">
-                            <h4 class="h5 mb-3">{{ __('common.how_we_can_help') }}</h4>
-                            <ul class="list-unstyled">
-                                <li class="mb-2">• {{ __('common.technical_support') }}</li>
-                                <li class="mb-2">• {{ __('common.feedback_on_learning') }}</li>
-                                <li class="mb-2">• {{ __('common.suggestions_for_courses') }}</li>
-                                <li class="mb-2">• {{ __('common.partnership_inquiries') }}</li>
-                                <li class="mb-2">• {{ __('common.general_questions') }}</li>
-                            </ul>
-                        </div>
-                        <p class="mt-3">{{ __('common.we_value_your_input') }}</p>
-                        <div class="d-flex flex-column">
-                            <div>
-                                <h4 class="h5 mb-3 mt-4">{{ __('common.follow_us') }}</h4>
+            <div class="contact-wrapper mt-12">
+                <div class="contact-card">
+                    <div class="contact-background-pattern"></div>
+                    <div class="row g-0">
+                        <div class="col-lg-5">
+                            <div class="contact-info-side">
+                                <div class="contact-info-content">
+                                    <div class="contact-header">
+                                        <div class="header-icon">
+                                            <i class="bi bi-chat-square-heart-fill text-white fs-3"></i>
+                                        </div>
+                                        <h3>Let's connect</h3>
+                                        <p class="">We're here to help and answer any question you might
+                                            have</p>
+                                    </div>
+
+                                    <div class="contact-methods">
+                                        <div class="contact-method-item">
+                                            <div class="icon-box">
+                                                <i class="bi bi-envelope-paper-heart text-white fs-3"></i>
+                                            </div>
+                                            <div class="method-details">
+                                                <h5>Email Us</h5>
+                                                <p>support@lebify.com</p>
+                                            </div>
+                                            <div class="hover-indicator"></div>
+                                        </div>
+                                        <div class="contact-method-item">
+                                            <div class="icon-box">
+                                                <i class="bi bi-telephone-outbound text-white fs-3"></i>
+                                            </div>
+                                            <div class="method-details">
+                                                <h5>Call Us</h5>
+                                                <p>+961 71 777 498</p>
+                                            </div>
+                                            <div class="hover-indicator"></div>
+                                        </div>
+                                        <div class="contact-method-item">
+                                            <div class="icon-box">
+                                                <i class="bi bi-geo-alt-fill text-white fs-3"></i>
+                                            </div>
+                                            <div class="method-details">
+                                                <h5>Visit Us</h5>
+                                                <p>Beirut, Lebanon</p>
+                                            </div>
+                                            <div class="hover-indicator"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="contact-social">
+                                        <div class="divider">
+                                            <span>Follow us on</span>
+                                        </div>
+                                        <div class="social-icons">
+                                            <a href="#" class="social-icon" data-tooltip="Facebook">
+                                                <i class="bi bi-facebook fs-3 text-white"></i>
+                                                <div class="icon-background"></div>
+                                            </a>
+                                            <a href="#" class="social-icon" data-tooltip="LinkedIn">
+                                                <i class="bi bi-linkedin fs-3 text-white"></i>
+                                                <div class="icon-background"></div>
+                                            </a>
+                                            <a href="#" class="social-icon" data-tooltip="Instagram">
+                                                <i class="bi bi-instagram fs-3 text-white"></i>
+                                                <div class="icon-background"></div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <a target="_blank" href="https://github.com/Danyseifedine" class="me-3 text-dark"
-                                    aria-label="GitHub"><img src="{{ asset('vendor/img/card-icon/github.png') }}"
-                                        width="50" height="50" alt="" aria-hidden="true"></a>
-                                <a target="_blank" href="https://www.linkedin.com/in/dany-seifeddine-ab6558247/"
-                                    class="me-3 text-dark" aria-label="LinkedIn"><img
-                                        src="{{ asset('vendor/img/card-icon/linkedin.png') }}" width="50"
-                                        height="50" alt="" aria-hidden="true"></a>
-                                <a target="_blank" href="https://www.instagram.com/danny__seifeddine/" class="text-dark"
-                                    aria-label="Instagram"><img src="{{ asset('vendor/img/card-icon/instagram.png') }}"
-                                        width="50" height="50" alt="" aria-hidden="true"></a>
+                        </div>
+                        <div class="col-lg-7 ">
+                            <div class="contact-form-side">
+                                <form class="contact-form" form-id="feedback-form" http-request feedback
+                                    route="{{ route('students.feedback') }}" identifier="single-form-post-handler"
+                                    success-toast clear-form>
+                                    <div class="contact-form-title">
+                                        <h4>Send us a Message</h4>
+                                        <p>Fill out the form below, and we'll get back to you shortly.</p>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <div class="form-group-animated">
+                                                <input type="text" class="form-control modern-input"
+                                                    feedback-id="name-feedback" name="name" id="name"
+                                                    placeholder="Your Name" required>
+                                            </div>
+                                            <div class="invalid-feedback" id="name-feedback"></div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group-animated">
+                                                <input type="email" class="form-control modern-input"
+                                                    feedback-id="email-feedback" name="email" id="email"
+                                                    placeholder="Your Email" required>
+                                            </div>
+                                            <div class="invalid-feedback" id="email-feedback"></div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group-animated">
+                                                <select class="form-select modern-input" feedback-id="subject-feedback"
+                                                    name="subject" id="subject" required>
+                                                    <option value="" selected disabled>
+                                                        {{ __('common.choose_subject') }}</option>
+                                                    <option value="course_inquiry">{{ __('common.course_inquiry') }}
+                                                    </option>
+                                                    <option value="technical_support">{{ __('common.technical_support') }}
+                                                    </option>
+                                                    <option value="partnership">{{ __('common.partnership_opportunity') }}
+                                                    </option>
+                                                    <option value="feedback">{{ __('common.feedback') }}</option>
+                                                    <option value="other">{{ __('common.other') }}</option>
+                                                </select>
+                                            </div>
+                                            <div class="invalid-feedback" id="subject-feedback"></div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group-animated">
+                                                <textarea class="form-control modern-input" feedback-id="message-feedback" name="message" id="message"
+                                                    placeholder="Your Message" required></textarea>
+                                            </div>
+                                            <div class="invalid-feedback" id="message-feedback"></div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button loading-text="{{ __('common.sending') }}"
+                                                submit-form-id="feedback-form" type="submit"
+                                                class="btn bg-logo d-flex align-items-center justify-content-center gap-2 btn-lg w-100">
+                                                <span class="button-text">Send Message</span>
+                                                <span class="button-icon">
+                                                    <i class="bi bi-send-fill text-white fs-3"></i>
+                                                </span>
+                                                <div class="button-background"></div>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="separator-vertical d-none d-xl-block my-5" aria-hidden="true"></div>
-                <div class="p-5 w-100 d-flex flex-column gap-4 justify-content-evenly"
-                    style="max-width: 800px; margin: 0 auto;">
-                    <div>
-                        <h2 class="h3 mb-4 text-center">{{ __('common.send_us_a_message') }}</h2>
-                        <p class="text-muted mb-4">{{ __('common.excited_to_hear_from_you') }}</p>
-                    </div>
-                    <form form-id="feedback-form" http-request feedback route="{{ route('students.feedback') }}"
-                        identifier="single-form-post-handler" success-toast on-success="clearForm"
-                        serialize-as="formdata" id="contact-form" class="p-4 rounded">
-                        <div class="mb-4">
-                            <label for="name" class="form-label">{{ __('common.full_name') }}</label>
-                            <input type="text" name="name" feedback-id="name-feedback"
-                                class="form-control form-control-lg" id="name"
-                                placeholder="{{ __('common.enter_full_name') }}">
-                            <div class="invalid-feedback" id="name-feedback"></div>
-                        </div>
-                        <div class="mb-4">
-                            <label for="email" class="form-label">{{ __('common.email') }}</label>
-                            <input type="email" name="email" feedback-id="email-feedback"
-                                class="form-control form-control-lg" id="email"
-                                placeholder="{{ __('common.enter_email_address') }}">
-                            <div id="email-feedback" class="invalid-feedback"></div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="subject" class="form-label">{{ __('common.subject') }}</label>
-                            <select feedback-id="subject-feedback" name="subject" class="form-select form-select-lg"
-                                id="subject">
-                                <option value="" selected disabled>{{ __('common.choose_subject') }}</option>
-                                <option value="course_inquiry">{{ __('common.course_inquiry') }}</option>
-                                <option value="technical_support">{{ __('common.technical_support') }}</option>
-                                <option value="partnership">{{ __('common.partnership_opportunity') }}</option>
-                                <option value="feedback">{{ __('common.feedback') }}</option>
-                                <option value="other">{{ __('common.other') }}</option>
-                            </select>
-                            <div class="invalid-feedback" id="subject-feedback"></div>
-                        </div>
-                        <div class="mb-4">
-                            <label for="message" class="form-label">{{ __('common.your_message') }}</label>
-                            <textarea feedback-id="message-feedback" name="message" class="form-control form-control-lg" id="message"
-                                rows="6" placeholder="{{ __('common.type_your_message') }}"></textarea>
-                            <div class="invalid-feedback" id="message-feedback"></div>
-                        </div>
-                        <button type="submit" loading-text="{{ __('common.sending') }}" submit-form-id="feedback-form"
-                            class="btn bg-logo btn-lg w-100 py-3">{{ __('common.send_message') }}</button>
-                    </form>
-
-                    <div class="d-flex flex-column mt-12 align-items-center text-center">
-                        <p class="text-muted mb-2">{{ __('common.website_by_dany') }}</p>
-                        <p class="text-muted">{{ __('common.dedicated_to_learning') }}</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-
-    @if (auth()->check() && (auth()->user()->email == 'student@lebify.online' || !auth()->user()->hasVerifiedEmail()))
-        <div class="modal fade" id="updateEmailModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="updateEmailModalLabel" aria-hidden="true">
+    {{-- @if (auth()->check() && (auth()->user()->email == 'student@lebify.online' || !auth()->user()->hasVerifiedEmail()))
+        <div class="modal fade show" id="updateEmailModal" data-bs-backdrop="static" data-bs-keyboard="false"
+            tabindex="-1" aria-labelledby="updateEmailModalLabel" aria-hidden="true" style="display: block;">
             <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content border-0 shadow">
-                    <div class="modal-header mb-5 bg-logo text-white border-0">
-                        <h5 class="modal-title text-white d-flex align-items-center align-content-center"
-                            id="updateEmailModalLabel">
-                            <i class="bi text-white fs-3 bi-envelope-fill me-2"></i>
-                            {{ __('common.update_email') }}
-                        </h5>
-                    </div>
-                    <div class="modal-body p-4">
-                        <div class="text-center mb-12">
-                            <div class="avatar-icon mb-3">
-                                <i class="bi bi-shield-lock-fill"></i>
+                <div class="modal-content border-0 shadow-lg">
+                    <div class="modal-body p-0">
+                        <div class="verification-wrapper">
+                            <!-- Decorative Elements -->
+                            <div class="verification-background">
+                                <div class="circle-1"></div>
+                                <div class="circle-2"></div>
                             </div>
-                            <h4 class="fw-bold">{{ __('common.email_verification_required') }}</h4>
-                            <p class="text-muted">{{ __('common.update_email_to_continue') }}</p>
-                        </div>
 
-                        <form form-id="verification-form" http-request route="{{ route('verification.resend') }}"
-                            identifier="single-form-post-handler" success-toast feedback method="POST">
-                            @csrf
-                            <div class="mb-4">
-                                <label for="email-update"
-                                    class="form-label fw-semibold">{{ __('common.email') }}</label>
-                                <div class="input-group">
-                                    <span class="input-group-text bg-light">
-                                        <i class="bi bi-envelope"></i>
-                                    </span>
-                                    <input type="email" feedback-id="email-update-feedback" name="email-update"
-                                        class="form-control form-control-lg" id="email-update"
-                                        placeholder="{{ __('common.update_email_placeholder') }}"
-                                        value="{{ auth()->user()->email }}">
-                                    <div class="invalid-feedback" id="email-update-feedback"></div>
+                            <!-- Header Section -->
+                            <div class="verification-header text-center">
+                                <div class="verification-icon">
+                                    <i class="bi bi-shield-lock"></i>
                                 </div>
-                                <div class="form-text">
-                                    {{ __('common.update_email_required') }}
-                                </div>
+                                <h4 class="verification-title">{{ __('common.email_verification_required') }}</h4>
+                                <p class="verification-subtitle">{{ __('common.update_email_to_continue') }}</p>
                             </div>
-                            <button submit-form-id="verification-form" type="submit" class="btn bg-logo btn-lg w-100">
-                                {{ __('common.update_email_button') }}
-                            </button>
-                        </form>
+
+                            <!-- Form Section -->
+                            <div class="verification-form">
+                                <form form-id="verification-form" http-request route="{{ route('verification.resend') }}"
+                                    identifier="single-form-post-handler" success-toast feedback method="POST">
+                                    @csrf
+                                    <div class="mb-4">
+                                        <label for="email-update" class="form-label">{{ __('common.email') }}</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text">
+                                                <i class="bi bi-envelope"></i>
+                                            </span>
+                                            <input type="email" feedback-id="email-update-feedback" name="email-update"
+                                                class="form-control" id="email-update"
+                                                placeholder="{{ __('common.update_email_placeholder') }}"
+                                                value="{{ auth()->user()->email }}">
+                                        </div>
+                                        <div class="invalid-feedback" id="email-update-feedback"></div>
+                                        <div class="form-text">
+                                            {{ __('common.update_email_required') }}
+                                        </div>
+                                    </div>
+
+                                    <button submit-form-id="verification-form" type="submit"
+                                        class="verification-button">
+                                        <span class="button-content">
+                                            <i class="bi text-white fs-3 bi-envelope-check me-2"></i>
+                                            {{ __('common.update_email_button') }}
+                                        </span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    @endif
+    @endif --}}
 
     @push('scripts')
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/TextPlugin.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/MotionPathPlugin.min.js" defer></script>
-        @if (app()->getLocale() == 'ar')
-            <script src="{{ asset('js/web/landing/landing.ar.js') }}" type="module" defer></script>
-        @else
-            <script src="{{ asset('js/web/landing/landing.js') }}" type="module" defer></script>
-        @endif
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var updateEmailModal = new bootstrap.Modal(document.getElementById('updateEmailModal'), {
-                    backdrop: 'static',
-                    keyboard: false
-                });
-                updateEmailModal.show();
-            });
-        </script>
+        <!-- Add these in the head section or before your landing.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+        <script src="{{ asset('js/web/landing/landing.js') }}" type="module" defer></script>
     @endpush
 @endsection
