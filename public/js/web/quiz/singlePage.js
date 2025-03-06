@@ -1,7 +1,7 @@
 import { SimpleWatcher, LoadingBar } from '../../../core/global/advanced/advanced.js';
 import { urlEndsWith, redirectTo, urlIncludes, findUrlPartAfter, redirectToWithReload } from '../../../core/global/utils/functions.js';
-import { BASE_URL, LOCAL_URL } from '../../../core/global/config/app-config.js';
-import { CountdownTimer } from '../../../core/global/advanced/advanced.js';
+import { LOCAL_URL } from '../../../core/global/config/app-config.js';
+import { CountdownTimer, SecurityManager } from '../../../core/global/advanced/advanced.js';
 import { dynamicContentManager } from './index.js';
 
 const pageContent = document.querySelector('.page-content');
@@ -242,6 +242,106 @@ function initializeQuiz() {
     });
 
     timer.start();
+
+    const quizId = findUrlPartAfter('quizzes');
+    const attemptId = findUrlPartAfter('attempt');
+
+    // Get CSRF token
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+    const securityManager = new SecurityManager({
+        endpoint: `${LOCAL_URL}/quizzes/${quizId}/attempt/${attemptId}/abort`,
+        warningThreshold: 1,
+        autoAbortThreshold: 2,
+        requestHeaders: {
+            'X-CSRF-TOKEN': csrfToken
+        },
+        onWarning: (count, max) => {
+            Swal.fire({
+                title: '<div class="security-alert-header">Security Alert</div>',
+                html: `
+                    <div class="security-alert-body">
+                        <div class="alert-icon-wrapper">
+                            <div class="alert-icon">
+                                <i class="bi bi-exclamation-triangle"></i>
+                            </div>
+                        </div>
+
+                        <div class="alert-message">
+                            <h3>Suspicious Activity Detected</h3>
+                            <p>Our system has detected behavior that violates the quiz integrity rules.</p>
+                        </div>
+
+                        <div class="alert-status-panel">
+                            <div class="violation-status">
+                                <div class="violation-counter">
+                                    <span class="current">${count}</span>
+                                    <span class="separator">of</span>
+                                    <span class="max">${max}</span>
+                                </div>
+                                <div class="violation-label">violations</div>
+                            </div>
+
+                            <div class="violation-indicator">
+                                ${Array(max).fill().map((_, i) =>
+                    `<div class="indicator-dot ${i < count ? 'active' : ''}"></div>`
+                ).join('')}
+                            </div>
+                        </div>
+
+                        <div class="alert-warning-footer">
+                            <i class="bi bi-info-circle"></i>
+                            <p>The quiz will be automatically terminated after ${max - count} more violation${max - count !== 1 ? 's' : ''}.</p>
+                        </div>
+                    </div>
+                `,
+                showCancelButton: false,
+                confirmButtonText: 'I Understand',
+                customClass: {
+                    popup: 'security-alert-popup',
+                    confirmButton: 'security-alert-btn',
+                    htmlContainer: 'security-alert-html'
+                },
+                buttonsStyling: false,
+                background: '#1a1a1a',
+                color: '#ffffff'
+            });
+        },
+        onAbort: (response) => {
+            Swal.fire({
+                title: '<div class="security-alert-header">Quiz Terminated</div>',
+                html: `
+                    <div class="security-alert-body">
+                        <div class="alert-icon-wrapper">
+                            <div class="alert-icon error">
+                                <i class="bi bi-x-circle"></i>
+                            </div>
+                        </div>
+
+                        <div class="alert-message">
+                            <h3>Quiz Access Revoked</h3>
+                            <p>This quiz has been terminated due to multiple security violations.</p>
+                        </div>
+                    </div>
+                `,
+                showCancelButton: false,
+                confirmButtonText: 'Return to Quizzes',
+                customClass: {
+                    popup: 'security-alert-popup termination-popup',
+                    confirmButton: 'security-alert-btn termination-btn',
+                    htmlContainer: 'security-alert-html'
+                },
+                buttonsStyling: false,
+                background: '#1a1a1a',
+                color: '#ffffff'
+            }).then(() => {
+                redirectToWithReload(`${LOCAL_URL}/quizzes`);
+            });
+        }
+    });
+
+    // Activate all security measures
+    securityManager.activate();
 }
 
 // Quiz Storage class
@@ -397,10 +497,10 @@ async function submitQuiz(answers, status) {
                     </div>
 
                     <div class="action-buttons">
-                        <button class="view-results-btn" onclick="window.location.href='${BASE_URL}/student/profile?tab-group-id=quizzes'">
-                            <i class="bi bi-bar-chart-fill"></i> View Results
+                        <button class="view-results-btn btn bg-logo" onclick="window.location.href='${LOCAL_URL}/student/profile?tab-group-id=quizzes'">
+                            <i class="bi bi-bar-chart-fill fs-4 text-white"></i> View Results
                         </button>
-                        <button class="back-to-quizzes-btn" onclick="window.location.href='${BASE_URL}/quizzes'">
+                        <button class="back-to-quizzes-btn" onclick="window.location.href='${LOCAL_URL}/quizzes'">
                             <i class="bi bi-grid"></i> Back to Quizzes
                         </button>
                     </div>
@@ -421,7 +521,7 @@ async function submitQuiz(answers, status) {
                     seconds: 0
                 },
                 onFinish: () => {
-                    redirectToWithReload(`${BASE_URL}/student/profile?tab-group-id=quizzes`);
+                    redirectToWithReload(`${LOCAL_URL}/student/profile?tab-group-id=quizzes`);
                     localStorage.removeItem('redirectTimer');
                 },
                 elementId: 'redirectTimer',

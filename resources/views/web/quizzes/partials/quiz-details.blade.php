@@ -109,7 +109,7 @@
                     </div>
                     <div class="coming-soon-text-content">
                         <div class="coming-soon-badge">Coming Soon</div>
-                        <h3 class="coming-soon-title">Quiz Rewards System</h3>
+                        <h3 class="coming-soon-title text-white">Quiz Rewards System</h3>
                         <p class="coming-soon-text">Earn coins by completing quizzes to unlock premium content and
                             features.</p>
                     </div>

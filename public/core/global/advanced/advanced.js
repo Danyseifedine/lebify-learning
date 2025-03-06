@@ -1,4 +1,3 @@
-import { toggleSubmitButtonOnFormInput } from '../utils/functions.js';
 import { HttpRequest } from '../services/httpRequest.js';
 import { dataTableConfig, l10n } from '../config/app-config.js';
 import { CacheManager } from '../cache/cache.js';
@@ -1793,6 +1792,497 @@ export class $DatatableController {
                 render: renderFunction
             };
         });
+    }
+}
+
+/**
+ * SecurityManager - A reusable security class for preventing cheating in online assessments
+ *
+ * Features:
+ * - Disables right-clicks
+ * - Blocks keyboard shortcuts
+ * - Detects tab/window changes
+ * - Monitors for fullscreen exits
+ * - Prevents copy/paste operations
+ * - Automatically sends abort requests on suspicious behavior
+ *
+ * @class
+ * @exports SecurityManager
+ *
+ * @example
+ * const securityManager = new SecurityManager({
+ *   endpoint: '/quizzes/5/attempt/10/abort',
+ *   requestData: { reason: 'suspicious_activity' },
+ *   warningThreshold: 2,
+ *   autoAbortThreshold: 3,
+ *   onWarning: (count, max) => showWarning(`Warning ${count}/${max}`),
+ *   onAbort: () => window.location.href = '/quizzes'
+ * });
+ *
+ * // Activate all security measures
+ * securityManager.activate();
+ *
+ * // Deactivate when quiz is submitted
+ * submitButton.addEventListener('click', () => securityManager.deactivate());
+ */
+export class SecurityManager {
+    /**
+     * Create a new security manager instance
+     *
+     * @param {Object} options - Configuration options
+     * @param {string} options.endpoint - API endpoint for abort request
+     * @param {Object} [options.requestData={}] - Additional data to send with abort request
+     * @param {Object} [options.requestHeaders={}] - Custom headers for abort request
+     * @param {string} [options.requestMethod='POST'] - HTTP method for abort request
+     * @param {number} [options.warningThreshold=2] - Number of violations before warning
+     * @param {number} [options.autoAbortThreshold=3] - Number of violations before auto-abort
+     * @param {boolean} [options.detectVisibilityChange=true] - Detect tab/window changes
+     * @param {boolean} [options.blockContextMenu=true] - Block right-click menu
+     * @param {boolean} [options.blockKeyboardShortcuts=true] - Block keyboard shortcuts
+     * @param {boolean} [options.blockCopyPaste=true] - Block copy/paste operations
+     * @param {boolean} [options.detectFullscreenExit=false] - Detect fullscreen exit
+     * @param {boolean} [options.requireFullscreen=false] - Require fullscreen mode
+     * @param {Function} [options.onWarning] - Callback when warning threshold reached
+     * @param {Function} [options.onAbort] - Callback when quiz is aborted
+     * @param {Function} [options.onViolation] - Callback for any violation
+     * @param {Function} [options.onActivate] - Callback when security is activated
+     * @param {Function} [options.onDeactivate] - Callback when security is deactivated
+     */
+    constructor(options = {}) {
+        this.options = {
+            // Request configuration
+            endpoint: null,
+            requestData: {},
+            requestHeaders: {},
+            requestMethod: 'POST',
+
+            // Thresholds
+            warningThreshold: 2,
+            autoAbortThreshold: 3,
+
+            // Security features
+            detectVisibilityChange: true,
+            blockContextMenu: true,
+            blockKeyboardShortcuts: true,
+            blockCopyPaste: true,
+            detectFullscreenExit: false,
+            requireFullscreen: false,
+
+            // Event callbacks
+            onWarning: null,
+            onAbort: null,
+            onViolation: null,
+            onActivate: null,
+            onDeactivate: null,
+
+            // Override with user options
+            ...options
+        };
+
+        // Internal state
+        this.violationCount = 0;
+        this.isActive = false;
+        this.eventHandlers = {};
+        this.violationLog = [];
+
+        // Validate required options
+        if (!this.options.endpoint && this.options.autoAbortThreshold > 0) {
+            console.warn('SecurityManager: No endpoint provided for abort requests');
+        }
+    }
+
+    /**
+     * Activate all configured security measures
+     * @returns {SecurityManager} The security manager instance for chaining
+     */
+    activate() {
+        if (this.isActive) return this;
+
+        // Setup event handlers
+        if (this.options.detectVisibilityChange) {
+            this.setupVisibilityDetection();
+        }
+
+        if (this.options.blockContextMenu) {
+            this.setupContextMenuBlocking();
+        }
+
+        if (this.options.blockKeyboardShortcuts) {
+            this.setupKeyboardShortcutBlocking();
+        }
+
+        if (this.options.blockCopyPaste) {
+            this.setupCopyPasteBlocking();
+        }
+
+        if (this.options.detectFullscreenExit) {
+            this.setupFullscreenDetection();
+        }
+
+        if (this.options.requireFullscreen) {
+            this.requestFullscreen();
+        }
+
+        this.isActive = true;
+
+        if (typeof this.options.onActivate === 'function') {
+            this.options.onActivate();
+        }
+
+        return this;
+    }
+
+    /**
+     * Deactivate all security measures
+     * @returns {SecurityManager} The security manager instance for chaining
+     */
+    deactivate() {
+        if (!this.isActive) return this;
+
+        // Remove all event listeners
+        Object.entries(this.eventHandlers).forEach(([event, handler]) => {
+            document.removeEventListener(event, handler, true);
+        });
+
+        this.eventHandlers = {};
+        this.isActive = false;
+
+        if (typeof this.options.onDeactivate === 'function') {
+            this.options.onDeactivate();
+        }
+
+        return this;
+    }
+
+    /**
+     * Setup detection for tab/window visibility changes
+     * @private
+     */
+    setupVisibilityDetection() {
+        this.eventHandlers.visibilityChange = () => {
+            if (document.visibilityState === 'hidden') {
+                this.handleViolation('tab_change', 'User switched tabs or minimized window');
+            }
+        };
+
+        document.addEventListener('visibilitychange', this.eventHandlers.visibilityChange, true);
+    }
+
+    /**
+     * Setup blocking of right-click context menu
+     * @private
+     */
+    setupContextMenuBlocking() {
+        this.eventHandlers.contextMenu = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            this.handleViolation('right_click', 'User attempted to use right-click menu');
+            return false;
+        };
+
+        document.addEventListener('contextmenu', this.eventHandlers.contextMenu, true);
+    }
+
+    /**
+     * Setup blocking of keyboard shortcuts
+     * @private
+     */
+    setupKeyboardShortcutBlocking() {
+        this.eventHandlers.keyDown = (e) => {
+            // Block common shortcuts
+            const blockedCombinations = [
+                { key: 'c', ctrl: true },      // Copy
+                { key: 'v', ctrl: true },      // Paste
+                { key: 'x', ctrl: true },      // Cut
+                { key: 'a', ctrl: true },      // Select All
+                { key: 'p', ctrl: true },      // Print
+                { key: 's', ctrl: true },      // Save
+                { key: 'u', ctrl: true },      // View Source
+                { key: 'f', ctrl: true },      // Find
+                { key: 'g', ctrl: true },      // Find Next
+                { key: 'j', ctrl: true },      // Dev Tools
+                { key: 'i', ctrl: true },      // Inspect
+                { key: 'F12', ctrl: false },   // Dev Tools
+                { key: 'F5', ctrl: false },    // Refresh
+                { key: 'Tab', alt: true },     // Alt+Tab
+                { key: 'Escape', ctrl: false } // Escape (for fullscreen)
+            ];
+
+            const isBlocked = blockedCombinations.some(combo => {
+                if (e.key.toLowerCase() === combo.key.toLowerCase()) {
+                    if ((combo.ctrl && e.ctrlKey) || (!combo.ctrl && !e.ctrlKey)) {
+                        return true;
+                    }
+                }
+                return false;
+            });
+
+            if (isBlocked) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.handleViolation('keyboard_shortcut', `Blocked keyboard shortcut: ${e.key}`);
+                return false;
+            }
+        };
+
+        document.addEventListener('keydown', this.eventHandlers.keyDown, true);
+    }
+
+    /**
+     * Setup blocking of copy/paste operations
+     * @private
+     */
+    setupCopyPasteBlocking() {
+        const copyEvents = ['copy', 'cut', 'paste'];
+
+        copyEvents.forEach(eventName => {
+            this.eventHandlers[eventName] = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                this.handleViolation('copy_paste', `User attempted to ${eventName}`);
+                return false;
+            };
+
+            document.addEventListener(eventName, this.eventHandlers[eventName], true);
+        });
+    }
+
+    /**
+     * Setup detection for fullscreen exit
+     * @private
+     */
+    setupFullscreenDetection() {
+        this.eventHandlers.fullscreenChange = () => {
+            if (!document.fullscreenElement) {
+                this.handleViolation('fullscreen_exit', 'User exited fullscreen mode');
+
+                // Auto request fullscreen again if required
+                if (this.options.requireFullscreen) {
+                    setTimeout(() => this.requestFullscreen(), 500);
+                }
+            }
+        };
+
+        document.addEventListener('fullscreenchange', this.eventHandlers.fullscreenChange, true);
+    }
+
+    /**
+     * Request fullscreen mode
+     * @returns {Promise} Promise that resolves when fullscreen is entered
+     */
+    requestFullscreen() {
+        const docEl = document.documentElement;
+
+        if (docEl.requestFullscreen) {
+            return docEl.requestFullscreen();
+        } else if (docEl.webkitRequestFullscreen) {
+            return docEl.webkitRequestFullscreen();
+        } else if (docEl.mozRequestFullScreen) {
+            return docEl.mozRequestFullScreen();
+        } else if (docEl.msRequestFullscreen) {
+            return docEl.msRequestFullscreen();
+        }
+
+        return Promise.reject(new Error('Fullscreen API not supported'));
+    }
+
+    /**
+     * Handle security violation by logging, warning, or aborting
+     * @param {string} type - Type of violation
+     * @param {string} details - Details about the violation
+     * @private
+     */
+    handleViolation(type, details) {
+        // Increment violation count
+        this.violationCount++;
+
+        // Log violation
+        const violation = {
+            type,
+            details,
+            timestamp: new Date().toISOString(),
+            count: this.violationCount
+        };
+
+        this.violationLog.push(violation);
+
+        // Call violation callback if provided
+        if (typeof this.options.onViolation === 'function') {
+            this.options.onViolation(violation);
+        }
+
+        // Check if warning threshold reached - use >= to ensure it triggers
+        if (this.violationCount >= this.options.warningThreshold &&
+            this.violationCount < this.options.autoAbortThreshold) {
+            // Only show warning if we haven't shown one for this count yet
+            if (!this.lastWarningCount || this.lastWarningCount < this.violationCount) {
+                this.lastWarningCount = this.violationCount;
+
+                if (typeof this.options.onWarning === 'function') {
+                    this.options.onWarning(
+                        this.violationCount,
+                        this.options.autoAbortThreshold
+                    );
+                }
+            }
+        }
+
+        // Check if auto-abort threshold reached
+        if (this.violationCount >= this.options.autoAbortThreshold && !this.abortRequested) {
+            this.abortAssessment(type);
+        }
+    }
+
+    /**
+     * Abort the assessment by sending a request to the server
+     * @param {string} reason - Reason for aborting
+     * @returns {Promise|null} Promise from the abort request or null if no endpoint
+     */
+    abortAssessment(reason = 'security_violation') {
+        // Prevent multiple abort requests
+        if (this.abortRequested) {
+            return null;
+        }
+
+        this.abortRequested = true;
+
+        if (!this.options.endpoint) {
+            console.warn('QuizSecurityManager: Cannot abort - no endpoint provided');
+            return null;
+        }
+
+        // Immediately deactivate all event handlers to prevent more violations
+        this.deactivate();
+
+        // Prepare request data
+        const requestData = {
+            ...this.options.requestData,
+            reason,
+            violations: this.violationLog,
+            violationCount: this.violationCount
+        };
+
+        // Call onAbort only once before making the request
+        if (typeof this.options.onAbort === 'function') {
+            this.options.onAbort({ pending: true });
+        }
+
+        // Use axios instead of fetch for better Laravel integration
+        const abortPromise = axios({
+            url: this.options.endpoint,
+            method: this.options.requestMethod,
+            headers: {
+                ...this.options.requestHeaders
+            },
+            data: requestData
+        })
+            .then(response => {
+                // We've already called onAbort, so we don't call it again
+                return response.data;
+            })
+            .catch(error => {
+                console.error('Error aborting assessment:', error);
+                throw error;
+            });
+
+        return abortPromise;
+    }
+
+    /**
+     * Temporarily disable event handlers to prevent more violations during abort
+     * @private
+     */
+    temporarilyDisableHandlers() {
+        // Store current handlers
+        const savedHandlers = { ...this.eventHandlers };
+
+        // Deactivate all handlers
+        this.deactivate();
+
+        // Store saved handlers for potential reactivation
+        this._savedHandlers = savedHandlers;
+    }
+
+    /**
+     * Deactivate all security measures
+     * @returns {SecurityManager} The security manager instance for chaining
+     */
+    deactivate() {
+        if (!this.isActive) return this;
+
+        // Remove all event listeners
+        if (this.eventHandlers.visibilityChange) {
+            document.removeEventListener('visibilitychange', this.eventHandlers.visibilityChange);
+        }
+
+        if (this.eventHandlers.contextMenu) {
+            document.removeEventListener('contextmenu', this.eventHandlers.contextMenu);
+        }
+
+        if (this.eventHandlers.keyDown) {
+            document.removeEventListener('keydown', this.eventHandlers.keyDown);
+        }
+
+        if (this.eventHandlers.copy) {
+            document.removeEventListener('copy', this.eventHandlers.copy);
+            document.removeEventListener('cut', this.eventHandlers.copy);
+        }
+
+        if (this.eventHandlers.paste) {
+            document.removeEventListener('paste', this.eventHandlers.paste);
+        }
+
+        if (this.eventHandlers.fullscreenChange) {
+            document.removeEventListener('fullscreenchange', this.eventHandlers.fullscreenChange);
+            document.removeEventListener('webkitfullscreenchange', this.eventHandlers.fullscreenChange);
+            document.removeEventListener('mozfullscreenchange', this.eventHandlers.fullscreenChange);
+            document.removeEventListener('MSFullscreenChange', this.eventHandlers.fullscreenChange);
+        }
+
+        // Clear event handlers
+        this.eventHandlers = {};
+
+        this.isActive = false;
+
+        if (typeof this.options.onDeactivate === 'function') {
+            this.options.onDeactivate();
+        }
+
+        return this;
+    }
+
+    /**
+     * Get the current violation count
+     * @returns {number} Current violation count
+     */
+    getViolationCount() {
+        return this.violationCount;
+    }
+
+    /**
+     * Get the violation log
+     * @returns {Array} Array of violation objects
+     */
+    getViolationLog() {
+        return [...this.violationLog];
+    }
+
+    /**
+     * Reset violation count and log
+     * @returns {SecurityManager} The security manager instance for chaining
+     */
+    resetViolations() {
+        this.violationCount = 0;
+        this.violationLog = [];
+        return this;
+    }
+
+    /**
+     * Check if security is currently active
+     * @returns {boolean} True if security measures are active
+     */
+    isSecurityActive() {
+        return this.isActive;
     }
 }
 
