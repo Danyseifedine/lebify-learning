@@ -1,6 +1,3 @@
-import { l10n } from '../../../core/global/config/app-config.js'
-
-
 export function initializeAttemptsCharts() {
     var ctx = document.getElementById('kt_chartjs_1');
 
@@ -80,18 +77,30 @@ export function initializeAttemptsCharts() {
 
 export function initializeQuizStatusChart() {
     const ctx = document.getElementById('quiz-status-chart');
-    const chartData = JSON.parse(ctx.dataset.chartData);
+    if (!ctx) return;
 
-    // Define colors
-    const colors = {
-        passed: KTUtil.getCssVariableValue('--kt-success'),
-        failed: KTUtil.getCssVariableValue('--kt-danger'),
-        aborted: KTUtil.getCssVariableValue('--kt-warning')
+    // Set better dimensions for the chart
+    ctx.style.height = '450px';
+    ctx.style.width = '100%';
+
+    const chartData = JSON.parse(ctx.dataset.chartData || '[]');
+    if (!chartData.length) return;
+
+    // Universal orange-based color palette that works in any mode
+    const generateColor = (index, alpha = 1) => {
+        // Base orange color with variations
+        const baseHue = 25; // Orange
+        const hueVariation = index * 5;
+        const hue = (baseHue + hueVariation) % 360;
+        const saturation = 85;
+        const lightness = 55;
+
+        return `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
     };
 
     // Format dates for labels
     const formatDate = (dateString) => {
-        return new Date(dateString).toLocaleDateString('en-US', {
+        return new Date(dateString).toLocaleDateString(document.documentElement.lang || 'en-US', {
             month: 'short',
             day: 'numeric'
         });
@@ -99,88 +108,102 @@ export function initializeQuizStatusChart() {
 
     // Prepare the data
     const labels = chartData.map(item => formatDate(item.date));
-    const datasets = [
-        {
-            label: l10n.getCommon('passed'),
-            data: chartData.map(item => item.passed),
-            backgroundColor: colors.passed,
-            borderColor: colors.passed,
-            borderWidth: 1
-        },
-        {
-            label: l10n.getCommon('failed'),
-            data: chartData.map(item => item.failed),
-            backgroundColor: colors.failed,
-            borderColor: colors.failed,
-            borderWidth: 1
-        },
-        {
-            label: l10n.getCommon('aborted'),
-            data: chartData.map(item => item.aborted),
-            backgroundColor: colors.aborted,
-            borderColor: colors.aborted,
-            borderWidth: 1,
-        }
-    ];
 
-    // Chart configuration
+    // Get text color from CSS variables or use a neutral color
+    const textColor = getComputedStyle(document.documentElement).getPropertyValue('--bs-body-color') || '#6c757d';
+    const gridColor = 'rgba(108, 117, 125, 0.2)'; // Universal muted color for grid lines
+
+    // Chart configuration with universal styling
     const config = {
-        type: 'bar',
+        type: 'radar',
         data: {
-            labels: labels,
-            datasets: datasets
+            labels: ['Passed', 'Failed', 'Aborted'],
+            datasets: chartData.map((item, index) => ({
+                label: formatDate(item.date),
+                data: [item.passed, item.failed, item.aborted],
+                backgroundColor: generateColor(index, 0.3),
+                borderColor: generateColor(index, 0.8),
+                borderWidth: 2,
+                pointBackgroundColor: generateColor(index, 1),
+                pointBorderColor: '#ffffff',
+                pointHoverBackgroundColor: '#ffffff',
+                pointHoverBorderColor: generateColor(index, 1),
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }))
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: {
-                title: {
-                    display: true,
-                    text: l10n.getCommon('quizAttemptStatus'),
-                    font: {
-                        family: `${l10n.currentLocale === 'ar' ? 'Changa' : '"Playwrite GB S", cursive'}`
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        padding: 20,
+                        font: {
+                            size: 13
+                        },
+                        color: "rgb(178, 178, 178)",
                     }
                 },
                 tooltip: {
-                    mode: 'index',
-                    intersect: false,
-                    font: {
-                        family: `${l10n.currentLocale === 'ar' ? 'Changa' : '"Playwrite GB S", cursive'}`
-                    }
-                },
-                legend: {
-                    position: 'bottom',
-                    font: {
-                        family: `${l10n.currentLocale === 'ar' ? 'Changa' : '"Playwrite GB S", cursive'}`
+                    backgroundColor: 'rgba(50, 50, 50, 0.85)',
+                    titleColor: '#ffffff',
+                    bodyColor: '#ffffff',
+                    titleFont: {
+                        size: 14,
+                    },
+                    bodyFont: {
+                        size: 13
+                    },
+                    padding: 15,
+                    borderWidth: 0,
+                    cornerRadius: 8,
+                    usePointStyle: true,
+                    callbacks: {
+                        title: function (context) {
+                            return context[0].dataset.label;
+                        },
+                        label: function (context) {
+                            const label = context.label || '';
+                            const value = context.raw || 0;
+                            return `${label}: ${value} ${value === 1 ? 'quiz' : 'quizzes'}`;
+                        }
                     }
                 }
             },
             scales: {
-                x: {
-                    stacked: true,
-                    title: {
-                        display: true,
-                        text: 'Date',
-                        font: {
-                            family: `${l10n.currentLocale === 'ar' ? 'Changa' : '"Playwrite GB S", cursive'}`
-                        }
-                    }
-                },
-                y: {
-                    stacked: true,
-                    title: {
-                        display: true,
-                        text: l10n.getCommon('numberOfAttempts'),
-                        font: {
-                            family: `${l10n.currentLocale === 'ar' ? 'Changa' : '"Playwrite GB S", cursive'}`
-                        }
-                    },
+                r: {
+                    beginAtZero: true,
                     ticks: {
+                        display: false,  // Hide the tick values (numbers)
                         stepSize: 1,
-                        precision: 0,
+                        backdropColor: 'transparent',
+                        color: "rgb(178, 178, 178)",
+                    },
+                    grid: {
+                        color: gridColor
+                    },
+                    angleLines: {
+                        color: gridColor
+                    },
+                    pointLabels: {
                         font: {
-                            family: `${l10n.currentLocale === 'ar' ? 'Changa' : '"Playwrite GB S", cursive'}`
-                        }
+                            size: 14,
+                        },
+                        color: "rgb(178, 178, 178)",
                     }
+                }
+            },
+            animation: {
+                duration: 2000,
+                easing: 'easeOutQuart'
+            },
+            elements: {
+                line: {
+                    borderWidth: 3
                 }
             }
         }

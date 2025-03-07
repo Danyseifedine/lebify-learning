@@ -1,4 +1,4 @@
-<div class="container card app-bd">
+<div class="container card card-bg">
     <!--begin::Card header-->
     <div class="card-header cursor-pointer">
         <!--begin::Card title-->

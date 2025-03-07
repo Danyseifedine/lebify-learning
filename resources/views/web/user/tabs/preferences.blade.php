@@ -1,4 +1,4 @@
-<div class="card container">
+<div class="card container card-bg">
     {{-- <div class="card-body">
         <h5 class="card-title mb-12">{{ __('common.preferences') }}</h5>
         <h6 class="card-subtitle mb-5 text-muted">{{ __('common.change_font') }}</h6>

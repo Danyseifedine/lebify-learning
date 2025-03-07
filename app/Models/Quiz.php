@@ -233,4 +233,19 @@ class Quiz extends Model
             ->get()
             ->keyBy('quiz_id');
     }
+
+    /**
+     * Get the count of questions for this quiz
+     *
+     * @return int
+     */
+    public function getQuestionsCountAttribute()
+    {
+        // If the questions are already loaded, use the collection count
+        if ($this->relationLoaded('questions')) {
+            return $this->questions->count();
+        }
+
+        return $this->questions()->count();
+    }
 }

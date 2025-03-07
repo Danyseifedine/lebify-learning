@@ -84,8 +84,13 @@ class StudentController extends BaseController
         $user = auth()->user();
 
         $data = [
-            'attempts' => $user->quizAttemptsWithQuiz()
-                ->take(10)
+            'attempts' => $user->quizAttempts()
+                ->with([
+                    'quiz.questions',
+                    'responses.answer'
+                ])
+                ->latest('created_at')
+                ->take(5)
                 ->get(),
             'scoreStatistics' => $user->getQuizStatusStatistics(7)
         ];

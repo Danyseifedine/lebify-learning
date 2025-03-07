@@ -51,14 +51,6 @@
             </div>
             <!--end::Scroll wrapper-->
         </div>
-        <div class="app-sidebar-footer flex-column-auto pt-2 pb-6 px-3" id="kt_app_sidebar_footer">
-            <a href="#"
-                class="btn btn-flex flex-center btn-custom btn-primary overflow-hidden text-nowrap px-0 h-40px w-100"
-                data-kt-initialized="1">
-                <span class="btn-label">{{ __('common.dashboard.docs_and_components') }}</span>
-                <i class="bi bi-box-arrow-up-right p-0 btn-icon fs-2 m-0"></i>
-            </a>
-        </div>
         <!--end::Menu wrapper-->
     </div>
     <!--end::sidebar menu-->

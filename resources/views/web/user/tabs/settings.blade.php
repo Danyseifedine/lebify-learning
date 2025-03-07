@@ -1,4 +1,4 @@
-<div class="card container mb-5 mb-xl-10">
+<div class="card container card-bg mb-5 mb-xl-10">
     <!--begin::Card header-->
     <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
         data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
@@ -29,7 +29,7 @@
                         <!--begin::Col-->
                         <div class="col-lg-12 fv-row fv-plugins-icon-container">
                             <input type="password" name="password" feedback-id="password-feedback-x"
-                                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                class="form-control form-control-lg input-bg-in-card mb-3 mb-lg-0"
                                 placeholder="{{ __('common.old_password') }}...">
                             <div id="password-feedback-x" class="invalid-feedback"></div>
                         </div>
@@ -43,7 +43,7 @@
                         <!--begin::Col-->
                         <div class="col-lg-12 fv-row fv-plugins-icon-container">
                             <input type="password" name="new-password" feedback-id="new-password-feedback-x"
-                                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                                class="form-control form-control-lg input-bg-in-card mb-3 mb-lg-0"
                                 placeholder="{{ __('common.new_password') }}...">
                             <div id="new-password-feedback-x" class="invalid-feedback"></div>
                         </div>

@@ -1,5 +1,5 @@
-import { SimpleWatcher } from '../../../global/advanced/advanced.js'
-import { BASE_URL } from '../../../global/config/app-config.js'
+import { SimpleWatcher } from '../../../core/global/advanced/advanced.js'
+import { LOCAL_URL } from '../../../core/global/config/app-config.js';
 import { initializeQuizStatusChart } from '../charts/index.js'
 
 new SimpleWatcher({
@@ -38,7 +38,7 @@ async function getData() {
         </div>
     </div>
     `;
-    const response = await axios.get(`${BASE_URL}/student/profile/quizzes`)
+    const response = await axios.get(`${LOCAL_URL}/student/profile/quizzes`)
     console.log(response)
 
     recentAttemptsContainer.innerHTML = response.data.html;
