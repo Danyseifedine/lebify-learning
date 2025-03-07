@@ -3,7 +3,7 @@
     <div class="quiz-attempts-container" style="max-height: 500px; overflow-y: auto;">
         @if ($attempts->isEmpty())
             <div class="text-center" style="padding-top: 100px;">
-                <img src="{{ asset('vendor/img/icon/quiz-icon.svg', true) }}" class="mw-250px mb-7" alt="">
+                <img src="{{ asset('core/vendor/img/icon/quiz-icon.svg', true) }}" class="mw-250px mb-7" alt="">
                 <p>{{ __('common.no_recent_attempts_found') }}</p>
             </div>
         @else
