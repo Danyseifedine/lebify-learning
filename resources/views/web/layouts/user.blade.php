@@ -155,7 +155,7 @@
         <script src="{{ url('core/vendor/js/datatables.bundle.js') }}"></script>
         <script src="{{ asset('core/global/Launcher.js') }}" type="module"></script>
         <script src="{{ asset('core/js/app.js') }}" type="module"></script>
-
+        <script src="{{ asset('js/dropdowns.js') }}"></script>
         @stack('scripts')
 </body>
 

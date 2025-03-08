@@ -23,7 +23,7 @@
         <div class="d-flex align-items-stretch justify-content-center flex-lg-grow-1" id="kt_app_header_wrapper">
             <div class="app-header-menu app-header-mobile-drawer align-items-stretch" data-kt-drawer="true"
                 data-kt-drawer-name="app-header-menu" data-kt-drawer-activate="{default: true, lg: false}"
-                data-kt-drawer-overlay="true" data-kt-drawer-width="250px" data-kt-drawer-direction="start"
+                data-kt-drawer-overlay="true" data-kt-drawer-width="300px" data-kt-drawer-direction="start"
                 data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true"
                 data-kt-swapper-mode="{default: 'append', lg: 'prepend'}"
                 data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
@@ -56,11 +56,60 @@
                                 {{ __('common.home') }}
                             </a>
                         </div>
-                        <div class="menu-item px-3">
-                            <a href="{{ route('courses.index') }}"
-                                class="text-hover {{ request()->routeIs('courses.index') ? 'active-nav' : '' }} menu-link fs-5 text-logo-hover-color fw-bold px-3 py-2">
+                        <div class="menu-item px-3 dropdown-click-item">
+                            <a href="javascript:void(0)"
+                                class="text-hover menu-link d-flex align-items-center justify-content-between fs-5 text-logo-hover-color fw-bold px-3 py-2 dropdown-toggle-full {{ request()->routeIs('courses.index') ? 'active-nav' : '' }}">
                                 {{ __('common.courses') }}
+                                <i class="bi bi-chevron-down dropdown-indicator ms-2"></i>
                             </a>
+                            <div class="menu-dropdown-container">
+                                <div class="menu-dropdown-inner">
+                                    <div class="dropdown-header p-6 d-flex align-items-center justify-content-between">
+                                        <span>Course Levels</span>
+                                        <a href="{{ route('courses.index') }}" class="dropdown-header-link text-logo">
+                                            All Courses <i class="bi bi-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                    <div class="dropdown-items-grid">
+                                        <a href="{{ route('courses.index', ['difficulty_level' => 1]) }}"
+                                            class="dropdown-item-card">
+                                            <div class="item-icon">
+                                                <i class="bi bi-code-slash fs-2"></i>
+                                            </div>
+                                            <div class="item-content">
+                                                <h6>Beginner Level</h6>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('courses.index', ['difficulty_level' => 2]) }}"
+                                            class="dropdown-item-card">
+                                            <div class="item-icon">
+                                                <i class="bi bi-phone fs-2"></i>
+                                            </div>
+                                            <div class="item-content">
+                                                <h6>Intermediate Level</h6>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('courses.index', ['difficulty_level' => 3]) }}"
+                                            class="dropdown-item-card">
+                                            <div class="item-icon">
+                                                <i class="bi bi-database fs-2"></i>
+                                            </div>
+                                            <div class="item-content">
+                                                <h6>Advanced Level</h6>
+                                            </div>
+                                        </a>
+                                        <a href="{{ route('courses.index', ['difficulty_level' => 4]) }}"
+                                            class="dropdown-item-card">
+                                            <div class="item-icon">
+                                                <i class="bi bi-cloud fs-2"></i>
+                                            </div>
+                                            <div class="item-content">
+                                                <h6>Expert Level</h6>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="menu-item px-3">
