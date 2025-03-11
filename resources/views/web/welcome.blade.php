@@ -417,7 +417,7 @@
                                 <i class="bi bi-star-fill"></i>
                                 <i class="bi bi-star-half"></i>
                             </div>
-                            <p>Based on 3265 ratings</p>
+                            <p>Based on 76 ratings</p>
                         </div>
                     </div>
                 </div>
@@ -429,26 +429,26 @@
                             name="Dr Alaa Abou Darwish" rating="5.0"
                             text="I think this project shows the ambition the creator has, and it has potential for the upcoming generation." />
 
-                        <x-web.testimonial-card image="core/vendor/img/default/boy-default.jpg" name="Tobi Femi"
-                            rating="4.5" role="Full Stack Developer"
+                        <x-web.testimonial-card image="{{ asset('core/vendor/img/default/boy-default.jpg') }}"
+                            name="Tobi Femi" rating="4.5" role="Full Stack Developer"
                             text="Very detailed and helpful, I've learnt so much already, and feeling much more confident as a full stack developer." />
 
-                        <x-web.testimonial-card image="core/vendor/img/default/boy-default.jpg" name="Dennis Barrett"
-                            rating="4.5"
-                            text="At weddings believed laughing although the Moonlight newspaper up its enjoyment agreeable depending." />
+                        <x-web.testimonial-card image="{{ asset('core/vendor/img/default/boy-default.jpg') }}"
+                            name="Hamza Oweidat" rating="4.5" role="Full Stack Developer"
+                            text="I've been learning from Dany for a while now and I've learned so much from him. He's a great teacher and I highly recommend him." />
 
                         <x-web.testimonial-card image="core/vendor/img/default/boy-default.jpg" name="Sarah Johnson"
                             role="Frontend Developer" rating="5.0"
                             text="The interactive learning approach and real-world projects have significantly improved my coding skills." />
 
                         <!-- Duplicate first two cards for infinite scroll -->
-                        <x-web.testimonial-card image="core/vendor/img/default/boy-default.jpg" name="Tobi Femi"
-                            rating="4.5" role="Full Stack Developer"
+                        <x-web.testimonial-card image="{{ asset('core/vendor/img/default/boy-default.jpg') }}"
+                            name="Tobi Femi" rating="4.5" role="Full Stack Developer"
                             text="Very detailed and helpful, I've learnt so much already, and feeling much more confident as a full stack developer." />
 
-                        <x-web.testimonial-card image="core/vendor/img/default/boy-default.jpg" name="Carolyn Ortiz"
-                            rating="4.5"
-                            text="Moonlight newspaper up its enjoyment agreeable depending. Timed voice share led him to widen noisy young." />
+                        <x-web.testimonial-card image="{{ asset('core/vendor/img/default/boy-default.jpg') }}"
+                            name="Rafeh Soaifan" rating="4.5" role="Full Stack Developer"
+                            text="Learning from Dany has been amazing! 🚀 He's an excellent teacher and I've learned so much! Highly recommend! ⭐" />
                     </div>
                 </div>
                 <div class="testimonials-scroll reverse">
@@ -465,9 +465,9 @@
                             name="Mohamad Mansour" rating="4.5" role="Full Stack Developer"
                             text="This platform offers top-notch web and app development lessons. Perfect for beginners and pros alike! 🖤" />
 
-                        <x-web.testimonial-card image="core/vendor/img/landing/mentors/student-4.jpg" name="Sarah Johnson"
-                            role="Frontend Developer" rating="5.0"
-                            text="The interactive learning approach and real-world projects have significantly improved my coding skills." />
+                        <x-web.testimonial-card image="{{ asset('core/vendor/img/default/boy-default.jpg') }}"
+                            name="Ahmad Chebbo" role="Senior Full Stack Developer" rating="5.0"
+                            text="The platform offers an exceptional learning experience with well-structured content." />
 
                         <!-- Duplicate first two cards for infinite scroll -->
                         <x-web.testimonial-card image="{{ asset('core/vendor/img/testimonials/aya.jpeg') }}"

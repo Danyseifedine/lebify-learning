@@ -14,7 +14,6 @@ class QuizResponse extends Model
         'attempt_id',
         'question_id',
         'answer_id',
-        'text_answer',
         'is_correct'
     ];
 
@@ -37,5 +36,4 @@ class QuizResponse extends Model
     {
         return $this->answer->is_correct;
     }
-
 }

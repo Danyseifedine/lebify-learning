@@ -16,6 +16,10 @@ use App\Http\Controllers\Dashboard\Pages\Quiz\QuestionCategoryController;
 use App\Http\Controllers\Dashboard\Pages\Quiz\QuizController;
 use App\Http\Controllers\Dashboard\Pages\Quiz\QuizAnswerController;
 use App\Http\Controllers\Dashboard\Pages\Quiz\QuizQuestionController;
+// Datatable Controllers
+use App\Http\Controllers\Dashboard\Pages\QuizAttemptController;
+use App\Http\Controllers\Dashboard\Pages\QuizResponseController;
+
 
 
 
@@ -212,6 +216,20 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::resource('categories', QuestionCategoryController::class)
                 ->except(['show', 'update']);
             //end Question Categories
+
+            // start Quiz Responses
+            Route::controller(QuizResponseController::class)
+                ->prefix('responses')
+                ->name('responses.')
+                ->group(function () {
+                    Route::post('/update', 'update')->name('update');
+                    Route::get('/{id}/show', 'show')->name('show');
+                    Route::get('/datatable', 'datatable')->name('datatable');
+                });
+
+            Route::resource('responses', QuizResponseController::class)
+                ->except(['show', 'update']);
+            // end Quiz Responses
         });
 
         // start Duration
@@ -241,12 +259,26 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::resource('difficultylevels', DifficultyLevelController::class)
             ->except(['show', 'update']);
         // end Difficulty Level
+
+        // start Quiz Attempts
+        Route::controller(QuizAttemptController::class)
+            ->prefix('attempts')
+            ->name('attempts.')
+            ->group(function () {
+                Route::post('/update', 'update')->name('update');
+                Route::get('/{id}/show', 'show')->name('show');
+                Route::get('/datatable', 'datatable')->name('datatable');
+            });
+
+        Route::resource('attempts', QuizAttemptController::class)
+            ->except(['show', 'update']);
+        // end Quiz Attempts
     });
 
+    // ======================================================================= //
+    // ======================= END QUIZ DATATABLE ============================ //
+    // ======================================================================= //
 
 
-    // ======================================================================= //
-    // ====================== END QUIZ DATATABLE =========================== //
-    // ======================================================================= //
 
 });

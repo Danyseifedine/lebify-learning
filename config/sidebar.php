@@ -117,12 +117,24 @@ return [
                             'icon' => 'bi bi-check-circle fs-2'
                         ],
                         [
+                            'title' => 'Responses',
+                            'link' => 'dashboard.quiz.questions.responses.index',
+                            'is_route' => true,
+                            'icon' => 'bi bi-check2-circle fs-2'
+                        ],
+                        [
                             'title' => 'Categories',
                             'link' => 'dashboard.quiz.questions.categories.index',
                             'is_route' => true,
                             'icon' => 'bi bi-tag-fill fs-2'
                         ]
                     ]
+                ],
+                [
+                    'title' => 'Attempts',
+                    'link' => 'dashboard.quiz.attempts.index',
+                    'is_route' => true,
+                    'icon' => 'bi bi-check2-circle fs-2'
                 ],
                 [
                     'title' => 'Time Settings',

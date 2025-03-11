@@ -104,26 +104,6 @@
     display: block !important;
 }
 
-/* .fade-in {
-    opacity: 1;
-    transition: opacity 0.3s ease-in;
-}
-
-.fade-out {
-    opacity: 0;
-    transition: opacity 0.3s ease-out;
-} */
-
-
-/* [controlled-by][disabled] {
-    pointer-events: none;
-    opacity: 0.6;
-} */
-
-/* [controlled-by] {
-    transition: all 0.3s ease-in-out;
-} */
-
 .modal {
     transition: all 0.3s ease-in-out;
 }
@@ -149,4 +129,8 @@
 .transition-element.show {
     max-height: 200px;
     opacity: 1;
+}
+
+[data-kt-app-layout=light-sidebar] .app-sidebar .menu .menu-item .menu-sub .menu-item .menu-link .menu-title {
+    color: rgb(141, 141, 141);
 }
