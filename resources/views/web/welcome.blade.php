@@ -32,13 +32,13 @@
                 real-world applications that make an impact.</p>
             <nav class="d-flex nav-hero justify-content-start flex-wrap">
                 @guest
-                    <button data-bs-toggle="modal" data-bs-target="#join-now-modal" class="btn bg-logo btn-lg me-4">
+                    <button data-bs-toggle="modal" data-bs-target="#j " class="btn bg-logo btn-lg me-4">
                         Start Creating Today
                     </button>
                 @endguest
 
                 @auth
-                    <a href="#courses-features" class="btn logo-border btn-outline-secondary btn-lg">
+                    <a href="{{ route('courses.index') }}" class="btn logo-border btn-outline-secondary btn-lg">
                         Explore Courses
                     </a>
                 @endauth
@@ -350,20 +350,20 @@
 
                             <div class="channel-stats mb-4">
                                 <div class="stat-box">
-                                    <span class="stat-number">100+</span>
+                                    <span class="stat-number">10+</span>
                                     <span class="stat-label-video">Videos</span>
                                 </div>
                                 <div class="stat-box">
-                                    <span class="stat-number">5K+</span>
+                                    <span class="stat-number">500+</span>
                                     <span class="stat-label-video">Subscribers</span>
                                 </div>
                                 <div class="stat-box">
-                                    <span class="stat-number">500+</span>
+                                    <span class="stat-number">30+</span>
                                     <span class="stat-label-video">Hours</span>
                                 </div>
                             </div>
 
-                            <a href="https://www.youtube.com/@lebify" target="_blank" class="btn bg-logo mt-5">
+                            <a href="https://www.youtube.com/@LebifyLearning/videos" target="_blank" class="btn bg-logo mt-5">
                                 <span class="btn-content">
                                     <span>Subscribe Now</span>
                                 </span>

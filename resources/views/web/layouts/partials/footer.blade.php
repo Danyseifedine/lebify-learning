@@ -66,8 +66,8 @@
                             <h3 class="footer-title">Contact</h3>
                             <div class="contact-info">
                                 <p><i class="bi bi-geo-alt me-2"></i>Barja, Mount Lebanon</p>
-                                <p><i class="bi bi-telephone me-2"></i>+961 71 777 498</p>
-                                <p><i class="bi bi-envelope me-2"></i>info@lebify.com</p>
+                                <p><i class="bi bi-telephone me-2"></i>+961 03 004 699</p>
+                                <p><i class="bi bi-envelope me-2"></i>lebify@gmail.com</p>
                             </div>
                         </div>
                     </div>
