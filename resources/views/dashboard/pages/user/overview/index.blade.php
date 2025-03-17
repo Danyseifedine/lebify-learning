@@ -23,7 +23,7 @@
 ---------------------------->
 
 @php
-    $columns = ['name', 'email', 'phone', 'Verified', 'Status', 'Created At', 'Action'];
+    $columns = ['name', 'email', 'phone', 'uuid', 'Verified', 'Status', 'Created At', 'Action'];
 @endphp
 
 <!---------------------------

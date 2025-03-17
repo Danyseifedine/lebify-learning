@@ -169,6 +169,7 @@ const tableColumns = [
     { data: 'name' },
     { data: 'email' },
     { data: 'phone' },
+    { data: 'uuid' },
     { data: 'email_verified_at', title: 'Verified' },
     { data: 'status', title: 'Status' },
     { data: 'created_at', title: 'Created At' },
@@ -179,12 +180,12 @@ const tableColumnDefinitions = [
     { targets: [0], orderable: false, htmlType: 'selectCheckbox' },
     { targets: [1], htmlType: 'text', orderable: true },
     {
-        targets: [4],
+        targets: [5],
         orderable: true,
         customRender: (data) => data ? '<span class="badge badge-success">Yes</span>' : '<span class="badge badge-danger">No</span>'
     },
     {
-        targets: [5],
+        targets: [6],
         htmlType: 'toggle',
         dataClassName: 'status-toggle',
         checkWhen: (data) => data === 'active',
@@ -192,14 +193,54 @@ const tableColumnDefinitions = [
     },
     {
         targets: [-1],
-        htmlType: 'actions',
-        className: 'text-end',
+        htmlType: 'dropdownActions',
+        className: 'text-center',
+        orderable: false,
+        containerClass: 'bg-danger',
         actionButtons: {
-            edit: true,
-            delete: { type: 'null' },
-            view: true
+            edit: {
+                icon: 'bi bi-pencil',
+                text: 'Edit',
+                class: 'btn-edit',
+                type: 'modal',
+                modalTarget: '#edit-modal',
+                color: 'primary'
+            },
+            view: {
+                icon: 'bi bi-eye',
+                text: 'View Details',
+                class: 'btn-show',
+                type: 'modal',
+                modalTarget: '#show-modal',
+                color: 'info'
+            },
+            divider1: { divider: true, showIf: (row) => row.email_verified_at === null },
+            verify: {
+                type: 'callback',
+                callback: (row) => verifyUser(row.id),
+                icon: 'bi bi-person-lines-fill',
+                text: 'Verify',
+                color: 'warning',
+                showIf: (row) => row.email_verified_at === null,
+            },
+            divider2: { divider: true, showIf: (row) => row.email_verified_at !== null },
+            unverify: {
+                type: 'callback',
+                callback: (row) => unverifyUser(row.id),
+                icon: 'bi bi-person-lines-fill',
+                text: 'Unverify',
+                color: 'danger',
+                showIf: (row) => row.email_verified_at !== null,
+            },
+            divider3: { divider: true },
+            delete: {
+                icon: 'bi bi-trash',
+                text: 'Delete',
+                class: 'delete-btn',
+                color: 'danger'
+            }
         }
-    },
+    }
 ];
 
 /*---------------------------------------------------------------------------
@@ -242,3 +283,15 @@ createModalLoader({
 
 // Global access for table reload
 window.RDT = reloadDataTable;
+
+
+
+async function verifyUser(id) {
+    await HttpRequest.patch(buildApiUrl(`${id}/verify`));
+    reloadDataTable();
+}
+
+async function unverifyUser(id) {
+    await HttpRequest.patch(buildApiUrl(`${id}/unverify`));
+    reloadDataTable();
+}

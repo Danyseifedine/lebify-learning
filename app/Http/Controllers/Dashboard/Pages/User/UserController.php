@@ -113,6 +113,7 @@ class UserController extends BaseController
             'name',
             'email',
             'phone',
+            'uuid',
             'email_verified_at',
             'status',
             'created_at'
@@ -120,7 +121,8 @@ class UserController extends BaseController
             ->when($value, function ($query) use ($value) {
                 return $query->where(function ($query) use ($value) {
                     $query->where('name', 'like', '%' . $value . '%')
-                        ->orWhere('email', 'like', '%' . $value . '%');
+                        ->orWhere('email', 'like', '%' . $value . '%')
+                        ->orWhere('uuid', 'like', '%' . $value . '%');
                 });
             });
 
@@ -152,5 +154,19 @@ class UserController extends BaseController
             $user->update(['status' => 'active']);
         }
         return response()->json(['message' => 'User status updated successfully']);
+    }
+
+    public function verify(string $id)
+    {
+        $user = User::find($id);
+        $user->update(['email_verified_at' => now()]);
+        return response()->json(['message' => 'User verified successfully']);
+    }
+
+    public function unverify(string $id)
+    {
+        $user = User::find($id);
+        $user->update(['email_verified_at' => null]);
+        return response()->json(['message' => 'User unverified successfully']);
     }
 }

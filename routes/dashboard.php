@@ -40,6 +40,8 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         Route::get('/{id}/show', 'show')->name('show');
         Route::get('/datatable', 'datatable')->name('datatable');
         Route::patch('/{id}/status', 'status')->name('status');
+        Route::patch('/{id}/verify', 'verify')->name('verify');
+        Route::patch('/{id}/unverify', 'unverify')->name('unverify');
 
         Route::controller(InstructorController::class)
             ->prefix('instructors')

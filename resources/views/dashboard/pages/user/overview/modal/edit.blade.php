@@ -32,4 +32,10 @@
             class="form-control form-control-solid" name="password" id="password">
         <div id="password-feedback" class="invalid-feedback"></div>
     </div>
+    <div class="mb-3">
+        <label for="uuid" class="form-label">UUID</label>
+        <input type="text" value="{{ $user->uuid }}" feedback-id="uuid-feedback"
+            class="form-control form-control-solid" name="uuid" id="uuid">
+        <div id="uuid-feedback" class="invalid-feedback"></div>
+    </div>
 </form>
