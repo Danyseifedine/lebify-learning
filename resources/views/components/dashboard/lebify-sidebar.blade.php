@@ -24,9 +24,10 @@
             <div class="menu-sub menu-sub-accordion">
                 @foreach ($item['submenu'] as $submenu)
                     @if (isset($submenu['submenu']))
-                        <x-lebify-sidebar :item="$submenu" />
+                        <x-dashboard.lebify-sidebar :item="$submenu" />
                     @else
-                        <div class="menu-item {{ isset($submenu['is_route']) && $submenu['is_route'] && request()->routeIs($submenu['link']) ? 'active' : '' }}">
+                        <div
+                            class="menu-item {{ isset($submenu['is_route']) && $submenu['is_route'] && request()->routeIs($submenu['link']) ? 'active' : '' }}">
                             <a class="menu-link"
                                 href="{{ isset($submenu['is_route']) && $submenu['is_route'] ? route($submenu['link']) : $submenu['link'] }}">
                                 @if (isset($submenu['icon']))
