@@ -60,7 +60,7 @@
     <link rel="stylesheet" href="{{ asset('core/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('core/css/components/navbar.css') }}">
     <link rel="stylesheet" href="{{ asset('core/css/components/footer.css') }}">
-    <link rel="stylesheet" href="{{ asset("core/styles/global.css") }}">
+    <link rel="stylesheet" href="{{ asset('core/styles/global.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com/">
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
@@ -144,17 +144,12 @@
                                         src="{{ asset('core/vendor/img/bg/wallet.svg') }}" alt="">
                                     <!--end::Image-->
                                     <!--begin::Title-->
-                                    <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Fast, Efficient and
-                                        Productive</h1>
+                                    <h1 class="text-gray-800 fs-2qx fw-bold text-center mb-7">Secure Wallet</h1>
                                     <!--end::Title-->
                                     <!--begin::Text-->
-                                    <div class="text-gray-600 fs-base text-center fw-semibold">In this kind of post,
-                                        <a href="#" class="opacity-75-hover text-primary me-1">the
-                                            blogger</a>introduces a person they’ve interviewed
-                                        <br>and provides some background information about
-                                        <a href="#" class="opacity-75-hover text-primary me-1">the
-                                            interviewee</a>and their
-                                        <br>work following this is a transcript of the interview.
+                                    <div class="text-gray-600 fs-base text-center fw-semibold">
+                                        Welcome to our advanced wallet platform
+                                        <br><span class="badge badge-light-danger fs-7 mt-2">Coming Soon</span>
                                     </div>
                                     <!--end::Text-->
                                 </div>
@@ -162,7 +157,7 @@
                             </div>
                             <!--begin::Aside-->
                             <!--begin::Body-->
-                            <div
+                            {{-- <div
                                 class="d-flex flex-column-fluid flex-lg-row-auto justify-content-center justify-content-lg-end p-12">
                                 <!--begin::Wrapper-->
                                 <div class="bg-body d-flex flex-column flex-center rounded-4 w-md-600px p-10">
@@ -253,7 +248,7 @@
                                     <!--end::Content-->
                                 </div>
                                 <!--end::Wrapper-->
-                            </div>
+                            </div> --}}
                             <!--end::Body-->
                         </div>
                     </div>
