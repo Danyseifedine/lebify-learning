@@ -43,7 +43,7 @@
                 <div class="menu menu-column menu-rounded menu-sub-indention fw-semibold fs-6" id="#kt_app_sidebar_menu"
                     data-kt-menu="true" data-kt-menu-expand="false">
                     @foreach (config('sidebar.menu_items') as $menuItem)
-                        <x-lebify-sidebar :item="$menuItem" />
+                        <x-dashboard.lebify-sidebar :item="$menuItem" />
                     @endforeach
                 </div>
 
