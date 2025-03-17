@@ -1,9 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Dashboard\Courses\CoursesController;
 use App\Http\Controllers\Web\LandingController;
-use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -11,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 // Landing page
 Route::get('/', [LandingController::class, 'index'])->name('landing');
+Route::post('/submit-newsletter', [LandingController::class, 'submitNewsletter'])->name('submit-newsletter');
 
 // Auth routes
 Auth::routes(['verify' => true]);
@@ -27,7 +26,6 @@ Route::middleware(['auth'])->group(function () {
 
 // Dashboard routes
 Route::middleware(['verified', 'role:admin|mini-admin'])->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     include __DIR__ . DIRECTORY_SEPARATOR . 'dashboard.php';
 
     Route::prefix('dashboard')->name('dashboard.')->group(function () {
@@ -46,5 +44,3 @@ Route::prefix('courses')->name('courses.')->group(function () {
 });
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

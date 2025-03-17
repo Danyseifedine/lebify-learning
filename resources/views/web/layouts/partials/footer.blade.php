@@ -7,20 +7,26 @@
                     <div class="row align-items-center">
                         <div class="col-lg-6">
                             <div class="d-flex align-items-center gap-3">
-                                <img alt="{{ __('common.lebify_learning_logo') }}" src="/core/vendor/img/logo/lebify-logo.svg"
-                                    class="footer-logo">
+                                <img alt="{{ __('common.lebify_learning_logo') }}"
+                                    src="{{ asset('core/vendor/img/logo/lebify-logo.svg') }}" class="footer-logo">
                                 <h2 class="brand-title mb-0">{{ __('common.lebify_learning') }}</h2>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="newsletter-wrapper">
                                 <h3 class="newsletter-title mt-5">Subscribe to Our Newsletter</h3>
-                                <form class="newsletter-form">
+                                <form class="newsletter-form" form-id="newsletter-form-submit" http-request
+                                    route="{{ route('submit-newsletter') }}" success-toast
+                                    identifier="single-form-post-handler" feedback rate-limit="5000">
                                     <div class="input-group">
-                                        <input type="email" class="form-control" placeholder="Enter your email">
-                                        <button type="submit" class="btn bg-logo">Subscribe</button>
+                                        <input type="email" class="form-control" name="email"
+                                            feedback-id="newsletter-form-feedback" placeholder="Enter your email">
+                                        <button type="submit" submit-form-id="newsletter-form-submit"
+                                            class="btn bg-logo">Subscribe</button>
                                     </div>
                                 </form>
+                                <div class="feedback-message d-flex justify-content-end feedback invalid-feedback"
+                                    id="newsletter-form-feedback"></div>
                             </div>
                         </div>
                     </div>

@@ -437,9 +437,9 @@
                             name="Hamza Oweidat" rating="4.5" role="Full Stack Developer"
                             text="I've been learning from Dany for a while now and I've learned so much from him. He's a great teacher and I highly recommend him." />
 
-                        <x-web.testimonial-card image="core/vendor/img/default/boy-default.jpg" name="Sarah Johnson"
-                            role="Frontend Developer" rating="5.0"
-                            text="The interactive learning approach and real-world projects have significantly improved my coding skills." />
+                        <x-web.testimonial-card image="core/vendor/img/default/boy-default.jpg" name="Ahmad Seifeddine"
+                            role="Full Stack Developer" rating="5.0"
+                            text="The website offers a well-structured and engaging learning experience, making complex topics easy to grasp. ❤️" />
 
                         <!-- Duplicate first two cards for infinite scroll -->
                         <x-web.testimonial-card image="{{ asset('core/vendor/img/default/boy-default.jpg') }}"
@@ -697,15 +697,10 @@
     @endif --}}
 
     @push('scripts')
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/TextPlugin.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/MotionPathPlugin.min.js" defer></script>
-
-        <!-- Add these in the head section or before your landing.js -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/Draggable.min.js"></script>
+        <script src="{{ asset('core/packages/gsap/gsap.min.js') }}"></script>
+        <script src="{{ asset('core/packages/gsap/ScrollTrigger.min.js') }}"></script>
+        <script src="{{ asset('core/packages/gsap/Draggable.min.js') }}"></script>
+        <script src="{{ asset('core/packages/gsap/MotionPathPlugin.min.js') }}"></script>
         <script src="{{ asset('js/web/landing/landing.js') }}" type="module" defer></script>
     @endpush
 @endsection
