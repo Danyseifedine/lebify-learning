@@ -83,7 +83,7 @@
                         <i class="bi bi-display icon-stat" style="color: #F5B401 !important;"></i>
                     </div>
                     <div class="stat-content">
-                        <h3 class="stat-number">10K</h3>
+                        <h3 class="stat-number">10+</h3>
                         <p class="stat-label fw-bold">Online Courses</p>
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                         <i class="bi bi-person-circle icon-stat" style="color: #2C3E50 !important;"></i>
                     </div>
                     <div class="stat-content">
-                        <h3 class="stat-number">200+</h3>
+                        <h3 class="stat-number">2+</h3>
                         <p class="stat-label fw-bold">Expert Tutors</p>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                         <i class="bi bi-mortarboard icon-stat" style="color: #8E44AD !important;"></i>
                     </div>
                     <div class="stat-content">
-                        <h3 class="stat-number">60K+</h3>
+                        <h3 class="stat-number">100+</h3>
                         <p class="stat-label fw-bold">Online Students</p>
                     </div>
                 </div>
@@ -122,8 +122,8 @@
                         <i class="bi bi-check-circle icon-stat" style="color: #16A085 !important;"></i>
                     </div>
                     <div class="stat-content">
-                        <h3 class="stat-number">6K+</h3>
-                        <p class="stat-label fw-bold">Certified Courses</p>
+                        <h3 class="stat-number">30+</h3>
+                        <p class="stat-label fw-bold">Hours of Content</p>
                     </div>
                 </div>
             </div>
