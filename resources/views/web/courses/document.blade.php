@@ -93,7 +93,7 @@
     <nav class="navbar">
         <div class="navbar-container">
             <a class="navbar-brand" href="/"><img class="navbar-logo" width="50"
-                    src="{{ asset('vendor/img/logo/lebify-logo.svg') }}" alt="Lebify Logo">Lebify</a>
+                    src="{{ asset('core/vendor/img/logo/lebify-logo.svg') }}" alt="Lebify Logo">Lebify</a>
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link language-button"
