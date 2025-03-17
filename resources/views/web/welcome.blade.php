@@ -32,7 +32,7 @@
                 real-world applications that make an impact.</p>
             <nav class="d-flex nav-hero justify-content-start flex-wrap">
                 @guest
-                    <button data-bs-toggle="modal" data-bs-target="#j " class="btn bg-logo btn-lg me-4">
+                    <button data-bs-toggle="modal" data-bs-target="#join-now-modal" class="btn bg-logo btn-lg me-4">
                         Start Creating Today
                     </button>
                 @endguest
