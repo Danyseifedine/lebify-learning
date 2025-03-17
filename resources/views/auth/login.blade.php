@@ -7,7 +7,7 @@
     <div class="d-flex flex-column flex-root" id="kt_app_root">
         <div class="auth d-flex flex-column flex-center flex-column-fluid p-10">
             <!--begin::Authentication - Sign-in -->
-            <div class="d-flex flex-column flex-lg-row flex-column-fluid">
+            <div class="d-flex flex-column flex-lg-row v flex-column-fluid">
 
                 <!--begin::Aside-->
                 <div class="d-flex flex-column flex-column-fluid flex-center w-lg-50 p-10">
